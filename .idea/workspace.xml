@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
+    <expand />
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a5f6f710-a012-4112-a657-74f9a6197e5b" name="Default Changelist" comment="" />
+    <list default="true" id="a5f6f710-a012-4112-a657-74f9a6197e5b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/01-first-project.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -62,6 +67,11 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="deleted base markup" />
+    <option name="LAST_COMMIT_MESSAGE" value="deleted base markup" />
   </component>
   <component name="WindowStateProjectService">
     <state x="742" y="262" key="FileChooserDialogImpl" timestamp="1606909547934">
@@ -72,5 +82,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="462" y="165" key="SettingsEditor/0.0.1920.1040/937.-1080.1920.1040@0.0.1920.1040" timestamp="1606909549644" />
+    <state x="302" y="236" width="672" height="678" key="search.everywhere.popup" timestamp="1607803066915">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="302" y="236" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1607803066915" />
   </component>
 </project>
