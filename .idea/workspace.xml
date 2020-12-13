@@ -6,9 +6,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5f6f710-a012-4112-a657-74f9a6197e5b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -26,13 +26,25 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs.cucumber.cucumber_node_package_dir" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="terminal" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RunManager">
+    <configuration name="App.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/App.js" working-dir="$PROJECT_DIR$/src">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.App.js" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -43,6 +55,8 @@
       <option name="presentableId" value="Default" />
       <updated>1606909223324</updated>
       <workItem from="1606909225990" duration="324000" />
+      <workItem from="1607872531558" duration="1338000" />
+      <workItem from="1607874284372" duration="1568000" />
     </task>
     <task id="LOCAL-00001" summary="deleted base markup">
       <created>1607803115787</created>
@@ -51,7 +65,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607803115787</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="1">
+      <created>1607803708897</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1607803708897</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TerminalProjectNonSharedOptionsProvider">
@@ -74,17 +95,42 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="deleted base markup" />
-    <option name="LAST_COMMIT_MESSAGE" value="deleted base markup" />
+    <MESSAGE value="1" />
+    <option name="LAST_COMMIT_MESSAGE" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="416" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607874028300">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="416" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/937.-1080.1920.1040@0.0.1920.1040" timestamp="1607874028300" />
     <state x="742" y="262" key="FileChooserDialogImpl" timestamp="1606909547934">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="742" y="262" key="FileChooserDialogImpl/0.0.1920.1040/937.-1080.1920.1040@0.0.1920.1040" timestamp="1606909547934" />
-    <state x="462" y="165" key="SettingsEditor" timestamp="1606909549644">
+    <state width="1900" height="282" key="GridCell.Tab.0.bottom" timestamp="1607874177924">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="462" y="165" key="SettingsEditor/0.0.1920.1040/937.-1080.1920.1040@0.0.1920.1040" timestamp="1606909549644" />
+    <state width="1900" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/937.-1080.1920.1040@0.0.1920.1040" timestamp="1607874177924" />
+    <state width="1900" height="282" key="GridCell.Tab.0.center" timestamp="1607874177924">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1900" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/937.-1080.1920.1040@0.0.1920.1040" timestamp="1607874177924" />
+    <state width="1900" height="282" key="GridCell.Tab.0.left" timestamp="1607874177924">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1900" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/937.-1080.1920.1040@0.0.1920.1040" timestamp="1607874177924" />
+    <state width="1900" height="282" key="GridCell.Tab.0.right" timestamp="1607874177924">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1900" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/937.-1080.1920.1040@0.0.1920.1040" timestamp="1607874177924" />
+    <state x="462" y="165" key="SettingsEditor" timestamp="1607875289405">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="462" y="165" key="SettingsEditor/0.0.1920.1040/937.-1080.1920.1040@0.0.1920.1040" timestamp="1607875289405" />
+    <state x="619" y="242" key="run.anything.popup" timestamp="1607873947564">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="619" y="242" key="run.anything.popup/0.0.1920.1040/937.-1080.1920.1040@0.0.1920.1040" timestamp="1607873947564" />
     <state x="302" y="236" width="672" height="678" key="search.everywhere.popup" timestamp="1607803066915">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
