@@ -17,12 +17,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5f6f710-a012-4112-a657-74f9a6197e5b" name="Default Changelist" comment="first page">
+      <change afterPath="$PROJECT_DIR$/src/components/Header.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Navbar.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Profile.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/01-first-project.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +36,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -51,16 +55,18 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs.cucumber.cucumber_node_package_dir" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.CSS" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Aleks\Desktop\Web-разработка\Frontend\dev\social-network\src\components" />
       <recent name="C:\Users\Aleks\Desktop\Web-разработка\Frontend\dev\react-is-easy\projects\01-first-project\src\components" />
     </key>
   </component>
@@ -85,7 +91,7 @@
       <workItem from="1606909225990" duration="324000" />
       <workItem from="1607872531558" duration="1338000" />
       <workItem from="1607874284372" duration="7311000" />
-      <workItem from="1607881913191" duration="2478000" />
+      <workItem from="1607881913191" duration="5376000" />
     </task>
     <task id="LOCAL-00001" summary="deleted base markup">
       <created>1607803115787</created>
@@ -129,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607883662443</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="added logo">
+      <created>1607884789819</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1607884789819</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TerminalProjectNonSharedOptionsProvider">
@@ -168,7 +181,9 @@
     <MESSAGE value="2" />
     <MESSAGE value="first page" />
     <MESSAGE value="12" />
-    <option name="LAST_COMMIT_MESSAGE" value="12" />
+    <MESSAGE value="added logo" />
+    <MESSAGE value="Перенос стилей в модули" />
+    <option name="LAST_COMMIT_MESSAGE" value="Перенос стилей в модули" />
   </component>
   <component name="WindowStateProjectService">
     <state x="416" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1607874028300">
@@ -195,10 +210,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1900" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/937.-1080.1920.1040@0.0.1920.1040" timestamp="1607874177924" />
-    <state x="462" y="165" key="SettingsEditor" timestamp="1607878256104">
+    <state x="697" y="164" key="SettingsEditor" timestamp="1607886324869">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="462" y="165" key="SettingsEditor/0.0.1920.1040/937.-1080.1920.1040@0.0.1920.1040" timestamp="1607878256104" />
+    <state x="697" y="164" key="SettingsEditor/0.0.1920.1040/937.-1080.1920.1040@0.0.1920.1040" timestamp="1607886324869" />
     <state x="619" y="242" key="run.anything.popup" timestamp="1607873947564">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
