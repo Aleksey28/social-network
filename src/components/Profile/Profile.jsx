@@ -1,7 +1,8 @@
 import React from "react";
-import classes from './Profile.module.css';
+import classes from "./Profile.module.css";
+import MyPosts from "./MyPosts/MyPosts";
 
-export default function Profile() {
+const Profile = () => {
   return (
     <main className={classes.content}>
       <img
@@ -10,16 +11,9 @@ export default function Profile() {
       <div>
         ava+description
       </div>
-      <div>
-        My posts
-        <div>
-          New post
-        </div>
-        <div>
-          <div>Post1</div>
-          <div>Post2</div>
-        </div>
-      </div>
+      <MyPosts/>
     </main>
-  )
-}
+  );
+};
+
+export default Profile;
