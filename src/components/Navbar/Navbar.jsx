@@ -9,25 +9,25 @@ export default function Navbar() {
         <li>
           <NavLink className={classes.item}
                    activeClassName={classes.item_active}
-                   to="/Profile"
+                   to="/profile"
                    href="#">Profile</NavLink>
         </li>
         <li>
           <NavLink className={classes.item}
                    activeClassName={classes.item_active}
-                   to="/Messages"
+                   to="/messages"
                    href="#">Messages</NavLink>
         </li>
         <li>
-          <NavLink className={classes.item} activeClassName={classes.item_active} to="/News" href="#">News</NavLink>
+          <NavLink className={classes.item} activeClassName={classes.item_active} to="/news" href="#">News</NavLink>
         </li>
         <li>
-          <NavLink className={classes.item} activeClassName={classes.item_active} to="/Music" href="#">Music</NavLink>
+          <NavLink className={classes.item} activeClassName={classes.item_active} to="/music" href="#">Music</NavLink>
         </li>
         <li>
           <NavLink className={classes.item}
                    activeClassName={classes.item_active}
-                   to="/Settings"
+                   to="/settings"
                    href="#">Settings</NavLink>
         </li>
       </ul>
