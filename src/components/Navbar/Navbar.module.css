@@ -11,3 +11,8 @@
   text-decoration: none;
   color: #fff;
 }
+
+.item_active {
+  text-decoration: none;
+  color: #f00;
+}
