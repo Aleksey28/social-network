@@ -11,14 +11,16 @@ function App() {
     <div className="app-wrapper">
       <Header/>
       <Navbar/>
-      <Switch>
-        <Route path="/profile">
-          <Profile/>
-        </Route>
-        <Route path="/messages">
-          <Messages/>
-        </Route>
-      </Switch>
+      <div className="app-wrapper__content">
+        <Switch>
+          <Route path="/profile">
+            <Profile/>
+          </Route>
+          <Route path="/messages">
+            <Messages/>
+          </Route>
+        </Switch>
+      </div>
     </div>
   );
 }
