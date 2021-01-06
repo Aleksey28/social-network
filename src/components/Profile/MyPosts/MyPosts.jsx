@@ -3,6 +3,17 @@ import classes from "./MyPosts.module.css";
 import Post from "./Post/Post";
 
 const MyPosts = () => {
+  const postsData = [
+    {
+      id: 1,
+      message: "How are you?",
+    },
+    {
+      id: 2,
+      message: "It is my first post",
+    }
+  ]
+
   return (
     <div>
       My posts
@@ -11,8 +22,7 @@ const MyPosts = () => {
         <button>Add post</button>
       </div>
       <div>
-        <Post message="How are you?"/>
-        <Post message="It is my first post"/>
+        {postsData.map((item) => <Post key={item.id} message={item.message}/>)}
       </div>
     </div>
   );
