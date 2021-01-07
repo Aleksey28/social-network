@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import Messages from "./components/Dialogs/Dialogs";
 
-function App() {
+function App(props) {
   return (
     <div className="app-wrapper">
       <Header/>
@@ -14,10 +14,10 @@ function App() {
       <div className="app-wrapper__content">
         <Switch>
           <Route path="/profile">
-            <Profile/>
+            <Profile {...props}/>
           </Route>
           <Route path="/messages">
-            <Messages/>
+            <Messages {...props}/>
           </Route>
           <Route exact path="/">
             <Redirect to="/profile"/>
