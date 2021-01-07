@@ -1,7 +1,7 @@
 import React from "react";
 import Post from "./Post/Post";
 
-const MyPosts = ({ postsData }) => {
+const MyPosts = ({ profilePage }) => {
 
   return (
     <div>
@@ -11,7 +11,7 @@ const MyPosts = ({ postsData }) => {
         <button>Add post</button>
       </div>
       <div>
-        {postsData.map((item) => <Post key={item.id} message={item.message}/>)}
+        {profilePage.postsData.map((item) => <Post key={item.id} message={item.message}/>)}
       </div>
     </div>
   );
