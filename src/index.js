@@ -5,11 +5,12 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { HashRouter } from "react-router-dom";
 import state from "./redux/state";
+import {addPost} from "./redux/state";
 
 ReactDOM.render(
   <React.StrictMode>
     <HashRouter>
-      <App {...state}/>
+      <App addPost = {addPost} {...state}/>
     </HashRouter>
   </React.StrictMode>,
   document.getElementById("root"),

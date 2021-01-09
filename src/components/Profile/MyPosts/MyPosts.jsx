@@ -1,14 +1,14 @@
 import React, { useRef } from "react";
 import Post from "./Post/Post";
 
-const MyPosts = ({ profilePage }) => {
+const MyPosts = ({ profilePage, addPost }) => {
 
   const newPostElement = useRef();
 
   const postsElements = profilePage.postsData.map((item) => <Post key={item.id} message={item.message}/>);
 
   const handleClickOnButton = () => {
-    alert(newPostElement.current.value);
+    addPost(newPostElement.current.value);
   };
 
   return (
