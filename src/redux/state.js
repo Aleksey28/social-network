@@ -1,3 +1,5 @@
+import rerenderEntireTree from "../render";
+
 const state = {
   dialogsPage: {
     dialogsData: [
@@ -74,6 +76,8 @@ const addPost = (postMessag) => {
   };
 
   state.profilePage.postsData.push(newPost);
+
+  rerenderEntireTree(state, addPost);
 };
 
 export default state;

@@ -9,6 +9,7 @@ const MyPosts = ({ profilePage, addPost }) => {
 
   const handleClickOnButton = () => {
     addPost(newPostElement.current.value);
+    newPostElement.current.value = "";
   };
 
   return (
