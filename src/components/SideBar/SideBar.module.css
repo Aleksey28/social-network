@@ -1,0 +1,11 @@
+.side {
+  background-color: #56ccf2;
+  grid-area: side;
+  padding: 10px;
+}
+
+.title {
+  text-decoration: none;
+  color: #fff;
+  margin: 0;
+}

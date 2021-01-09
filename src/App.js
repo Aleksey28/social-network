@@ -5,12 +5,14 @@ import Header from "./components/Header/Header.jsx";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
+import SideBar from "./components/SideBar/SideBar";
 
-function App(props) {
+const App = (props) => {
   return (
     <div className="app-wrapper">
       <Header/>
       <Navbar/>
+      <SideBar {...props}/>
       <div className="app-wrapper__content">
         <Switch>
           <Route path="/profile">
