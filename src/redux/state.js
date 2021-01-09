@@ -1,4 +1,6 @@
-import rerenderEntireTree from "../render";
+let rerenderEntireTree = () => {
+  console.log("I don't have observer!");
+};
 
 const state = {
   dialogsPage: {
@@ -79,17 +81,22 @@ const addPost = () => {
 
   state.profilePage.valueNewPost = "";
 
-  rerenderEntireTree(state, addPost, setValueNewPost);
+  rerenderEntireTree(state);
 };
 
 const setValueNewPost = (value) => {
   state.profilePage.valueNewPost = value;
-  rerenderEntireTree(state, addPost, setValueNewPost);
-}
+  rerenderEntireTree(state);
+};
+
+const subscribe = (observer) => {
+  rerenderEntireTree = observer;
+};
 
 export default state;
 export {
   addPost,
-  setValueNewPost
-}
+  setValueNewPost,
+  subscribe,
+};
 
