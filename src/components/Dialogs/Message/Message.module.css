@@ -1,3 +1,14 @@
 .message {
+  display: flex;
 }
 
+.message_own {
+  flex-direction: row-reverse;
+}
+
+.message img {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 50%;
+}
