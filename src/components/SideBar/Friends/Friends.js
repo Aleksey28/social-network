@@ -2,10 +2,10 @@ import classes from "./Friends.module.css";
 import React from "react";
 import FriendMini from "./FriendMini/FriendMini";
 
-const Friends = ({ sideBar }) => {
+const Friends = ({ friends }) => {
   return (
       <ul className={classes.list}>
-        {sideBar.friends.map((item) => <FriendMini {...item}/>)}
+        {friends.map((item) => <FriendMini {...item}/>)}
       </ul>
   );
 };
