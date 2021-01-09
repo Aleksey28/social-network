@@ -3,6 +3,8 @@ import Post from "./Post/Post";
 
 const MyPosts = ({ profilePage }) => {
 
+  const postsElements = profilePage.postsData.map((item) => <Post key={item.id} message={item.message}/>);
+
   return (
     <div>
       My posts
@@ -11,7 +13,7 @@ const MyPosts = ({ profilePage }) => {
         <button>Add post</button>
       </div>
       <div>
-        {profilePage.postsData.map((item) => <Post key={item.id} message={item.message}/>)}
+        {postsElements}
       </div>
     </div>
   );

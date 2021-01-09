@@ -3,10 +3,12 @@ import React from "react";
 import FriendMini from "./FriendMini/FriendMini";
 
 const Friends = ({ friends }) => {
+  const friendsElements = friends.map((item) => <FriendMini key={item.id} {...item}/>);
+
   return (
-      <ul className={classes.list}>
-        {friends.map((item) => <FriendMini key={item.id} {...item}/>)}
-      </ul>
+    <ul className={classes.list}>
+      {friendsElements}
+    </ul>
   );
 };
 
