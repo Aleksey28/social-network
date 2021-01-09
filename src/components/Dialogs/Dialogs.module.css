@@ -1,17 +1,26 @@
 .dialogs {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas:
+          "respondents messages"
+          "respondents newMessage";
 }
 
 .respondents {
   margin: 0;
   padding: 0 10px 0 0;
   list-style-type: none;
-  flex: 0 1 200px
+  grid-area: respondents;
 }
 
 .messages {
   margin: 0;
   padding: 0;
   list-style-type: none;
-  flex: 1 0 200px
+  grid-area: messages;
+}
+
+.newMessage {
+  grid-area: newMessage;
+  display: flex;
 }

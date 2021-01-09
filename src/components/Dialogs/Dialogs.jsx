@@ -39,6 +39,10 @@ const Dialogs = ({ dialogsPage, friends }) => {
       <ul className={classes.messages}>
         {messagesElements}
       </ul>
+      <div className={classes.newMessage}>
+        <textarea placeholder={"Write your message"}/>
+        <button>Send</button>
+      </div>
     </section>
   );
 };
