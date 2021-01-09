@@ -48,6 +48,7 @@ const state = {
         message: "It is my first post",
       },
     ],
+    valueNewPost: "",
   },
   friends: [
     {
@@ -66,22 +67,29 @@ const state = {
       avatar: "https://sun9-29.userapi.com/impg/7pSRuhuz_LBQ1A7D-_eoWP0JyE8cMhl4NuHAiw/HuSEMS0th20.jpg?size=1906x2160&quality=96&proxy=1&sign=cc30984ecfe23af9466d513b63073748&type=album",
     },
   ],
-
 };
 
-const addPost = (postMessag) => {
+const addPost = () => {
   const newPost = {
     id: 5,
-    message: postMessag,
+    message: state.profilePage.valueNewPost,
   };
 
   state.profilePage.postsData.push(newPost);
 
-  rerenderEntireTree(state, addPost);
+  state.profilePage.valueNewPost = "";
+
+  rerenderEntireTree(state, addPost, setValueNewPost);
 };
+
+const setValueNewPost = (value) => {
+  state.profilePage.valueNewPost = value;
+  rerenderEntireTree(state, addPost, setValueNewPost);
+}
 
 export default state;
 export {
-  addPost
+  addPost,
+  setValueNewPost
 }
 

@@ -1,22 +1,23 @@
-import React, { useRef } from "react";
+import React from "react";
 import Post from "./Post/Post";
 
-const MyPosts = ({ profilePage, addPost }) => {
-
-  const newPostElement = useRef();
+const MyPosts = ({ profilePage, addPost, setValueNewPost }) => {
 
   const postsElements = profilePage.postsData.map((item) => <Post key={item.id} message={item.message}/>);
 
   const handleClickOnButton = () => {
-    addPost(newPostElement.current.value);
-    newPostElement.current.value = "";
+    addPost();
+  };
+
+  const handleChangeNewPost = (e) => {
+    setValueNewPost(e.currentTarget.value);
   };
 
   return (
     <div>
       My posts
       <div>
-        <textarea ref={newPostElement} placeholder={"New post"}/>
+        <textarea value={profilePage.valueNewPost} placeholder={"New post"} onChange={handleChangeNewPost}/>
         <button onClick={handleClickOnButton}>Add post</button>
       </div>
       <div>
