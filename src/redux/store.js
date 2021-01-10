@@ -1,7 +1,6 @@
-const ADD_POST = "ADD-POST";
-const ADD_MESSAGE = "ADD-MESSAGE";
-const SET_VALUE_NEW_POST = "SET-VALUE-NEW-POST";
-const SET_VALUE_NEW_MESSAGE = "SET-VALUE-NEW-MESSAGE";
+import profileReducer from "./profileReducer";
+import dialogsReducer from "./dialogsReducer";
+import sideBarReducer from "./sideBarReducer";
 
 const store = {
   _state: {
@@ -82,70 +81,13 @@ const store = {
   subscribe(observer) {
     this._subscriber = observer;
   },
-  _setValueNewPost(value) {
-    this._state.profilePage.valueNewPost = value;
-    this._subscriber(this._state);
-  },
-  _setValueNewMessage(value) {
-    this._state.dialogsPage.valueNewMessage = value;
-    this._subscriber(this._state);
-  },
-  _addPost() {
-    const newPost = {
-      id: 5,
-      message: this._state.profilePage.valueNewPost,
-    };
-
-    this._state.profilePage.postsData.push(newPost);
-    this._state.profilePage.valueNewPost = "";
-    this._subscriber(this._state);
-  },
-  _addMessage() {
-    const newMessage = {
-      id: 7,
-      message: this._state.dialogsPage.valueNewMessage,
-      ownerId: 1,
-    };
-    this._state.dialogsPage.messagesData.push(newMessage);
-    this._state.dialogsPage.valueNewMessage = "";
-    this._subscriber(this._state);
-  },
   dispatch(action) {
-    if (action.type === ADD_POST) {
-      this._addPost();
-    } else if (action.type === SET_VALUE_NEW_POST) {
-      this._setValueNewPost(action.value);
-    } else if (action.type === SET_VALUE_NEW_MESSAGE) {
-      this._setValueNewMessage(action.value);
-    } else if (action.type === ADD_MESSAGE) {
-      this._addMessage();
-    }
+    profileReducer(this._state.profilePage, action);
+    dialogsReducer(this._state.dialogsPage, action);
+    sideBarReducer(this._state.friends, action);
+    this._subscriber(this._state);
   },
 };
-
-const addPostActionCreator = () => ({
-  type: ADD_POST,
-});
-
-const addMessageActionCreator = () => ({
-  type: ADD_MESSAGE,
-});
-
-const setValueNewPostActionCreator = (value) => ({
-  type: SET_VALUE_NEW_POST,
-  value,
-});
-
-const setValueNewMessageActionCreator = (value) => ({
-  type: SET_VALUE_NEW_MESSAGE,
-  value,
-});
 
 export default store;
 
-export {
-  addPostActionCreator,
-  setValueNewPostActionCreator,
-  setValueNewMessageActionCreator,
-  addMessageActionCreator,
-};

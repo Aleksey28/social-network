@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Dialogs.module.css";
 import Respondent from "./Respondent/Respondent";
 import Message from "./Message/Message";
-import { addMessageActionCreator, setValueNewMessageActionCreator } from "../../redux/state";
+import { addMessageActionCreator, setValueNewMessageActionCreator } from "../../redux/dialogsReducer";
 
 const Dialogs = ({ dialogsPage, dispatch, friends }) => {
 
@@ -41,7 +41,7 @@ const Dialogs = ({ dialogsPage, dispatch, friends }) => {
   };
 
   return (
-    <section className={classes.dialogs}>
+    <section className={classes.dialogs} >
       <ul className={classes.respondents}>
         {dialogsElements}
       </ul>

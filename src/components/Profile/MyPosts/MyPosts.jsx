@@ -1,6 +1,6 @@
 import React from "react";
 import Post from "./Post/Post";
-import { addPostActionCreator, setValueNewPostActionCreator } from "../../../redux/state";
+import { addPostActionCreator, setValueNewPostActionCreator } from "../../../redux/profileReducer";
 
 const MyPosts = ({ profilePage, dispatch }) => {
 
