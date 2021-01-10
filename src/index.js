@@ -6,12 +6,13 @@ import reportWebVitals from "./reportWebVitals";
 import { HashRouter } from "react-router-dom";
 import store from "./redux/state";
 
-
 const rerenderEntireTree = (state) => {
   ReactDOM.render(
     <React.StrictMode>
       <HashRouter>
-        <App addPost={store.addPost.bind(store)} setValueNewPost={store.setValueNewPost.bind(store)} {...state}/>
+        <App dispatch={store.dispatch.bind(store)}
+             addPost={store._addPost.bind(store)}
+             setValueNewPost={store._setValueNewPost.bind(store)} {...state}/>
       </HashRouter>
     </React.StrictMode>,
     document.getElementById("root"),

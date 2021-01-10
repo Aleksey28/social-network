@@ -76,11 +76,11 @@ const store = {
   subscribe(observer) {
     this._subscriber = observer;
   },
-  setValueNewPost(value) {
+  _setValueNewPost(value) {
     this._state.profilePage.valueNewPost = value;
     this._subscriber(this._state);
   },
-  addPost() {
+  _addPost() {
     const newPost = {
       id: 5,
       message: this._state.profilePage.valueNewPost,
@@ -89,7 +89,14 @@ const store = {
     this._state.profilePage.postsData.push(newPost);
     this._state.profilePage.valueNewPost = "";
     this._subscriber(this._state);
-  }
-}
+  },
+  dispatch(action) {
+    if (action.type === "ADD-POST") {
+      this._addPost();
+    } else if (action.type === "SET-VALUE-NEW-POST") {
+      this._setValueNewPost(action.value);
+    }
+  },
+};
 
 export default store;

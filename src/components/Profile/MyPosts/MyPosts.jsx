@@ -1,16 +1,23 @@
 import React from "react";
 import Post from "./Post/Post";
 
-const MyPosts = ({ profilePage, addPost, setValueNewPost }) => {
+const MyPosts = ({ profilePage, dispatch }) => {
 
   const postsElements = profilePage.postsData.map((item) => <Post key={item.id} message={item.message}/>);
 
   const handleClickOnButton = () => {
-    addPost();
+    const action = {
+      type: "ADD-POST",
+    };
+    dispatch(action);
   };
 
   const handleChangeNewPost = (e) => {
-    setValueNewPost(e.currentTarget.value);
+    const action = {
+      type: "SET-VALUE-NEW-POST",
+      value: e.currentTarget.value,
+    };
+    dispatch(action);
   };
 
   return (
