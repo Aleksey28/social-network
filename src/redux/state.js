@@ -1,3 +1,6 @@
+const ADD_POST = "ADD-POST";
+const SET_VALUE_NEW_POST = "SET-VALUE-NEW-POST";
+
 const store = {
   _state: {
     dialogsPage: {
@@ -91,12 +94,28 @@ const store = {
     this._subscriber(this._state);
   },
   dispatch(action) {
-    if (action.type === "ADD-POST") {
+    if (action.type === ADD_POST) {
       this._addPost();
-    } else if (action.type === "SET-VALUE-NEW-POST") {
-      this._setValueNewPost(action.value);
+    } else {
+      if (action.type === SET_VALUE_NEW_POST) {
+        this._setValueNewPost(action.value);
+      }
     }
   },
 };
 
+const addPostActionCreator = () => ({
+  type: ADD_POST,
+});
+
+const setValueNewPostActionCreator = (value) => ({
+  type: SET_VALUE_NEW_POST,
+  value,
+});
+
 export default store;
+
+export {
+  addPostActionCreator,
+  setValueNewPostActionCreator,
+};
