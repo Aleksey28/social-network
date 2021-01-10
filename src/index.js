@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { HashRouter } from "react-router-dom";
-import store from "./redux/store";
+import store from "./redux/redux-store";
 
 const rerenderEntireTree = (state) => {
   ReactDOM.render(
@@ -18,7 +18,9 @@ const rerenderEntireTree = (state) => {
   ;
 };
 
-store.subscribe(rerenderEntireTree);
+store.subscribe(() => {
+  rerenderEntireTree(store.getState());
+});
 
 rerenderEntireTree(store.getState());
 
