@@ -5,15 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { HashRouter } from "react-router-dom";
 import store from "./redux/redux-store";
-import StoreContext from "./StoreContext";
+import { Provider } from "react-redux";
 
 const rerenderEntireTree = () => {
   ReactDOM.render(
     <React.StrictMode>
       <HashRouter>
-        <StoreContext.Provider value={{ store }}>
+        <Provider value={{ store }}>
           <App/>
-        </StoreContext.Provider>
+        </Provider>
       </HashRouter>
     </React.StrictMode>,
     document.getElementById("root"),

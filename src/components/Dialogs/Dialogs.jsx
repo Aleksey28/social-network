@@ -3,9 +3,9 @@ import classes from "./Dialogs.module.css";
 import Respondent from "./Respondent/Respondent";
 import Message from "./Message/Message";
 
-const Dialogs = ({ messagesData, valueNewMessage, dialogsData, friends, onChangeNewMessage, onSendMessage }) => {
+const Dialogs = ({ dialogsPage, friends, onChangeNewMessage, onSendMessage }) => {
 
-  const messagesElements = messagesData.map((item) => {
+  const messagesElements = dialogsPage.messagesData.map((item) => {
     let owner;
     if (item.ownerId === 1) {
       owner = {
@@ -22,7 +22,7 @@ const Dialogs = ({ messagesData, valueNewMessage, dialogsData, friends, onChange
     );
   });
 
-  const dialogsElements = dialogsData.map((item) => {
+  const dialogsElements = dialogsPage.dialogsData.map((item) => {
     const owner = friends.find(friend => friend.id === item.ownerId);
     return (
       <li>
@@ -49,7 +49,7 @@ const Dialogs = ({ messagesData, valueNewMessage, dialogsData, friends, onChange
       </ul>
       <div className={classes.newMessage}>
         <textarea placeholder={"Write your message"}
-                  value={valueNewMessage}
+                  value={dialogsPage.valueNewMessage}
                   onChange={handleChangeNewMessage}/>
         <button onClick={handleClickOnSend}>Send</button>
       </div>
