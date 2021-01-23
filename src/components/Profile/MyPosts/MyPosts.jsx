@@ -1,24 +1,23 @@
 import React from "react";
 import Post from "./Post/Post";
-import { addPostActionCreator, setValueNewPostActionCreator } from "../../../redux/profileReducer";
 
-const MyPosts = ({ profilePage, dispatch }) => {
+const MyPosts = ({ addPost, changeNewPost, postsData, valueNewPost }) => {
 
-  const postsElements = profilePage.postsData.map((item) => <Post key={item.id} message={item.message}/>);
+  const postsElements = postsData.map((item) => <Post key={item.id} message={item.message}/>);
 
   const handleClickOnButton = () => {
-    dispatch(addPostActionCreator());
+    addPost();
   };
 
   const handleChangeNewPost = (e) => {
-    dispatch(setValueNewPostActionCreator(e.currentTarget.value));
+    changeNewPost(e.currentTarget.value);
   };
 
   return (
     <div>
       My posts
       <div>
-        <textarea value={profilePage.valueNewPost} placeholder={"New post"} onChange={handleChangeNewPost}/>
+        <textarea value={valueNewPost} placeholder={"New post"} onChange={handleChangeNewPost}/>
         <button onClick={handleClickOnButton}>Add post</button>
       </div>
       <div>

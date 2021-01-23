@@ -10,7 +10,7 @@ const rerenderEntireTree = (state) => {
   ReactDOM.render(
     <React.StrictMode>
       <HashRouter>
-        <App dispatch={store.dispatch.bind(store)} {...state}/>
+        <App dispatch={store.dispatch.bind(store)} {...state} store={store}/>
       </HashRouter>
     </React.StrictMode>,
     document.getElementById("root"),
