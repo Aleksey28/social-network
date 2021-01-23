@@ -5,14 +5,14 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { HashRouter } from "react-router-dom";
 import store from "./redux/redux-store";
-import StoreContext from './StoreContext';
+import StoreContext from "./StoreContext";
 
-const rerenderEntireTree = (state) => {
+const rerenderEntireTree = () => {
   ReactDOM.render(
     <React.StrictMode>
       <HashRouter>
         <StoreContext.Provider value={store}>
-          <App dispatch={store.dispatch.bind(store)} {...state} store={store}/>
+          <App/>
         </StoreContext.Provider>
       </HashRouter>
     </React.StrictMode>,
@@ -22,10 +22,10 @@ const rerenderEntireTree = (state) => {
 };
 
 store.subscribe(() => {
-  rerenderEntireTree(store.getState());
+  rerenderEntireTree();
 });
 
-rerenderEntireTree(store.getState());
+rerenderEntireTree();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
