@@ -2,9 +2,8 @@ import React from "react";
 import classes from "./Dialogs.module.css";
 import Respondent from "./Respondent/Respondent";
 import Message from "./Message/Message";
-import { addMessageActionCreator, setValueNewMessageActionCreator } from "../../redux/dialogsReducer";
 
-const Dialogs = ({ dialogsPage, dispatch, friends }) => {
+const Dialogs = ({ dialogsPage, friends, onChangeNewMessage, onSendMessage }) => {
 
   const messagesElements = dialogsPage.messagesData.map((item) => {
     let owner;
@@ -33,15 +32,15 @@ const Dialogs = ({ dialogsPage, dispatch, friends }) => {
   });
 
   const handleChangeNewMessage = (e) => {
-    dispatch(setValueNewMessageActionCreator(e.currentTarget.value));
+    onChangeNewMessage(e.currentTarget.value);
   };
 
   const handleClickOnSend = () => {
-    dispatch(addMessageActionCreator());
+    onSendMessage();
   };
 
   return (
-    <section className={classes.dialogs} >
+    <section className={classes.dialogs}>
       <ul className={classes.respondents}>
         {dialogsElements}
       </ul>
