@@ -7,12 +7,12 @@ import Profile from "./components/Profile/Profile";
 import SideBar from "./components/SideBar/SideBar";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
-const App = (props) => {
+const App = () => {
   return (
     <div className="app-wrapper">
       <Header/>
       <Navbar/>
-      <SideBar {...props}/>
+      <SideBar/>
       <div className="app-wrapper__content">
         <Switch>
           <Route path="/profile">
