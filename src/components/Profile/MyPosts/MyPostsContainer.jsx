@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { addPostActionCreator, setValueNewPostActionCreator } from "../../../redux/profileReducer";
 import MyPosts from "./MyPosts";
+import StoreContext from "../../../StoreContext";
 
-const MyPostsContainer = ({ store }) => {
+const MyPostsContainer = () => {
+
+  const {store} = useContext(StoreContext);
 
   const profilePageState = store.getState().profilePage;
 

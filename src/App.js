@@ -16,10 +16,10 @@ const App = (props) => {
       <div className="app-wrapper__content">
         <Switch>
           <Route path="/profile">
-            <Profile {...props}/>
+            <Profile/>
           </Route>
           <Route path="/messages">
-            <DialogsContainer {...props}/>
+            <DialogsContainer/>
           </Route>
           <Route exact path="/">
             <Redirect to="/profile"/>
