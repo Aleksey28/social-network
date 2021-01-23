@@ -42,23 +42,17 @@ const initialState = {
 const dialogsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_VALUE_NEW_MESSAGE: {
-      const newState = { ...state };
-      newState.valueNewMessage = action.value;
-      return newState;
+      return {
+        ...state,
+        valueNewMessage: action.value,
+      };
     }
     case ADD_MESSAGE: {
-      const newMessage = {
-        id: 7,
-        message: state.valueNewMessage,
-        ownerId: 1,
-      };
-      const newState = {
+      return {
         ...state,
-        messagesData: [...state.messagesData],
+        valueNewMessage: "",
+        postsData: [...state.messagesData, { id: 7, message: state.valueNewMessage, ownerId: 1 }],
       };
-      newState.messagesData.push(newMessage);
-      newState.valueNewMessage = "";
-      return newState;
     }
     default:
       return state;
