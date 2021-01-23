@@ -4,15 +4,15 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import Header from "./components/Header/Header.jsx";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
-import SideBar from "./components/SideBar/SideBar";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import SideBarContainer from "./components/SideBar/SideBarContainer";
 
 const App = () => {
   return (
     <div className="app-wrapper">
       <Header/>
       <Navbar/>
-      <SideBar/>
+      <SideBarContainer/>
       <div className="app-wrapper__content">
         <Switch>
           <Route path="/profile">

@@ -11,7 +11,7 @@ const rerenderEntireTree = () => {
   ReactDOM.render(
     <React.StrictMode>
       <HashRouter>
-        <StoreContext.Provider value={store}>
+        <StoreContext.Provider value={{ store }}>
           <App/>
         </StoreContext.Provider>
       </HashRouter>
