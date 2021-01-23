@@ -1,9 +1,9 @@
 import React from "react";
 import Post from "./Post/Post";
 
-const MyPosts = ({ addPost, changeNewPost, postsData, valueNewPost }) => {
+const MyPosts = ({ addPost, changeNewPost, profilePage }) => {
 
-  const postsElements = postsData.map((item) => <Post key={item.id} message={item.message}/>);
+  const postsElements = profilePage.postsData.map((item) => <Post key={item.id} message={item.message}/>);
 
   const handleClickOnButton = () => {
     addPost();
@@ -17,7 +17,7 @@ const MyPosts = ({ addPost, changeNewPost, postsData, valueNewPost }) => {
     <div>
       My posts
       <div>
-        <textarea value={valueNewPost} placeholder={"New post"} onChange={handleChangeNewPost}/>
+        <textarea value={profilePage.valueNewPost} placeholder={"New post"} onChange={handleChangeNewPost}/>
         <button onClick={handleClickOnButton}>Add post</button>
       </div>
       <div>
