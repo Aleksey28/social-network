@@ -4,8 +4,8 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import Header from "./components/Header/Header.jsx";
 import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
-import Dialogs from "./components/Dialogs/Dialogs";
 import SideBar from "./components/SideBar/SideBar";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 const App = (props) => {
   return (
@@ -19,7 +19,7 @@ const App = (props) => {
             <Profile {...props}/>
           </Route>
           <Route path="/messages">
-            <Dialogs {...props}/>
+            <DialogsContainer {...props}/>
           </Route>
           <Route exact path="/">
             <Redirect to="/profile"/>
@@ -28,7 +28,7 @@ const App = (props) => {
       </div>
     </div>
   );
-}
+};
 
 export default App;
 

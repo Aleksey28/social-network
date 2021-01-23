@@ -2,11 +2,10 @@ import React from "react";
 import classes from "./Dialogs.module.css";
 import Respondent from "./Respondent/Respondent";
 import Message from "./Message/Message";
-import { addMessageActionCreator, setValueNewMessageActionCreator } from "../../redux/dialogsReducer";
 
-const Dialogs = ({ dialogsPage, dispatch, friends }) => {
+const Dialogs = ({ messagesData, valueNewMessage, dialogsData, friends, onChangeNewMessage, onSendMessage }) => {
 
-  const messagesElements = dialogsPage.messagesData.map((item) => {
+  const messagesElements = messagesData.map((item) => {
     let owner;
     if (item.ownerId === 1) {
       owner = {
@@ -23,7 +22,7 @@ const Dialogs = ({ dialogsPage, dispatch, friends }) => {
     );
   });
 
-  const dialogsElements = dialogsPage.dialogsData.map((item) => {
+  const dialogsElements = dialogsData.map((item) => {
     const owner = friends.find(friend => friend.id === item.ownerId);
     return (
       <li>
@@ -33,15 +32,15 @@ const Dialogs = ({ dialogsPage, dispatch, friends }) => {
   });
 
   const handleChangeNewMessage = (e) => {
-    dispatch(setValueNewMessageActionCreator(e.currentTarget.value));
+    onChangeNewMessage(e.currentTarget.value);
   };
 
   const handleClickOnSend = () => {
-    dispatch(addMessageActionCreator());
+    onSendMessage();
   };
 
   return (
-    <section className={classes.dialogs} >
+    <section className={classes.dialogs}>
       <ul className={classes.respondents}>
         {dialogsElements}
       </ul>
@@ -50,7 +49,7 @@ const Dialogs = ({ dialogsPage, dispatch, friends }) => {
       </ul>
       <div className={classes.newMessage}>
         <textarea placeholder={"Write your message"}
-                  value={dialogsPage.valueNewMessage}
+                  value={valueNewMessage}
                   onChange={handleChangeNewMessage}/>
         <button onClick={handleClickOnSend}>Send</button>
       </div>
