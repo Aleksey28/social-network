@@ -1,12 +1,12 @@
 import profileAPI from '../../api/profileAPI';
-import { FormAction, stopSubmit } from 'redux-form';
 import { PhotosType, PostType, ProfileType } from '../../types';
 import { BaseActionType, BaseThunkType } from '../redux-store';
 import { ResultCode } from '../../api/api';
+import SubmitProfileDataError from '../../errors/SubmitProfileDataError';
 
 export type InitialState = typeof initialState;
 type ActionsType = BaseActionType<typeof actions>;
-export type ThunkType = BaseThunkType<ActionsType | FormAction>
+export type ThunkType = BaseThunkType<ActionsType>
 
 interface ErrorsObject {
   [key: string]: string | ErrorsObject;
@@ -141,46 +141,40 @@ export const updateUserPhoto = (image: File): ThunkType => async (dispatch) => {
 };
 
 export const updateUserData = (userData: ProfileType): ThunkType => async (dispatch) => {
-  try {
-    const { data } = await profileAPI.setProfileData(userData);
-
-    if (data.resultCode === ResultCode.Success) {
-      const { data } = await profileAPI.getProfileData(userData.userId);
-      dispatch(actions.setIsValid(true));
-      dispatch(actions.setUserInfo(data));
-    }
-    else {
-      const errors = data.messages.reduce((errors: ErrorsObject, item: string) => {
-        dispatch(actions.setIsValid(false));
-        const [message, element] = item.split('(');
-        const elementRoute       = element.slice(0, element.length - 1).split('->');
-
-        elementRoute.reduce((res: ErrorsObject | string, item, index, arr) => {
-          if (typeof res === 'string') {
-            return {};
-          }
-
-          const key = item[0].toLowerCase() + item.slice(1);
-
-          if (key in res) {
-            return res[key];
-          }
-
-          res[key] = index < arr.length - 1 ? {} : message.slice(0, message.length - 1);
-
-          return res[key];
-        }, errors);
-
-
-        return errors;
-      }, {});
-
-      //TODO: added handling for formik
-      dispatch(stopSubmit('profileData', errors));
-    }
+  const { data } = await profileAPI.setProfileData(userData);
+  
+  if (data.resultCode === ResultCode.Success) {
+    const { data } = await profileAPI.getProfileData(userData.userId);
+    dispatch(actions.setIsValid(true));
+    dispatch(actions.setUserInfo(data));
   }
-  catch (error) {
-    console.log(error);
+  else {
+    const errors = data.messages.reduce((errors: ErrorsObject, item: string) => {
+        dispatch(actions.setIsValid(false));
+      const [message, element] = item.split('(');
+      const elementRoute       = element.slice(0, element.length - 1).split('->');
+
+      elementRoute.reduce((res: ErrorsObject | string, item, index, arr) => {
+        if (typeof res === 'string') {
+          return {};
+        }
+
+        const key = item[0].toLowerCase() + item.slice(1);
+
+        if (key in res) {
+          return res[key];
+        }
+
+        res[key] = index < arr.length - 1 ? {} : message.slice(0, message.length - 1);
+
+        return res[key];
+      }, errors);
+
+
+      return errors;
+    }, {});
+
+    throw new SubmitProfileDataError(errors);
   }
 };
 
