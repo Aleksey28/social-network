@@ -43,3 +43,7 @@ export interface LoginPropsType {
   rememberMe: boolean;
   captcha: string | null;
 }
+
+export interface ErrorsObject {
+  [key: string]: string | ErrorsObject;
+}

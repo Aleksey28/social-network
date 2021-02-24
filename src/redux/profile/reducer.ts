@@ -1,5 +1,5 @@
 import profileAPI from '../../api/profileAPI';
-import { PhotosType, PostType, ProfileType } from '../../types';
+import { ErrorsObject, PhotosType, PostType, ProfileType } from '../../types';
 import { BaseActionType, BaseThunkType } from '../redux-store';
 import { ResultCode } from '../../api/api';
 import SubmitProfileDataError from '../../errors/SubmitProfileDataError';
@@ -7,10 +7,6 @@ import SubmitProfileDataError from '../../errors/SubmitProfileDataError';
 export type InitialState = typeof initialState;
 type ActionsType = BaseActionType<typeof actions>;
 export type ThunkType = BaseThunkType<ActionsType>
-
-interface ErrorsObject {
-  [key: string]: string | ErrorsObject;
-}
 
 const initialState = {
   postsData:  [
