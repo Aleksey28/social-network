@@ -37,8 +37,8 @@ const ProfileData: React.FC<PropsType> = ({ profileData, isOwner }) => {
     }
   };
 
-  const handleSubmit = (formData: ProfileType) => {
-    dispatch(updateUserData(formData));
+  const handleSubmit = async (formData: ProfileType) => {
+    await dispatch(updateUserData(formData));
     deactivateEditMode();
   };
 
