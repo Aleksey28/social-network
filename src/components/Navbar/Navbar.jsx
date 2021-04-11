@@ -30,6 +30,12 @@ export default function Navbar() {
                    to="/settings"
                    href="#">Settings</NavLink>
         </li>
+        <li>
+          <NavLink className={classes.item}
+                   activeClassName={classes.item_active}
+                   to="/users"
+                   href="#">Find users</NavLink>
+        </li>
       </ul>
     </nav>
   );

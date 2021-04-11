@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Profile from "./components/Profile/Profile";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import SideBarContainer from "./components/SideBar/SideBarContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
 const App = () => {
   return (
@@ -20,6 +21,9 @@ const App = () => {
           </Route>
           <Route path="/messages">
             <DialogsContainer/>
+          </Route>
+          <Route path="/users">
+            <UsersContainer/>
           </Route>
           <Route exact path="/">
             <Redirect to="/profile"/>
