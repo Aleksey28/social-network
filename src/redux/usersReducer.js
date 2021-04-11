@@ -3,41 +3,7 @@ const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
 
 const initialState = {
-  users: [
-    {
-      id: 1,
-      avatar: "https://sun9-32.userapi.com/impf/c850220/v850220643/1cf89f/09Ze66DlRZ8.jpg?size=1440x2160&quality=96&proxy=1&sign=8cd83def1f42c508f1c64c607f5504fd&type=album",
-      fullName: "Aleksey",
-      status: "searching yourself",
-      location: {
-        city: "St.Petersburg",
-        country: "Russia",
-      },
-      followed: true,
-    },
-    {
-      id: 2,
-      avatar: "https://sun9-32.userapi.com/impf/c850220/v850220643/1cf89f/09Ze66DlRZ8.jpg?size=1440x2160&quality=96&proxy=1&sign=8cd83def1f42c508f1c64c607f5504fd&type=album",
-      fullName: "Ivan",
-      status: "searching yourself",
-      location: {
-        city: "Moscow",
-        country: "Russia",
-      },
-      followed: false,
-    },
-    {
-      id: 3,
-      avatar: "https://sun9-32.userapi.com/impf/c850220/v850220643/1cf89f/09Ze66DlRZ8.jpg?size=1440x2160&quality=96&proxy=1&sign=8cd83def1f42c508f1c64c607f5504fd&type=album",
-      fullName: "Petr",
-      status: "searching yourself",
-      location: {
-        city: "New York",
-        country: "USA",
-      },
-      followed: true,
-    },
-  ],
+  users: [],
 };
 
 const usersReducer = (state = initialState, action) => {
