@@ -6,8 +6,15 @@ import emptyAvatar from "../../images/empty_avatar.svg";
 class Users extends React.Component {
 
   componentDidMount() {
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage + 1}`)
-      .then(response => this.props.setUsers(response.data.items))
+    this._reloadUsers();
+  }
+
+  _reloadUsers(page = this.props.currentPage) {
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${page + 1}`)
+      .then(response => {
+        this.props.setUsersCount(response.data.totalCount);
+        this.props.setUsers(response.data.items);
+      })
       .catch(console.log);
   }
 
@@ -18,7 +25,17 @@ class Users extends React.Component {
 
     for (let i = 0; i < countPages; i++) {
       pagesBar.push(
-        <li key={i} className={this.props.currentPage === i ? classes.pages__item_selected : undefined}>{i + 1}</li>,
+        <li
+          key={i}
+          className={`${classes.pages__item} ${this.props.currentPage === i
+                                               ? classes.pages__item_selected
+                                               : undefined}`}
+          onClick={_ => {
+            this.props.setCurrentPage(i);
+            this._reloadUsers(i);
+          }}>
+          {i + 1}
+        </li>,
       );
     }
 
