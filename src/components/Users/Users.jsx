@@ -6,7 +6,7 @@ import emptyAvatar from "../../images/empty_avatar.svg";
 class Users extends React.Component {
 
   componentDidMount() {
-    axios.get("https://social-network.samuraijs.com/api/1.0/users")
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage + 1}`)
       .then(response => this.props.setUsers(response.data.items))
       .catch(console.log);
   }
