@@ -18,21 +18,21 @@ class Users extends React.Component {
 
     for (let i = 0; i < countPages; i++) {
       pagesBar.push(
-        <li>{i + 1}</li>,
+        <li key={i} className={this.props.currentPage === i ? classes.pages__item_selected : undefined}>{i + 1}</li>,
       );
     }
 
     return (
       <div>
         <nav>
-          <ul>
+          <ul className={classes.pages}>
             {pagesBar}
           </ul>
         </nav>
         <ul>
           {
             this.props.users.map(u => (
-              <li>
+              <li key={u.id}>
                 <div>
                   <img src={u.photos.small || emptyAvatar} alt="avatar" className={classes.avatar}/>
                   {u.followed

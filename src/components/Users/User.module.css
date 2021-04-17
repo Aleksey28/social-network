@@ -4,3 +4,16 @@
   object-fit: cover;
   border-radius: 50%;
 }
+
+.pages {
+  list-style-type: none;
+  display: flex;
+}
+
+.pages__item {
+
+}
+
+.pages__item_selected {
+  font-weight: bold;
+}
