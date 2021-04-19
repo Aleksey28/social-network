@@ -22,7 +22,7 @@ class UsersContainer extends React.Component {
   render() {
     return (
       <Users
-        onPageChange = {this.loadUsers.bind(this)}
+        onPageChange={this.loadUsers.bind(this)}
         {...this.props}/>
     );
   }

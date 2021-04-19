@@ -8,7 +8,7 @@ const initialState = {
   users: [],
   usersCount: 20,
   pageSize: 5,
-  currentPage: 0
+  currentPage: 0,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -71,5 +71,5 @@ export {
   unfollowAC,
   setUsersAC,
   setUsersCountAC,
-  setCurrentPageAC
+  setCurrentPageAC,
 };
