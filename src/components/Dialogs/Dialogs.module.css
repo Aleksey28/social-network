@@ -2,8 +2,8 @@
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-template-areas:
-          "respondents messages"
-          "respondents newMessage";
+          'respondents messages'
+          'respondents newMessage';
 }
 
 .respondents {
@@ -21,6 +21,6 @@
 }
 
 .newMessage {
-  grid-area: newMessage;
   display: flex;
+  grid-area: newMessage;
 }
