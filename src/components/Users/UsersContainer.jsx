@@ -1,7 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import Users from "./Users";
-import { followAC, setCurrentPageAC, setUsersAC, setUsersCountAC, unfollowAC } from "../../redux/usersReducer";
+import {
+  followAC,
+  setCurrentPageAC,
+  setIsFetchingAC,
+  setUsersAC,
+  setUsersCountAC,
+  unfollowAC,
+} from "../../redux/usersReducer";
 import axios from "axios";
 
 class UsersContainer extends React.Component {
@@ -34,6 +41,7 @@ const mapStateToProps = (state) => {
     usersCount: state.usersPage.usersCount,
     pageSize: state.usersPage.pageSize,
     currentPage: state.usersPage.currentPage,
+    isFetching: state.usersPage.isFetching,
   };
 };
 
@@ -53,6 +61,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setCurrentPage: (currentPage) => {
       dispatch(setCurrentPageAC(currentPage));
+    },
+    setIsFetching: (isFetching) => {
+      dispatch(setIsFetchingAC(isFetching));
     },
   };
 };
