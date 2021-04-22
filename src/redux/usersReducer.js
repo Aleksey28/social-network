@@ -41,7 +41,10 @@ const usersReducer = (state = initialState, action) => {
         currentPage: action.currentPage,
       };
     case SET_IS_FETCHING:
-      return action.isFetching;
+      return {
+        ...state,
+        isFetching: action.isFetching,
+      };
     default:
       return state;
   }

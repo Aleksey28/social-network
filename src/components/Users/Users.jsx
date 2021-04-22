@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./User.module.css";
 import emptyAvatar from "../../images/empty_avatar.svg";
+import Preloader from "../common/Preloader/Preloader";
 
 function Users({
   users,
@@ -11,6 +12,7 @@ function Users({
   setCurrentPage,
   follow,
   unfollow,
+  isFetching,
 }) {
 
   const countPages = usersCount / pageSize;
@@ -33,7 +35,9 @@ function Users({
   }
 
   return (
-    <div>
+    isFetching
+    ? <Preloader/>
+    : <div>
       <nav>
         <ul className={classes.pages}>
           {pagesBar}
