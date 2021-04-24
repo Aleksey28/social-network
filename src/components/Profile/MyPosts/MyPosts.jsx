@@ -1,7 +1,7 @@
 import React from "react";
 import Post from "./Post/Post";
 
-const MyPosts = ({ addPost, changeNewPost, profilePage }) => {
+const MyPosts = ({ addPost, setValueNewPost, profilePage }) => {
 
   const postsElements = profilePage.postsData.map((item) => <Post key={item.id} message={item.message}/>);
 
@@ -10,7 +10,7 @@ const MyPosts = ({ addPost, changeNewPost, profilePage }) => {
   };
 
   const handleChangeNewPost = (e) => {
-    changeNewPost(e.currentTarget.value);
+    setValueNewPost(e.currentTarget.value);
   };
 
   return (

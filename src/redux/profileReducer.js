@@ -35,10 +35,10 @@ const profileReducer = (state = initialState, action) => {
   }
 };
 
-const addPostActionCreator = () => ({
+const addPost = () => ({
   type: ADD_POST,
 });
-const setValueNewPostActionCreator = (value) => ({
+const setValueNewPost = (value) => ({
   type: SET_VALUE_NEW_POST,
   value,
 });
@@ -46,6 +46,6 @@ const setValueNewPostActionCreator = (value) => ({
 export default profileReducer;
 
 export {
-  addPostActionCreator,
-  setValueNewPostActionCreator,
+  addPost,
+  setValueNewPost,
 };
