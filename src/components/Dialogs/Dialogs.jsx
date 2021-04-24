@@ -3,7 +3,7 @@ import classes from "./Dialogs.module.css";
 import Respondent from "./Respondent/Respondent";
 import Message from "./Message/Message";
 
-const Dialogs = ({ dialogsPage, friends, onChangeNewMessage, onSendMessage }) => {
+const Dialogs = ({ dialogsPage, friends, setValueNewMessage, sendMessage }) => {
 
   const messagesElements = dialogsPage.messagesData.map((item) => {
     let owner;
@@ -16,8 +16,8 @@ const Dialogs = ({ dialogsPage, friends, onChangeNewMessage, onSendMessage }) =>
       owner = friends.find(friend => friend.id === item.ownerId);
     }
     return (
-      <li>
-        <Message key={item.id} message={item.message} owner={owner}/>
+      <li key={item.id}>
+        <Message message={item.message} owner={owner}/>
       </li>
     );
   });
@@ -25,18 +25,18 @@ const Dialogs = ({ dialogsPage, friends, onChangeNewMessage, onSendMessage }) =>
   const dialogsElements = dialogsPage.dialogsData.map((item) => {
     const owner = friends.find(friend => friend.id === item.ownerId);
     return (
-      <li>
-        <Respondent key={item.id} name={item.name} id={item.id} owner={owner}/>
+      <li key={item.id}>
+        <Respondent name={item.name} id={item.id} owner={owner}/>
       </li>
     );
   });
 
   const handleChangeNewMessage = (e) => {
-    onChangeNewMessage(e.currentTarget.value);
+    setValueNewMessage(e.currentTarget.value);
   };
 
   const handleClickOnSend = () => {
-    onSendMessage();
+    sendMessage();
   };
 
   return (

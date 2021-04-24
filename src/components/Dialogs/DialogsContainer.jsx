@@ -1,4 +1,4 @@
-import { addMessageActionCreator, setValueNewMessageActionCreator } from "../../redux/dialogsReducer";
+import { sendMessage, setValueNewMessage } from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
 import { connect } from "react-redux";
 
@@ -9,17 +9,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onChangeNewMessage: (value) => {
-      dispatch(setValueNewMessageActionCreator(value));
-    },
-    onSendMessage: () => {
-      dispatch(addMessageActionCreator());
-    },
-  };
+const methods = {
+  sendMessage,
+  setValueNewMessage,
 };
 
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
+const DialogsContainer = connect(mapStateToProps, methods)(Dialogs);
 
 export default DialogsContainer;
