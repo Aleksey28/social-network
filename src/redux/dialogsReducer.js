@@ -1,20 +1,20 @@
-const ADD_MESSAGE = "ADD-MESSAGE";
+const SEND_MESSAGE = "SEND-MESSAGE";
 const SET_VALUE_NEW_MESSAGE = "SET-VALUE-NEW-MESSAGE";
 
 const initialState = {
   dialogsData: [
     {
-      id: 1,
+      id: 11,
       name: "Pety",
       ownerId: 2,
     },
     {
-      id: 2,
+      id: 12,
       name: "Vany",
       ownerId: 3,
     },
     {
-      id: 3,
+      id: 13,
       name: "Sasha",
       ownerId: 4,
     },
@@ -47,11 +47,11 @@ const dialogsReducer = (state = initialState, action) => {
         valueNewMessage: action.value,
       };
     }
-    case ADD_MESSAGE: {
+    case SEND_MESSAGE: {
       return {
         ...state,
         valueNewMessage: "",
-        postsData: [...state.messagesData, { id: 7, message: state.valueNewMessage, ownerId: 1 }],
+        messagesData: [...state.messagesData, { id: 7, message: state.valueNewMessage, ownerId: 1 }],
       };
     }
     default:
@@ -59,11 +59,11 @@ const dialogsReducer = (state = initialState, action) => {
   }
 };
 
-const addMessageActionCreator = () => ({
-  type: ADD_MESSAGE,
+const sendMessage = () => ({
+  type: SEND_MESSAGE,
 });
 
-const setValueNewMessageActionCreator = (value) => ({
+const setValueNewMessage = (value) => ({
   type: SET_VALUE_NEW_MESSAGE,
   value,
 });
@@ -71,6 +71,6 @@ const setValueNewMessageActionCreator = (value) => ({
 export default dialogsReducer;
 
 export {
-  setValueNewMessageActionCreator,
-  addMessageActionCreator,
+  setValueNewMessage,
+  sendMessage,
 };
