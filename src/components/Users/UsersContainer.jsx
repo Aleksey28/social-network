@@ -2,12 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import Users from "./Users";
 import {
-  followAC,
-  setCurrentPageAC,
-  setIsFetchingAC,
-  setUsersAC,
-  setUsersCountAC,
-  unfollowAC,
+  follow,
+  setCurrentPage,
+  setIsFetching,
+  setUsers,
+  setUsersCount,
+  unfollow,
 } from "../../redux/usersReducer";
 import axios from "axios";
 
@@ -49,27 +49,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    follow: (userId) => {
-      dispatch(followAC(userId));
-    },
-    unfollow: (userId) => {
-      dispatch(unfollowAC(userId));
-    },
-    setUsers: (userId) => {
-      dispatch(setUsersAC(userId));
-    },
-    setUsersCount: (usersCount) => {
-      dispatch(setUsersCountAC(usersCount));
-    },
-    setCurrentPage: (currentPage) => {
-      dispatch(setCurrentPageAC(currentPage));
-    },
-    setIsFetching: (isFetching) => {
-      dispatch(setIsFetchingAC(isFetching));
-    },
-  };
-};
+const methods = {
+  follow,
+  unfollow,
+  setUsers,
+  setUsersCount,
+  setCurrentPage,
+  setIsFetching
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, methods)(UsersContainer);
