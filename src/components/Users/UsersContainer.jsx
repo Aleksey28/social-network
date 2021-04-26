@@ -10,6 +10,7 @@ import {
   unfollow,
 } from "../../redux/usersReducer";
 import axios from "axios";
+import { apiSamuraiSettings } from "../../utils/constants";
 
 class UsersContainer extends React.Component {
 
@@ -19,7 +20,7 @@ class UsersContainer extends React.Component {
 
   loadUsers(page = this.props.currentPage) {
     this.props.setIsFetching(true);
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${page + 1}`)
+    axios.get(`${apiSamuraiSettings.baseUrl}/users?count=${this.props.pageSize}&page=${page + 1}`)
       .then(response => {
         this.props.setUsersCount(response.data.totalCount);
         this.props.setUsers(response.data.items);
