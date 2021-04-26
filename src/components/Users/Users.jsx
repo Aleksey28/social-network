@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./User.module.css";
 import emptyAvatar from "../../images/empty_avatar.svg";
 import Preloader from "../common/Preloader/Preloader";
+import { NavLink } from "react-router-dom";
 
 function Users({
   users,
@@ -48,7 +49,9 @@ function Users({
           users.map(u => (
             <li key={u.id}>
               <div>
+                <NavLink to={`/profile/${u.id}`}>
                 <img src={u.photos.small || emptyAvatar} alt="avatar" className={classes.avatar}/>
+                </NavLink>
                 {u.followed
                  ? <button onClick={() => {unfollow(u.id);}}>Follow</button>
                  : <button onClick={() => {follow(u.id);}}>Unfollow</button>}
