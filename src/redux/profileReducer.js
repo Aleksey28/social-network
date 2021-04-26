@@ -1,5 +1,6 @@
-const ADD_POST = "ADD-POST";
-const SET_VALUE_NEW_POST = "SET-VALUE-NEW-POST";
+const ADD_POST = "ADD_POST";
+const SET_VALUE_NEW_POST = "SET_VALUE_NEW_POST";
+const SET_USER_INFO = "SET_USER_INFO";
 
 const initialState = {
   postsData: [
@@ -13,6 +14,7 @@ const initialState = {
     },
   ],
   valueNewPost: "",
+  userInfo: null,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -30,6 +32,12 @@ const profileReducer = (state = initialState, action) => {
         valueNewPost: action.value,
       };
     }
+    case SET_USER_INFO: {
+      return {
+        ...state,
+        userInfo: action.userInfo,
+      };
+    }
     default:
       return state;
   }
@@ -42,10 +50,15 @@ const setValueNewPost = (value) => ({
   type: SET_VALUE_NEW_POST,
   value,
 });
+const setUserInfo = (userInfo) => ({
+  type: SET_USER_INFO,
+  userInfo
+})
 
 export default profileReducer;
 
 export {
   addPost,
   setValueNewPost,
+  setUserInfo,
 };
