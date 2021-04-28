@@ -4,10 +4,11 @@ import { connect } from "react-redux";
 import { setUserInfo } from "../../redux/profileReducer";
 import axios from "axios";
 import { apiSamuraiSettings } from "../../utils/constants";
+import { withRouter } from "react-router";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    axios.get(`${apiSamuraiSettings.baseUrl}/profile/2`)
+    axios.get(`${apiSamuraiSettings.baseUrl}/profile/${this.props.match.params.userId || 2}`)
       .then(res => this.props.setUserInfo(res.data))
       .catch(console.log);
   }
@@ -23,8 +24,10 @@ const mapStateToProps = (state) => ({
   userInfo: state.profilePage.userInfo,
 });
 
-const methods = {
+const mapDispatchToProps = {
   setUserInfo,
 };
 
-export default connect(mapStateToProps, methods)(ProfileContainer);
+const WithUrlDataContainerComponent = withRouter(ProfileContainer);
+
+export default connect(mapStateToProps, mapDispatchToProps)(WithUrlDataContainerComponent);
