@@ -16,7 +16,7 @@ const App = () => {
       <SideBarContainer/>
       <div className="app-wrapper__content">
         <Switch>
-          <Route path="/profile">
+          <Route path="/profile/:userId?">
             <ProfileContainer/>
           </Route>
           <Route path="/messages">
