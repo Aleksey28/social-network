@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { setUserInfo } from "../../redux/profileReducer";
 import axios from "axios";
 import { apiSamuraiSettings } from "../../utils/constants";
+import { withRouter } from "react-router";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
@@ -27,4 +28,6 @@ const mapDispatchToProps = {
   setUserInfo,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);
+const WithUrlDataContainerComponent = withRouter(ProfileContainer);
+
+export default connect(mapStateToProps, mapDispatchToProps)(WithUrlDataContainerComponent);
