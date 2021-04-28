@@ -23,8 +23,8 @@ const mapStateToProps = (state) => ({
   userInfo: state.profilePage.userInfo,
 });
 
-const methods = {
+const mapDispatchToProps = {
   setUserInfo,
 };
 
-export default connect(mapStateToProps, methods)(ProfileContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);
