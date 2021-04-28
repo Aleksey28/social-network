@@ -8,7 +8,7 @@ import { withRouter } from "react-router";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    axios.get(`${apiSamuraiSettings.baseUrl}/profile/2`)
+    axios.get(`${apiSamuraiSettings.baseUrl}/profile/${this.props.match.params.userId || 2}`)
       .then(res => this.props.setUserInfo(res.data))
       .catch(console.log);
   }
