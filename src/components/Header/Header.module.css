@@ -2,6 +2,8 @@
   background-color: #56ccf2;
   background-size: cover;
   grid-area: header;
+  display: flex;
+  justify-content: space-between;
 }
 
 .logo {
