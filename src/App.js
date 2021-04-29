@@ -1,17 +1,17 @@
-import "./App.css";
-import React from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
-import Header from "./components/Header/Header.jsx";
-import Navbar from "./components/Navbar/Navbar";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import SideBarContainer from "./components/SideBar/SideBarContainer";
-import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
+import './App.css';
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import Navbar from './components/Navbar/Navbar';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
+import SideBarContainer from './components/SideBar/SideBarContainer';
+import UsersContainer from './components/Users/UsersContainer';
+import ProfileContainer from './components/Profile/ProfileContainer';
+import HeaderContainer from './components/Header/HeaderContainer';
 
 const App = () => {
   return (
     <div className="app-wrapper">
-      <Header/>
+      <HeaderContainer/>
       <Navbar/>
       <SideBarContainer/>
       <div className="app-wrapper__content">
