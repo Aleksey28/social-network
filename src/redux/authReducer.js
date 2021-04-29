@@ -1,5 +1,8 @@
 const initialState = {
-
+  email: "",
+  login: '',
+  userId: '',
+  isAuth: false
 };
 
 const profileReducer = (state = initialState, action) => {
