@@ -4,7 +4,6 @@ import emptyAvatar from "../../../images/empty_avatar.svg";
 import classes from "./ProfileInfo.module.css";
 
 const ProfileInfo = ({ userInfo }) => {
-  console.log(userInfo);
   return (
     userInfo
     ? <div>
