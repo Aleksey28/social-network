@@ -3,8 +3,7 @@ import classes from './User.module.css';
 import emptyAvatar from '../../images/empty_avatar.svg';
 import Preloader from '../common/Preloader/Preloader';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
-import { apiSamuraiSettings } from '../../utils/constants';
+import usersAPI from '../../api/usersAPI';
 
 function Users( {
   users,
@@ -38,14 +37,10 @@ function Users( {
   }
 
   const handleFollow = ( id ) => {
-    axios.post( `${ apiSamuraiSettings.baseUrl }/follow/${ id }`, {}, {
-        withCredentials: true, headers: {
-          'API-KEY': apiSamuraiSettings.token,
-        },
-      } )
-      .then( res => {
-        if ( res.data.resultCode === 1 ) {
-          throw new Error( res.data.messages[0] );
+    usersAPI.follow( id )
+      .then( data => {
+        if ( data.resultCode === 1 ) {
+          throw new Error( data.messages[0] );
         }
         follow( id );
       } )
@@ -53,14 +48,10 @@ function Users( {
   };
 
   const handleUnfollow = ( id ) => {
-    axios.delete( `${ apiSamuraiSettings.baseUrl }/follow/${ id }`, {
-        withCredentials: true, headers: {
-          'API-KEY': apiSamuraiSettings.token,
-        },
-      } )
-      .then( res => {
-        if ( res.data.resultCode === 1 ) {
-          throw new Error( res.data.messages[0] );
+    usersAPI.unfollow( id )
+      .then( data => {
+        if ( data.resultCode === 1 ) {
+          throw new Error( data.messages[0] );
         }
         unfollow( id );
       } )

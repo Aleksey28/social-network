@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
 import { follow, setCurrentPage, setIsFetching, setUsers, setUsersCount, unfollow } from '../../redux/usersReducer';
-import axios from 'axios';
-import { apiSamuraiSettings } from '../../utils/constants';
+import usersAPI from '../../api/usersAPI';
 
 class UsersContainer extends React.Component {
 
@@ -13,13 +12,10 @@ class UsersContainer extends React.Component {
 
   loadUsers( page = this.props.currentPage ) {
     this.props.setIsFetching( true );
-    axios.get(
-      `${ apiSamuraiSettings.baseUrl }/users?count=${ this.props.pageSize }&page=${ page + 1 }`,
-      { withCredentials: true },
-      )
-      .then( response => {
-        this.props.setUsersCount( response.data.totalCount );
-        this.props.setUsers( response.data.items );
+    usersAPI.getUsers( page + 1, this.props.pageSize )
+      .then( data => {
+        this.props.setUsersCount( data.totalCount );
+        this.props.setUsers( data.items );
       } )
       .catch( console.log )
       .finally( () => {
