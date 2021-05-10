@@ -10,11 +10,13 @@ function Users( {
   usersCount,
   pageSize,
   currentPage,
+  isFollowingUsers,
   onPageChange,
   setCurrentPage,
   follow,
   unfollow,
   isFetching,
+  setIsFollowing,
 } ) {
 
   const countPages = usersCount / pageSize;
@@ -37,6 +39,7 @@ function Users( {
   }
 
   const handleFollow = ( id ) => {
+    setIsFollowing( id, true );
     usersAPI.follow( id )
       .then( data => {
         if ( data.resultCode === 1 ) {
@@ -44,10 +47,12 @@ function Users( {
         }
         follow( id );
       } )
-      .catch( console.log );
+      .catch( console.log )
+      .finally( () => setIsFollowing( id, false ) );
   };
 
   const handleUnfollow = ( id ) => {
+    setIsFollowing( id, true );
     usersAPI.unfollow( id )
       .then( data => {
         if ( data.resultCode === 1 ) {
@@ -55,7 +60,8 @@ function Users( {
         }
         unfollow( id );
       } )
-      .catch( console.log );
+      .catch( console.log )
+      .finally( () => setIsFollowing( id, false ) );
   };
 
   return (
@@ -76,8 +82,10 @@ function Users( {
                   <img src={ u.photos.small || emptyAvatar } alt="avatar" className={ classes.avatar }/>
                 </NavLink>
                 { u.followed
-                  ? <button onClick={ () => {handleUnfollow( u.id );} }>Follow</button>
-                  : <button onClick={ () => {handleFollow( u.id );} }>Unfollow</button> }
+                  ? <button disabled={ isFollowingUsers.some( id => id === u.id ) }
+                            onClick={ () => {handleUnfollow( u.id );} }>Follow</button>
+                  : <button disabled={ isFollowingUsers.some( id => id === u.id ) }
+                            onClick={ () => {handleFollow( u.id );} }>Unfollow</button> }
               </div>
               <div>
                 <div>

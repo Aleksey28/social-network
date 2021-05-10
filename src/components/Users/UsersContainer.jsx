@@ -1,7 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
-import { follow, setCurrentPage, setIsFetching, setUsers, setUsersCount, unfollow } from '../../redux/usersReducer';
+import {
+  follow,
+  setCurrentPage,
+  setIsFetching,
+  setIsFollowing,
+  setUsers,
+  setUsersCount,
+  unfollow,
+} from '../../redux/usersReducer';
 import usersAPI from '../../api/usersAPI';
 
 class UsersContainer extends React.Component {
@@ -39,6 +47,7 @@ const mapStateToProps = ( state ) => {
     pageSize: state.usersPage.pageSize,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
+    isFollowingUsers: state.usersPage.isFollowingUsers,
   };
 };
 
@@ -49,6 +58,7 @@ const methods = {
   setUsersCount,
   setCurrentPage,
   setIsFetching,
+  setIsFollowing,
 };
 
 export default connect( mapStateToProps, methods )( UsersContainer );
