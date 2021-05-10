@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-class usersAPI {
+class UsersAPI {
   constructor() {
     this._instance = axios.create( {
       baseURL: 'https://social-network.samuraijs.com/api/1.0',
@@ -27,4 +27,4 @@ class usersAPI {
   }
 }
 
-export default new usersAPI();
+export default new UsersAPI();
