@@ -1,26 +1,25 @@
-import React from "react";
-import Profile from "./Profile";
-import { connect } from "react-redux";
-import { setUserInfo } from "../../redux/profileReducer";
-import axios from "axios";
-import { apiSamuraiSettings } from "../../utils/constants";
-import { withRouter } from "react-router";
+import React from 'react';
+import Profile from './Profile';
+import { connect } from 'react-redux';
+import { setUserInfo } from '../../redux/profileReducer';
+import { withRouter } from 'react-router';
+import profileAPI from '../../api/profileAPI';
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    axios.get(`${apiSamuraiSettings.baseUrl}/profile/${this.props.match.params.userId || 2}`)
-      .then(res => this.props.setUserInfo(res.data))
-      .catch(console.log);
+    profileAPI.getProfileData( this.props.match.params.userId )
+      .then( data => this.props.setUserInfo( data ) )
+      .catch( console.log );
   }
 
   render() {
     return (
-      <Profile {...this.props} />
+      <Profile { ...this.props } />
     );
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ( state ) => ({
   userInfo: state.profilePage.userInfo,
 });
 
@@ -28,6 +27,6 @@ const mapDispatchToProps = {
   setUserInfo,
 };
 
-const WithUrlDataContainerComponent = withRouter(ProfileContainer);
+const WithUrlDataContainerComponent = withRouter( ProfileContainer );
 
-export default connect(mapStateToProps, mapDispatchToProps)(WithUrlDataContainerComponent);
+export default connect( mapStateToProps, mapDispatchToProps )( WithUrlDataContainerComponent );
