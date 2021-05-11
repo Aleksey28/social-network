@@ -19,7 +19,7 @@ class UsersContainer extends React.Component {
   }
 
   loadUsers( page = this.props.currentPage ) {
-    getUsers( page, this.props.pageSize );
+    this.props.getUsers( page, this.props.pageSize );
   }
 
   render() {
@@ -50,6 +50,7 @@ const methods = {
   setCurrentPage,
   setIsFetching,
   setIsFollowing,
+  getUsers,
 };
 
 export default connect( mapStateToProps, methods )( UsersContainer );
