@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Users from './Users';
 import {
   follow,
+  getUsers,
   setCurrentPage,
   setIsFetching,
   setIsFollowing,
@@ -10,7 +11,6 @@ import {
   setUsersCount,
   unfollow,
 } from '../../redux/usersReducer';
-import usersAPI from '../../api/usersAPI';
 
 class UsersContainer extends React.Component {
 
@@ -19,16 +19,7 @@ class UsersContainer extends React.Component {
   }
 
   loadUsers( page = this.props.currentPage ) {
-    this.props.setIsFetching( true );
-    usersAPI.getUsers( page + 1, this.props.pageSize )
-      .then( data => {
-        this.props.setUsersCount( data.totalCount );
-        this.props.setUsers( data.items );
-      } )
-      .catch( console.log )
-      .finally( () => {
-        this.props.setIsFetching( false );
-      } );
+    getUsers( page, this.props.pageSize );
   }
 
   render() {
