@@ -1,28 +1,30 @@
-const ADD_POST = "ADD_POST";
-const SET_VALUE_NEW_POST = "SET_VALUE_NEW_POST";
-const SET_USER_INFO = "SET_USER_INFO";
+import profileAPI from '../api/profileAPI';
+
+const ADD_POST = 'ADD_POST';
+const SET_VALUE_NEW_POST = 'SET_VALUE_NEW_POST';
+const SET_USER_INFO = 'SET_USER_INFO';
 
 const initialState = {
   postsData: [
     {
       id: 1,
-      message: "How are you?",
+      message: 'How are you?',
     },
     {
       id: 2,
-      message: "It is my first post",
+      message: 'It is my first post',
     },
   ],
-  valueNewPost: "",
+  valueNewPost: '',
   userInfo: null,
 };
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = ( state = initialState, action ) => {
   switch (action.type) {
     case ADD_POST: {
       return {
         ...state,
-        valueNewPost: "",
+        valueNewPost: '',
         postsData: [...state.postsData, { id: 5, message: state.valueNewPost }],
       };
     }
@@ -46,19 +48,27 @@ const profileReducer = (state = initialState, action) => {
 const addPost = () => ({
   type: ADD_POST,
 });
-const setValueNewPost = (value) => ({
+
+const setValueNewPost = ( value ) => ({
   type: SET_VALUE_NEW_POST,
   value,
 });
-const setUserInfo = (userInfo) => ({
+
+const setUserInfo = ( userInfo ) => ({
   type: SET_USER_INFO,
-  userInfo
-})
+  userInfo,
+});
+
+const getUserInfo = (userId) => ( dispatch ) => {
+  profileAPI.getProfileData( userId )
+    .then( data => dispatch( setUserInfo( data ) ) )
+    .catch( console.log );
+};
 
 export default profileReducer;
 
 export {
   addPost,
   setValueNewPost,
-  setUserInfo,
+  getUserInfo,
 };
