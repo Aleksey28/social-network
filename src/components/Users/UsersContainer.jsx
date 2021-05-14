@@ -1,16 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
-import {
-  follow,
-  getUsers,
-  setCurrentPage,
-  setIsFetching,
-  setIsFollowing,
-  setUsers,
-  setUsersCount,
-  unfollow,
-} from '../../redux/usersReducer';
+import { getUsers, setCurrentPage, toggleFollow } from '../../redux/usersReducer';
 
 class UsersContainer extends React.Component {
 
@@ -38,19 +29,14 @@ const mapStateToProps = ( state ) => {
     pageSize: state.usersPage.pageSize,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
-    isFollowingUsers: state.usersPage.isFollowingUsers,
+    isTogglingFollowUsers: state.usersPage.isTogglingFollowUsers,
   };
 };
 
 const methods = {
-  follow,
-  unfollow,
-  setUsers,
-  setUsersCount,
   setCurrentPage,
-  setIsFetching,
-  setIsFollowing,
   getUsers,
+  toggleFollow,
 };
 
 export default connect( mapStateToProps, methods )( UsersContainer );
