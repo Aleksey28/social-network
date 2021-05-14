@@ -3,20 +3,17 @@ import classes from './User.module.css';
 import emptyAvatar from '../../images/empty_avatar.svg';
 import Preloader from '../common/Preloader/Preloader';
 import { NavLink } from 'react-router-dom';
-import usersAPI from '../../api/usersAPI';
 
 function Users( {
   users,
   usersCount,
   pageSize,
   currentPage,
-  isFollowingUsers,
+  isFetching,
+  isTogglingFollowUsers,
   onPageChange,
   setCurrentPage,
-  follow,
-  unfollow,
-  isFetching,
-  setIsFollowing,
+  toggleFollow,
 } ) {
 
   const countPages = usersCount / pageSize;
@@ -38,32 +35,6 @@ function Users( {
     );
   }
 
-  const handleFollow = ( id ) => {
-    setIsFollowing( id, true );
-    usersAPI.follow( id )
-      .then( data => {
-        if ( data.resultCode === 1 ) {
-          throw new Error( data.messages[0] );
-        }
-        follow( id );
-      } )
-      .catch( console.log )
-      .finally( () => setIsFollowing( id, false ) );
-  };
-
-  const handleUnfollow = ( id ) => {
-    setIsFollowing( id, true );
-    usersAPI.unfollow( id )
-      .then( data => {
-        if ( data.resultCode === 1 ) {
-          throw new Error( data.messages[0] );
-        }
-        unfollow( id );
-      } )
-      .catch( console.log )
-      .finally( () => setIsFollowing( id, false ) );
-  };
-
   return (
     isFetching
     ? <Preloader/>
@@ -82,10 +53,10 @@ function Users( {
                   <img src={ u.photos.small || emptyAvatar } alt="avatar" className={ classes.avatar }/>
                 </NavLink>
                 { u.followed
-                  ? <button disabled={ isFollowingUsers.some( id => id === u.id ) }
-                            onClick={ () => {handleUnfollow( u.id );} }>Follow</button>
-                  : <button disabled={ isFollowingUsers.some( id => id === u.id ) }
-                            onClick={ () => {handleFollow( u.id );} }>Unfollow</button> }
+                  ? <button disabled={ isTogglingFollowUsers.some( id => id === u.id ) }
+                            onClick={ () => {toggleFollow( u.id );} }>Follow</button>
+                  : <button disabled={ isTogglingFollowUsers.some( id => id === u.id ) }
+                            onClick={ () => {toggleFollow( u.id );} }>Unfollow</button> }
               </div>
               <div>
                 <div>
