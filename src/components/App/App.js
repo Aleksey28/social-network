@@ -1,12 +1,14 @@
 import './App.css';
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import Navbar from './components/Navbar/Navbar';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
-import SideBarContainer from './components/SideBar/SideBarContainer';
-import UsersContainer from './components/Users/UsersContainer';
-import ProfileContainer from './components/Profile/ProfileContainer';
-import HeaderContainer from './components/Header/HeaderContainer';
+import Navbar from '../Navbar/Navbar';
+import DialogsContainer from '../Dialogs/DialogsContainer';
+import SideBarContainer from '../SideBar/SideBarContainer';
+import UsersContainer from '../Users/UsersContainer';
+import ProfileContainer from '../Profile/ProfileContainer';
+import HeaderContainer from '../Header/HeaderContainer';
+import Auth from '../Auth/Auth';
+import ProtectedRoute from '../../hoc/ProtectedRoute';
 
 const App = ( { isAuth } ) => {
   return (
