@@ -2,6 +2,7 @@ import React from 'react';
 import { authorize } from '../../redux/authReducer';
 import { connect } from 'react-redux';
 import App from './App';
+import { compose } from 'redux';
 
 class AppContainer extends React.Component {
   componentDidMount() {
@@ -23,4 +24,6 @@ const mapDispatchToProps = {
   authorize,
 };
 
-export default connect( mapStateToProps, mapDispatchToProps )( AppContainer );
+export default compose(
+  connect( mapStateToProps, mapDispatchToProps ),
+)( AppContainer );

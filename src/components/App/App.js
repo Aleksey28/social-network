@@ -21,10 +21,10 @@ const App = ( { isAuth } ) => {
           <Route path="/auth">
             <Auth/>
           </Route>
+          <Route path="/profile/:userId?">
+            <ProfileContainer/>
+          </Route>
           <ProtectedRoute condition={ isAuth } to={ '/auth' }>
-            <Route path="/profile/:userId?">
-              <ProfileContainer/>
-            </Route>
             <Route path="/messages">
               <DialogsContainer/>
             </Route>

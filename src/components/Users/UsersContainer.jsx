@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
 import { getUsers, setCurrentPage, toggleFollow } from '../../redux/usersReducer';
+import { compose } from 'redux';
 
 class UsersContainer extends React.Component {
 
@@ -39,4 +40,6 @@ const methods = {
   toggleFollow,
 };
 
-export default connect( mapStateToProps, methods )( UsersContainer );
+export default compose(
+  connect( mapStateToProps, methods ),
+)( UsersContainer );

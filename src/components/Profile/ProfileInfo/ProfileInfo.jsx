@@ -2,6 +2,7 @@ import React from "react";
 import Preloader from "../../common/Preloader/Preloader";
 import emptyAvatar from "../../../images/empty_avatar.svg";
 import classes from "./ProfileInfo.module.css";
+import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = ({ userInfo }) => {
   return (
@@ -12,6 +13,7 @@ const ProfileInfo = ({ userInfo }) => {
         alt="машина"/>
       <div>
         <img className={classes.info__avatar} src={userInfo.photos.small || emptyAvatar} alt="Avatar"/>
+        <ProfileStatus status={"Hello world"}/>
         <p>{userInfo.fullName}</p>
         <p>{userInfo.aboutMe}</p>
       </div>
