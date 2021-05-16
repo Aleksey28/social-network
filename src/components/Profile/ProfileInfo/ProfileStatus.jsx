@@ -8,8 +8,9 @@ class ProfileStatus extends React.Component {
   render() {
     return (
       <div>
-        <span>{ this.props.status }</span>
-        <input>{ this.props.status }</input>
+        { !this.state.editMode
+          ? <span>{ this.props.status }</span>
+          : <input value={ this.props.status }/> }
       </div>
     );
   }
