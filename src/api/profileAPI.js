@@ -17,8 +17,17 @@ class ProfileAPI {
   }
 
   getProfileData( userId ) {
-    return this._instance.get( `/profile/${ userId || 2 }` )
+    return this._instance.get( `/profile/${ userId || 16829 }` )
       .then( response => response.data );
+  }
+
+  getStatus( userId ) {
+    return this._instance.get( `/profile/status/${ userId || 16829 }` )
+      .then( response => response.data );
+  }
+
+  setStatus( status ) {
+    return this._instance.put( '/profile/status', { status } );
   }
 }
 
