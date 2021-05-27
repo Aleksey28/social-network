@@ -1,33 +1,33 @@
 import profileAPI from '../api/profileAPI';
 
-const SET_USER_DATA = "SET_USER_DATA";
+const SET_USER_DATA = 'SET_USER_DATA';
 
 const initialState = {
   email: '',
   login: '',
   userId: '',
-  isAuth: false
+  isAuth: false,
 };
 
-const authReducer = (state = initialState, action) => {
+const authReducer = ( state = initialState, action ) => {
   switch (action.type) {
     case SET_USER_DATA:
-      return  {
+      return {
         ...state,
         ...action.data,
-        isAuth: true
-      }
+        isAuth: true,
+      };
     default:
       return state;
   }
 };
 
-const setUserData = ({email, login, userId}) => ({
+const setUserData = ( { email, login, userId } ) => ({
   type: SET_USER_DATA,
-  data: {email, login, userId}
-})
+  data: { email, login, userId },
+});
 
-const authorize =() => ( dispatch ) => {
+const authorize = () => ( dispatch ) => {
   profileAPI.auth()
     .then( data => {
       if ( data.resultCode === 1 ) {
@@ -39,9 +39,21 @@ const authorize =() => ( dispatch ) => {
     .catch( console.log );
 };
 
+const login = ( { email, password, rememberMe } ) => ( dispatch ) => {
+  profileAPI.login( { email, password, rememberMe } )
+    .then( data => {
+      if ( data.resultCode === 1 ) {
+        throw new Error( data.messages[0] );
+      }
+      const { email, login, id: userId } = data.data;
+      dispatch( setUserData( { email, login, userId } ) );
+    } )
+    .catch( console.log );
+};
 
 export default authReducer;
 
 export {
-  authorize
+  authorize,
+  login,
 };
