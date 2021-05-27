@@ -11,6 +11,10 @@ class ProfileAPI {
     } );
   }
 
+  login( { email, password, rememberMe } ) {
+    return this._instance.post( '/auth/login', { email, password, rememberMe } );
+  }
+
   auth() {
     return this._instance.get( `/auth/me` )
       .then( response => response.data );

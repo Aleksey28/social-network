@@ -4,7 +4,7 @@ import React from 'react';
 function LoginForm( { handleSubmit } ) {
   return (
     <form onSubmit={ handleSubmit }>
-      <Field name="login" placeholder="Login" component="input"/>
+      <Field name="email" placeholder="Email" component="input"/>
       <Field name="password" placeholder="Password" component="input"/>
       <div>
         <Field name="rememberMe" component="input" type="checkbox"/>remember me
@@ -18,10 +18,9 @@ const LoginReduxForm = reduxForm( {
   form: 'login',
 } )( LoginForm );
 
-function Login() {
-
+function Login( { login } ) {
   const handleSubmit = ( formData ) => {
-    console.log( formData );
+    login( formData );
   };
 
   return (
