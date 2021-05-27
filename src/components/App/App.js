@@ -7,7 +7,7 @@ import SideBarContainer from '../SideBar/SideBarContainer';
 import UsersContainer from '../Users/UsersContainer';
 import ProfileContainer from '../Profile/ProfileContainer';
 import HeaderContainer from '../Header/HeaderContainer';
-import Auth from '../Auth/Auth';
+import Login from '../Login/Login';
 import ProtectedRoute from '../../hoc/ProtectedRoute';
 
 const App = ( { isAuth } ) => {
@@ -18,13 +18,13 @@ const App = ( { isAuth } ) => {
       <SideBarContainer/>
       <div className="app-wrapper__content">
         <Switch>
-          <Route path="/auth">
-            <Auth/>
+          <Route path="/login">
+            <Login/>
           </Route>
           <Route path="/profile/:userId?">
             <ProfileContainer/>
           </Route>
-          <ProtectedRoute condition={ isAuth } to={ '/auth' }>
+          <ProtectedRoute condition={ isAuth } to={ '/login' }>
             <Route path="/messages">
               <DialogsContainer/>
             </Route>
