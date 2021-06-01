@@ -1,7 +1,6 @@
 import profileAPI from '../api/profileAPI';
 
 const ADD_POST = 'ADD_POST';
-const SET_VALUE_NEW_POST = 'SET_VALUE_NEW_POST';
 const SET_USER_INFO = 'SET_USER_INFO';
 const SET_USER_STATUS = 'SET_USER_STATUS';
 
@@ -16,7 +15,6 @@ const initialState = {
       message: 'It is my first post',
     },
   ],
-  valueNewPost: '',
   userInfo: null,
   userStatus: 'no status',
 };
@@ -26,14 +24,7 @@ const profileReducer = ( state = initialState, action ) => {
     case ADD_POST: {
       return {
         ...state,
-        valueNewPost: '',
-        postsData: [...state.postsData, { id: 5, message: state.valueNewPost }],
-      };
-    }
-    case SET_VALUE_NEW_POST: {
-      return {
-        ...state,
-        valueNewPost: action.value,
+        postsData: [...state.postsData, { id: 5, message: action.newPost }],
       };
     }
     case SET_USER_INFO: {
@@ -53,13 +44,9 @@ const profileReducer = ( state = initialState, action ) => {
   }
 };
 
-const addPost = () => ({
+const addPost = ( { newPost } ) => ({
   type: ADD_POST,
-});
-
-const setValueNewPost = ( value ) => ({
-  type: SET_VALUE_NEW_POST,
-  value,
+  newPost,
 });
 
 const setUserInfo = ( userInfo ) => ({
@@ -97,7 +84,6 @@ export default profileReducer;
 
 export {
   addPost,
-  setValueNewPost,
   getUserInfo,
   getUserStatus,
   updateUserStatus,

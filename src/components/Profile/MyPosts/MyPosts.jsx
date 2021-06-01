@@ -1,27 +1,34 @@
-import React from "react";
-import Post from "./Post/Post";
+import React from 'react';
+import Post from './Post/Post';
+import { Field, reduxForm } from 'redux-form';
 
-const MyPosts = ({ addPost, setValueNewPost, profilePage }) => {
+const MyPostsForm = ( { handleSubmit } ) => {
+  return (
+    <form onSubmit={ handleSubmit }>
+      <Field name="newPost" placeholder="New post" component="textarea"/>
+      <button type="submit">Add post</button>
+    </form>
+  );
+};
 
-  const postsElements = profilePage.postsData.map((item) => <Post key={item.id} message={item.message}/>);
+const MyPostsReduxForm = reduxForm( {
+  form: 'newPost',
+} )( MyPostsForm );
 
-  const handleClickOnButton = () => {
-    addPost();
-  };
+const MyPosts = ( { addPost, profilePage } ) => {
 
-  const handleChangeNewPost = (e) => {
-    setValueNewPost(e.currentTarget.value);
+  const postsElements = profilePage.postsData.map( ( item ) => <Post key={ item.id } message={ item.message }/> );
+
+  const handleAddPost = ( formData ) => {
+    addPost( formData );
   };
 
   return (
     <div>
       My posts
+      <MyPostsReduxForm onSubmit={ handleAddPost }/>
       <div>
-        <textarea value={profilePage.valueNewPost} placeholder={"New post"} onChange={handleChangeNewPost}/>
-        <button onClick={handleClickOnButton}>Add post</button>
-      </div>
-      <div>
-        {postsElements}
+        { postsElements }
       </div>
     </div>
   );
