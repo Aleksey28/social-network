@@ -1,4 +1,4 @@
-import { sendMessage, setValueNewMessage } from '../../redux/dialogsReducer';
+import { sendMessage } from '../../redux/dialogsReducer';
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -12,7 +12,6 @@ const mapStateToProps = ( state ) => {
 
 const methods = {
   sendMessage,
-  setValueNewMessage,
 };
 
 export default compose(
