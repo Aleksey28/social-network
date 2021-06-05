@@ -7,8 +7,8 @@ const FromControl = ( { Component, input, meta, ...props } ) => {
   );
 };
 
-export const Textarea = (props) => {
+export const Textarea = ( props ) => {
   return (
-    <FromControl Component='textarea' {...props}/>
-  )
-}
+    <FromControl Component="textarea" { ...props }/>
+  );
+};
