@@ -6,3 +6,9 @@ const FromControl = ( { Component, input, meta, ...props } ) => {
     </div>
   );
 };
+
+export const Textarea = (props) => {
+  return (
+    <FromControl Component='textarea' {...props}/>
+  )
+}
