@@ -12,3 +12,10 @@ export const Textarea = ( props ) => {
     <FromControl Component="textarea" { ...props }/>
   );
 };
+
+export const Input = ( props ) => {
+  return (
+    <FromControl Component="input" { ...props }/>
+  );
+};
+
