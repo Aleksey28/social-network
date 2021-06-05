@@ -1,0 +1,12 @@
+.control {
+  display: flex;
+  flex-direction: column;
+}
+
+.control__component {
+  border: solid 1px red;
+}
+
+.control__message {
+  color: red;
+}

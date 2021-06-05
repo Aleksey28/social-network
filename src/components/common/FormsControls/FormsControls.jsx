@@ -1,8 +1,11 @@
+import classes from './FormsControls.module.css';
+
 const FromControl = ( { Component, input, meta, ...props } ) => {
+  const hasError = !meta.valid && meta.touched;
   return (
-    <div>
-      <Component { ...input } { ...props }/>
-      { !meta.valid && meta.touched && <span>{ meta.error }</span> }
+    <div className={ classes.control }>
+      <Component className={ hasError && classes.control__component } { ...input } { ...props }/>
+      { hasError && <span className={ classes.control__message }>{ meta.error }</span> }
     </div>
   );
 };
