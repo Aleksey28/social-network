@@ -2,7 +2,7 @@ const FromControl = ( { Component, input, meta, ...props } ) => {
   return (
     <div>
       <Component { ...input } { ...props }/>
-      <span>Error</span>
+      { !meta.valid && meta.touched && <span>{ meta.error }</span> }
     </div>
   );
 };
