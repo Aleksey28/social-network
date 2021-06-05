@@ -1,3 +1,7 @@
 export const required = value => value
                                  ? undefined
                                  : 'Required field';
+
+export const maxLength = max => value => value && value.length > max
+                                         ? `Max length is ${ max }`
+                                         : undefined;
