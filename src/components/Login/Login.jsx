@@ -7,7 +7,11 @@ function LoginForm( { handleSubmit } ) {
   return (
     <form onSubmit={ handleSubmit }>
       <Field name="email" placeholder="Email" component={ Input } validate={ [required, maxLength30] }/>
-      <Field name="password" placeholder="Password" component={ Input } validate={ [required, maxLength30] }/>
+      <Field name="password"
+             placeholder="Password"
+             component={ Input }
+             validate={ [required, maxLength30] }
+             type="password"/>
       <div>
         <Field name="rememberMe" component={ Input } type="checkbox"/>remember me
       </div>
