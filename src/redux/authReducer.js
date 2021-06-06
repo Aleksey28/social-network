@@ -1,4 +1,5 @@
 import profileAPI from '../api/profileAPI';
+import { stopSubmit } from 'redux-form';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
@@ -40,13 +41,15 @@ const authorize = () => ( dispatch ) => {
 
 const login = ( { email, password, rememberMe } ) => ( dispatch ) => {
   profileAPI.login( { email, password, rememberMe } )
-    .then( data => {
+    .then( ({ data }) => {
       if ( data.resultCode === 1 ) {
         throw new Error( data.messages[0] );
       }
       dispatch( authorize() );
     } )
-    .catch( console.log );
+    .catch( error => {
+      dispatch( stopSubmit( 'login', { _error: error.message } ) );
+    } );
 };
 
 const logout = () => ( dispatch ) => {
