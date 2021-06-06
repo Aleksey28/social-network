@@ -25,12 +25,12 @@ class ProfileAPI {
   }
 
   getProfileData( userId ) {
-    return this._instance.get( `/profile/${ userId || 16829 }` )
+    return this._instance.get( `/profile/${ userId }` )
       .then( response => response.data );
   }
 
   getStatus( userId ) {
-    return this._instance.get( `/profile/status/${ userId || 16829 }` )
+    return this._instance.get( `/profile/status/${ userId }` )
       .then( response => response.data );
   }
 
