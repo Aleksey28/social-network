@@ -50,9 +50,21 @@ const login = ( { email, password, rememberMe } ) => ( dispatch ) => {
     .catch( console.log );
 };
 
+const logout = () => ( dispatch ) => {
+  profileAPI.logout()
+    .then( data => {
+      if ( data.resultCode === 1 ) {
+        throw new Error( data.messages[0] );
+      }
+      dispatch( authorize() );
+    } )
+    .catch( console.log );
+};
+
 export default authReducer;
 
 export {
   authorize,
   login,
+  logout,
 };
