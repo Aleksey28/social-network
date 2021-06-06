@@ -15,18 +15,22 @@ class ProfileAPI {
     return this._instance.post( '/auth/login', { email, password, rememberMe } );
   }
 
+  logout() {
+    return this._instance.delete( '/auth/login' );
+  }
+
   auth() {
     return this._instance.get( `/auth/me` )
       .then( response => response.data );
   }
 
   getProfileData( userId ) {
-    return this._instance.get( `/profile/${ userId || 16829 }` )
+    return this._instance.get( `/profile/${ userId }` )
       .then( response => response.data );
   }
 
   getStatus( userId ) {
-    return this._instance.get( `/profile/status/${ userId || 16829 }` )
+    return this._instance.get( `/profile/status/${ userId }` )
       .then( response => response.data );
   }
 
