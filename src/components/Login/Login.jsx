@@ -3,10 +3,11 @@ import React from 'react';
 import { Input } from '../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../utils/validators';
 import { useHistory } from 'react-router';
+import classes from './Login.module.css';
 
 function LoginForm( { handleSubmit, error } ) {
   return (
-    <form onSubmit={ handleSubmit }>
+    <form onSubmit={ handleSubmit } className={ classes.form }>
       <Field name="email" placeholder="Email" component={ Input } validate={ [required, maxLength30] }/>
       <Field name="password"
              placeholder="Password"
@@ -16,7 +17,7 @@ function LoginForm( { handleSubmit, error } ) {
       <div>
         <Field name="rememberMe" component={ Input } type="checkbox"/>remember me
       </div>
-      { error && <span>{ error }</span> }
+      { error && <span className={ classes.form__error }>{ error }</span> }
       <button type="submit">Login</button>
     </form>
   );
