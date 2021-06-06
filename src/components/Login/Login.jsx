@@ -2,6 +2,7 @@ import { Field, reduxForm } from 'redux-form';
 import React from 'react';
 import { Input } from '../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../utils/validators';
+import { useHistory } from 'react-router';
 
 function LoginForm( { handleSubmit } ) {
   return (
@@ -24,10 +25,15 @@ const LoginReduxForm = reduxForm( {
   form: 'login',
 } )( LoginForm );
 
-function Login( { login } ) {
+function Login( { isAuth, login } ) {
+
+  const history = useHistory();
   const handleSubmit = ( formData ) => {
     login( formData );
   };
+
+  if ( isAuth )
+    history.push( '/profile' );
 
   return (
     <div>
