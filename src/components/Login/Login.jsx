@@ -4,7 +4,7 @@ import { Input } from '../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../utils/validators';
 import { useHistory } from 'react-router';
 
-function LoginForm( { handleSubmit } ) {
+function LoginForm( { handleSubmit, error } ) {
   return (
     <form onSubmit={ handleSubmit }>
       <Field name="email" placeholder="Email" component={ Input } validate={ [required, maxLength30] }/>
@@ -16,6 +16,7 @@ function LoginForm( { handleSubmit } ) {
       <div>
         <Field name="rememberMe" component={ Input } type="checkbox"/>remember me
       </div>
+      { error && <span>{ error }</span> }
       <button type="submit">Login</button>
     </form>
   );
