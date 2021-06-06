@@ -45,8 +45,7 @@ const login = ( { email, password, rememberMe } ) => ( dispatch ) => {
       if ( data.resultCode === 1 ) {
         throw new Error( data.messages[0] );
       }
-      const { email, login, id: userId } = data.data;
-      dispatch( setUserData( { email, login, userId } ) );
+      dispatch( authorize() );
     } )
     .catch( console.log );
 };
