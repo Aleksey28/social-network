@@ -15,16 +15,15 @@ const authReducer = ( state = initialState, action ) => {
       return {
         ...state,
         ...action.data,
-        isAuth: true,
       };
     default:
       return state;
   }
 };
 
-const setUserData = ( { email, login, userId } ) => ({
+const setUserData = ( { email, login, userId, isAuth } ) => ({
   type: SET_USER_DATA,
-  data: { email, login, userId },
+  data: { email, login, userId, isAuth },
 });
 
 const authorize = () => ( dispatch ) => {
@@ -34,7 +33,7 @@ const authorize = () => ( dispatch ) => {
         throw new Error( data.messages[0] );
       }
       const { email, login, id: userId } = data.data;
-      dispatch( setUserData( { email, login, userId } ) );
+      dispatch( setUserData( { email, login, userId, isAuth: true } ) );
     } )
     .catch( console.log );
 };
@@ -56,7 +55,7 @@ const logout = () => ( dispatch ) => {
       if ( data.resultCode === 1 ) {
         throw new Error( data.messages[0] );
       }
-      dispatch( authorize() );
+      dispatch( setUserData( { email: null, login: null, userId: null, isAuth: false } ) );
     } )
     .catch( console.log );
 };
