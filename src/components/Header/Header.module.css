@@ -1,13 +1,17 @@
 .header {
+  display: flex;
+  justify-content: space-between;
   background-color: #56ccf2;
   background-size: cover;
   grid-area: header;
-  display: flex;
-  justify-content: space-between;
 }
 
-.logo {
+.header__logo {
   width: 40px;
   height: 30px;
   object-fit: cover;
+}
+
+.header__nav {
+  display: flex;
 }
