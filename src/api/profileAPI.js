@@ -15,6 +15,10 @@ class ProfileAPI {
     return this._instance.post( '/auth/login', { email, password, rememberMe } );
   }
 
+  logout() {
+    return this._instance.delete( '/auth/login' );
+  }
+
   auth() {
     return this._instance.get( `/auth/me` )
       .then( response => response.data );
