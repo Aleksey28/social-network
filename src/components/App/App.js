@@ -12,6 +12,7 @@ import LoginContainer from '../Login/LoginContainer';
 import { authorize } from '../../redux/authReducer';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 class App extends React.Component {
   componentDidMount() {
@@ -60,6 +61,7 @@ const mapDispatchToProps = {
 };
 
 export default compose(
+  withRouter,
   connect( mapStateToProps, mapDispatchToProps ),
 )( App );
 
