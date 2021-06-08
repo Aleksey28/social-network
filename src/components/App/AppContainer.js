@@ -5,10 +5,6 @@ import App from './App';
 import { compose } from 'redux';
 
 class AppContainer extends React.Component {
-  componentDidMount() {
-    this.props.authorize();
-  }
-
   render() {
     return (
       <App { ...this.props }/>

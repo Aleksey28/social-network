@@ -9,37 +9,57 @@ import ProfileContainer from '../Profile/ProfileContainer';
 import HeaderContainer from '../Header/HeaderContainer';
 import ProtectedRoute from '../../hoc/ProtectedRoute';
 import LoginContainer from '../Login/LoginContainer';
+import { authorize } from '../../redux/authReducer';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 
-const App = ( { isAuth } ) => {
-  return (
-    <div className="app-wrapper">
-      <HeaderContainer/>
-      <Navbar/>
-      <SideBarContainer/>
-      <div className="app-wrapper__content">
-        <Switch>
-          <Route path="/login">
-            <LoginContainer/>
-          </Route>
-          <Route path="/profile/:userId?">
-            <ProfileContainer/>
-          </Route>
-          <ProtectedRoute condition={ isAuth } to={ '/login' }>
-            <Route path="/messages">
-              <DialogsContainer/>
+class App extends React.Component {
+  componentDidMount() {
+    this.props.authorize();
+  }
+
+  render() {
+    let { isAuth } = this.props;
+    return (
+      <div className="app-wrapper">
+        <HeaderContainer/>
+        <Navbar/>
+        <SideBarContainer/>
+        <div className="app-wrapper__content">
+          <Switch>
+            <Route path="/login">
+              <LoginContainer/>
             </Route>
-            <Route path="/users">
-              <UsersContainer/>
+            <Route path="/profile/:userId?">
+              <ProfileContainer/>
             </Route>
-          </ProtectedRoute>
-          <Route exact path="/">
-            <Redirect to="/profile"/>
-          </Route>
-        </Switch>
+            <ProtectedRoute condition={ isAuth } to={ '/login' }>
+              <Route path="/messages">
+                <DialogsContainer/>
+              </Route>
+              <Route path="/users">
+                <UsersContainer/>
+              </Route>
+            </ProtectedRoute>
+            <Route exact path="/">
+              <Redirect to="/profile"/>
+            </Route>
+          </Switch>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+}
+
+const mapStateToProps = ( state ) => ({
+  isAuth: state.auth.isAuth,
+});
+
+const mapDispatchToProps = {
+  authorize,
 };
 
-export default App;
+export default compose(
+  connect( mapStateToProps, mapDispatchToProps ),
+)( App );
 
