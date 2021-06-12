@@ -9,55 +9,59 @@ import ProfileContainer from '../Profile/ProfileContainer';
 import HeaderContainer from '../Header/HeaderContainer';
 import ProtectedRoute from '../../hoc/ProtectedRoute';
 import LoginContainer from '../Login/LoginContainer';
-import { authorize } from '../../redux/authReducer';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { initializing } from '../../redux/appReducer';
+import Preloader from '../common/Preloader/Preloader';
 
 class App extends React.Component {
   componentDidMount() {
-    this.props.authorize();
+    this.props.initializing();
   }
 
   render() {
-    let { isAuth } = this.props;
-    return (
-      <div className="app-wrapper">
-        <HeaderContainer/>
-        <Navbar/>
-        <SideBarContainer/>
-        <div className="app-wrapper__content">
-          <Switch>
-            <Route path="/login">
-              <LoginContainer/>
-            </Route>
-            <Route path="/profile/:userId?">
-              <ProfileContainer/>
-            </Route>
-            <ProtectedRoute condition={ isAuth } to={ '/login' }>
-              <Route path="/messages">
-                <DialogsContainer/>
-              </Route>
-              <Route path="/users">
-                <UsersContainer/>
-              </Route>
-            </ProtectedRoute>
-            <Route exact path="/">
-              <Redirect to="/profile"/>
-            </Route>
-          </Switch>
-        </div>
-      </div>
-    );
+    let { isAuth, initialized } = this.props;
+    return initialized
+           ? (
+             <div className="app-wrapper">
+               <HeaderContainer/>
+               <Navbar/>
+               <SideBarContainer/>
+               <div className="app-wrapper__content">
+                 <Switch>
+                   <Route path="/login">
+                     <LoginContainer/>
+                   </Route>
+                   <Route path="/profile/:userId?">
+                     <ProfileContainer/>
+                   </Route>
+                   <ProtectedRoute condition={ isAuth } to={ '/login' }>
+                     <Route path="/messages">
+                       <DialogsContainer/>
+                     </Route>
+                     <Route path="/users">
+                       <UsersContainer/>
+                     </Route>
+                   </ProtectedRoute>
+                   <Route exact path="/">
+                     <Redirect to="/profile"/>
+                   </Route>
+                 </Switch>
+               </div>
+             </div>
+           )
+           : <Preloader/>;
   }
 }
 
 const mapStateToProps = ( state ) => ({
   isAuth: state.auth.isAuth,
+  initialized: state.app.initialized,
 });
 
 const mapDispatchToProps = {
-  authorize,
+  initializing,
 };
 
 export default compose(
