@@ -28,7 +28,7 @@ const setUserData = ( { email, login, userId, isAuth } ) => ({
 });
 
 const authorize = () => ( dispatch ) => {
-  profileAPI.auth()
+  return profileAPI.auth()
     .then( data => {
       if ( data.resultCode === 1 ) {
         throw new Error( data.messages[0] );
@@ -41,7 +41,7 @@ const authorize = () => ( dispatch ) => {
 
 const login = ( { email, password, rememberMe } ) => ( dispatch ) => {
   profileAPI.login( { email, password, rememberMe } )
-    .then( ({ data }) => {
+    .then( ( { data } ) => {
       if ( data.resultCode === 1 ) {
         throw new Error( data.messages[0] );
       }
