@@ -7,7 +7,12 @@ import { compose } from 'redux';
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    let userId = this.props.match.params.userId || this.props.userId || 16829;
+    let userId = this.props.match.params.userId || this.props.userId;
+
+    if ( !userId ) {
+      this.props.history.push( '/login' );
+    }
+
     this.props.getUserInfo( userId );
     this.props.getUserStatus( userId );
   }
