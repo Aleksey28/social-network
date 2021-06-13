@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
-import { getUsers, setCurrentPage, toggleFollow } from '../../redux/usersReducer';
+import { getUsers, setCurrentPage, toggleFollow } from '../../redux/users/reducer';
 import { compose } from 'redux';
 import {
   getCurrentPageState,
@@ -10,7 +10,7 @@ import {
   getPageSizeState,
   getUsersCountState,
   getUsersState,
-} from '../../redux/usersSelector';
+} from '../../redux/users/selector';
 
 class UsersContainer extends React.Component {
 
