@@ -16,11 +16,11 @@ const initialState = [
   },
 ];
 
-const friendsReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action) {
     default:
       return state;
   }
 };
 
-export default friendsReducer;
+export default reducer;
