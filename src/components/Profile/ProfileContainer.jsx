@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { getUserInfo, getUserStatus, updateUserStatus } from '../../redux/profile/reducer';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
-import { getUserIdState, getUserInfoState, getUserStatusState } from '../../redux/profile/selector';
+import { getUserInfoState, getUserStatusState } from '../../redux/profile/selector';
+import { getUserIdState } from '../../redux/auth/selector';
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
