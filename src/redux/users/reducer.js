@@ -1,4 +1,4 @@
-import usersAPI from '../api/usersAPI';
+import usersAPI from '../../api/usersAPI';
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -17,7 +17,7 @@ const initialState = {
   isTogglingFollowUsers: [],
 };
 
-const usersReducer = ( state = initialState, action ) => {
+const reducer = ( state = initialState, action ) => {
   switch (action.type) {
     case FOLLOW:
       return {
@@ -134,7 +134,7 @@ const toggleFollow = ( id ) => ( dispatch ) => {
       .finally( () => dispatch( setIsTogglingFollow( id, false ) ) )
 };
 
-export default usersReducer;
+export default reducer;
 
 export {
   follow,

@@ -2,7 +2,8 @@ import React from 'react';
 import Header from './Header';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { logout } from '../../redux/authReducer';
+import { logout } from '../../redux/auth/reducer';
+import { getEmailState, getIsAuthState, getLoginState, getUserIdState } from '../../redux/auth/selector';
 
 class HeaderContainer extends React.Component {
   render() {
@@ -13,15 +14,15 @@ class HeaderContainer extends React.Component {
 }
 
 const mapStateToProps = ( state ) => ({
-  email: state.auth.email,
-  login: state.auth.login,
-  userId: state.auth.userId,
-  isAuth: state.auth.isAuth,
+  email: getEmailState( state ),
+  login: getLoginState( state ),
+  userId: getUserIdState( state ),
+  isAuth: getIsAuthState( state ),
 });
 
 const mapDispatchToProps = {
-  logout
-}
+  logout,
+};
 
 export default compose(
   connect( mapStateToProps, mapDispatchToProps ),

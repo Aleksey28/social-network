@@ -1,11 +1,11 @@
-import { authorize } from './authReducer';
+import { authorize } from '../auth/reducer';
 
 const SET_INITIALIZED = 'SET_INITIALIZED';
 const initialState = {
   initialized: false,
 };
 
-const appReducer = ( state = initialState, action ) => {
+const reducer = ( state = initialState, action ) => {
   switch (action.type) {
     case SET_INITIALIZED:
       return {
@@ -30,7 +30,7 @@ const initializing = () => async ( dispatch ) => {
   }
 };
 
-export default appReducer;
+export default reducer;
 
 export {
   initializing,

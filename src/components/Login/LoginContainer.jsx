@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import Login from './Login';
-import { login } from '../../redux/authReducer';
+import { login } from '../../redux/auth/reducer';
+import { getIsAuthState } from '../../redux/auth/selector';
 
 class LoginContainer extends React.Component {
   render() {
@@ -13,7 +14,7 @@ class LoginContainer extends React.Component {
 }
 
 const mapStateToProps = ( state ) => ({
-  isAuth: state.auth.isAuth,
+  isAuth: getIsAuthState( state ),
 });
 
 const mapDispatchToProps = {

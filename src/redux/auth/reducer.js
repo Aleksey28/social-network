@@ -1,4 +1,4 @@
-import profileAPI from '../api/profileAPI';
+import profileAPI from '../../api/profileAPI';
 import { stopSubmit } from 'redux-form';
 
 const SET_USER_DATA = 'SET_USER_DATA';
@@ -10,7 +10,7 @@ const initialState = {
   isAuth: false,
 };
 
-const authReducer = ( state = initialState, action ) => {
+const reducer = ( state = initialState, action ) => {
   switch (action.type) {
     case SET_USER_DATA:
       return {
@@ -63,7 +63,7 @@ const logout = () => ( dispatch ) => {
     .catch( console.log );
 };
 
-export default authReducer;
+export default reducer;
 
 export {
   authorize,
