@@ -1,5 +1,5 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
-import profileReducer from './profileReducer';
+import reducer from './profile/reducer';
 import dialogsReducer from './dialogsReducer';
 import friendsReducer from './friendsReducer';
 import usersReducer from './usersReducer';
@@ -9,7 +9,7 @@ import thunkMiddleware from 'redux-thunk';
 import appReducer from './appReducer';
 
 const reducers = combineReducers( {
-  profilePage: profileReducer,
+  profilePage: reducer,
   dialogsPage: dialogsReducer,
   friends: friendsReducer,
   usersPage: usersReducer,

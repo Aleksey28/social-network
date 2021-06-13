@@ -1,4 +1,4 @@
-import profileAPI from '../api/profileAPI';
+import profileAPI from '../../api/profileAPI';
 
 const ADD_POST = 'ADD_POST';
 const SET_USER_INFO = 'SET_USER_INFO';
@@ -19,7 +19,7 @@ const initialState = {
   userStatus: 'no status',
 };
 
-const profileReducer = ( state = initialState, action ) => {
+const reducer = ( state = initialState, action ) => {
   switch (action.type) {
     case ADD_POST: {
       return {
@@ -80,7 +80,7 @@ const updateUserStatus = ( status ) => ( dispatch ) => {
     .catch( console.log );
 };
 
-export default profileReducer;
+export default reducer;
 
 export {
   addPost,

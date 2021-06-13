@@ -1,4 +1,4 @@
-import profileReducer from "./profileReducer";
+import reducer from "./profile/reducer";
 import dialogsReducer from "./dialogsReducer";
 import friendsReducer from "./friendsReducer";
 
@@ -82,7 +82,7 @@ const store = {
     this._subscriber = observer;
   },
   dispatch(action) {
-    profileReducer(this._state.profilePage, action);
+    reducer(this._state.profilePage, action);
     dialogsReducer(this._state.dialogsPage, action);
     friendsReducer(this._state.friends, action);
     this._subscriber(this._state);
