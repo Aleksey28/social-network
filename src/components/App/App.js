@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { initializing } from '../../redux/app/reducer';
 import Preloader from '../common/Preloader/Preloader';
+import { getInitializedState } from '../../redux/app/selector';
 
 class App extends React.Component {
   componentDidMount() {
@@ -57,7 +58,7 @@ class App extends React.Component {
 
 const mapStateToProps = ( state ) => ({
   isAuth: state.auth.isAuth,
-  initialized: state.app.initialized,
+  initialized: getInitializedState( state ),
 });
 
 const mapDispatchToProps = {
