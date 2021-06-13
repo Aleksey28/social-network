@@ -12,7 +12,7 @@ import LoginContainer from '../Login/LoginContainer';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { initializing } from '../../redux/appReducer';
+import { initializing } from '../../redux/app/reducer';
 import Preloader from '../common/Preloader/Preloader';
 
 class App extends React.Component {
