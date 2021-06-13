@@ -1,6 +1,6 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import profileReducer from './profile/reducer';
-import dialogsReducer from './dialogsReducer';
+import dialogsReducer from './dialogs/reducer';
 import friendsReducer from './friendsReducer';
 import usersReducer from './users/reducer';
 import authReducer from './auth/reducer';
