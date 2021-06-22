@@ -1,1 +1,3 @@
-export const getInitializedState = ( state: any ) => state.app.initialized;
+import { AppStateType } from '../redux-store';
+
+export const getInitializedState = (state: AppStateType) => state.app.initialized;
