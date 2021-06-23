@@ -1,5 +1,7 @@
-export const getEmailState = ( state: any ) => state.auth.email;
-export const getLoginState = ( state: any ) => state.auth.login;
-export const getUserIdState = ( state: any ) => state.auth.userId;
-export const getIsAuthState = ( state: any ) => state.auth.isAuth;
-export const getCaptchaUrlState = ( state: any ) => state.auth.captchaUrl;
+import { AppStateType } from '../redux-store';
+
+export const getEmailState      = (state: AppStateType) => state.auth.email;
+export const getLoginState      = (state: AppStateType) => state.auth.login;
+export const getUserIdState     = (state: AppStateType) => state.auth.userId;
+export const getIsAuthState     = (state: AppStateType) => state.auth.isAuth;
+export const getCaptchaUrlState = (state: AppStateType) => state.auth.captchaUrl;
