@@ -1,1 +1,3 @@
-export const getDialogsPageState = ( state: any ) => state.dialogsPage;
+import { AppStateType } from '../redux-store';
+
+export const getDialogsPageState = (state: AppStateType) => state.dialogsPage;
