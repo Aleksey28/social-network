@@ -11,19 +11,22 @@ class UsersAPI {
     } );
   }
 
-  getUsers( page, pageSize ) {
-    return this._instance.get( `/users?count=${ pageSize }&page=${ page }` )
-      .then(response => response.data);
+  async getUsers( page, pageSize ) {
+    const response = await this._instance.get( `/users?count=${ pageSize }&page=${ page }` );
+
+    return response.data;
   }
 
-  follow( id ) {
-    return this._instance.post( `/follow/${ id }`, {} )
-      .then(response => response.data);
+  async follow( id ) {
+    const response = await this._instance.post( `/follow/${ id }`, {} );
+
+    return response.data;
   }
 
-  unfollow( id ) {
-    return this._instance.delete( `/follow/${ id }` )
-      .then(response => response.data);
+  async unfollow( id ) {
+    const response = await this._instance.delete( `/follow/${ id }` );
+
+    return response.data;
   }
 }
 
