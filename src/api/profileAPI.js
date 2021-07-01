@@ -19,19 +19,22 @@ class ProfileAPI {
     return this._instance.delete( '/auth/login' );
   }
 
-  auth() {
-    return this._instance.get( `/auth/me` )
-      .then( response => response.data );
+  async auth() {
+    const response = await this._instance.get( `/auth/me` );
+
+    return response.data;
   }
 
-  getProfileData( userId ) {
-    return this._instance.get( `/profile/${ userId }` )
-      .then( response => response.data );
+  async getProfileData( userId ) {
+    const response = await this._instance.get( `/profile/${ userId }` );
+
+    return response.data;
   }
 
-  getStatus( userId ) {
-    return this._instance.get( `/profile/status/${ userId }` )
-      .then( response => response.data );
+  async getStatus( userId ) {
+    const response = await this._instance.get( `/profile/status/${ userId }` );
+
+    return response.data;
   }
 
   setStatus( status ) {
