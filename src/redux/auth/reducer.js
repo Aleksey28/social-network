@@ -1,7 +1,7 @@
 import profileAPI from '../../api/profileAPI';
 import { stopSubmit } from 'redux-form';
 
-const SET_USER_DATA = 'SET_USER_DATA';
+const SET_USER_DATA = 'social-network/auth/SET_USER_DATA';
 
 const initialState = {
   email: '',
