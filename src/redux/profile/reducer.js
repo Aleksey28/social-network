@@ -31,7 +31,7 @@ const reducer = ( state = initialState, action ) => {
     case REMOVE_POST: {
       return {
         ...state,
-        postsData: state.postsData.filter((item, index) => action.index !== index),
+        postsData: state.postsData.filter( ( item, index ) => action.index !== index ),
       };
     }
     case SET_USER_INFO: {
@@ -71,25 +71,35 @@ const setUserStatus = ( userStatus ) => ({
   userStatus,
 });
 
-const getUserInfo = ( userId ) => ( dispatch ) => {
-  profileAPI.getProfileData( userId )
-    .then( data => dispatch( setUserInfo( data ) ) )
-    .catch( console.log );
+const getUserInfo = ( userId ) => async ( dispatch ) => {
+  try {
+    const data = await profileAPI.getProfileData( userId );
+
+    dispatch( setUserInfo( data ) );
+  } catch (error) {
+    console.log( error );
+  }
 };
 
-const getUserStatus = ( userId ) => ( dispatch ) => {
-  profileAPI.getStatus( userId )
-    .then( data => dispatch( setUserStatus( data ) ) )
-    .catch( console.log );
+const getUserStatus = ( userId ) => async ( dispatch ) => {
+  try {
+    const data = await profileAPI.getStatus( userId );
+
+    dispatch( setUserStatus( data ) );
+  } catch (error) {
+    console.log( error );
+  }
 };
 
-const updateUserStatus = ( status ) => ( dispatch ) => {
-  profileAPI.setStatus( status )
-    .then( response => {
-      if ( response.data.resultCode === 0 )
-        dispatch( setUserStatus( status ) );
-    } )
-    .catch( console.log );
+const updateUserStatus = ( status ) => async ( dispatch ) => {
+  try {
+    const { data } = await profileAPI.setStatus( status );
+
+    if ( data.resultCode === 0 )
+      dispatch( setUserStatus( status ) );
+  } catch (error) {
+    console.log( error );
+  }
 };
 
 export default reducer;

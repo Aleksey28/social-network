@@ -97,41 +97,48 @@ const setIsTogglingFollow = ( userId, isFetching ) => ({
   isFetching,
 });
 
-const getUsers = ( page, pageSize ) => ( dispatch ) => {
+const getUsers = ( page, pageSize ) => async ( dispatch ) => {
   dispatch( setIsFetching( true ) );
-  usersAPI.getUsers( page + 1, pageSize )
-    .then( data => {
-      dispatch( setUsersCount( data.totalCount ) );
-      dispatch( setUsers( data.items ) );
-    } )
-    .catch( console.log )
-    .finally( () => {
-      dispatch( setIsFetching( false ) );
-    } );
+  try {
+    const data = await usersAPI.getUsers( page + 1, pageSize );
+
+    dispatch( setUsersCount( data.totalCount ) );
+    dispatch( setUsers( data.items ) );
+  } catch (error) {
+    console.log( error );
+  } finally {
+    dispatch( setIsFetching( false ) );
+  }
 };
 
-const toggleFollow = ( id ) => ( dispatch ) => {
+const toggleFollow = ( id ) => async ( dispatch ) => {
   dispatch( setIsTogglingFollow( id, true ) );
   if ( initialState.users.some( item => item.id !== id && item.followed ) )
-    usersAPI.follow( id )
-      .then( data => {
-        if ( data.resultCode === 1 ) {
-          throw new Error( data.messages[0] );
-        }
-        dispatch( follow( id ) );
-      } )
-      .catch( console.log )
-      .finally( () => dispatch( setIsTogglingFollow( id, false ) ) )
+    try {
+      const data = await usersAPI.follow( id );
+
+      if ( data.resultCode === 1 )
+        throw new Error( data.messages[0] );
+
+      dispatch( follow( id ) );
+    } catch (error) {
+      console.log( error );
+    } finally {
+      dispatch( setIsTogglingFollow( id, false ) );
+    }
   else
-    usersAPI.unfollow( id )
-      .then( data => {
-        if ( data.resultCode === 1 ) {
-          throw new Error( data.messages[0] );
-        }
-        dispatch( unfollow( id ) );
-      } )
-      .catch( console.log )
-      .finally( () => dispatch( setIsTogglingFollow( id, false ) ) )
+    try {
+      const data = await usersAPI.unfollow( id );
+
+      if ( data.resultCode === 1 )
+        throw new Error( data.messages[0] );
+
+      dispatch( unfollow( id ) );
+    } catch (error) {
+      console.log( error );
+    } finally {
+      dispatch( setIsTogglingFollow( id, false ) );
+    }
 };
 
 export default reducer;

@@ -27,40 +27,47 @@ const setUserData = ( { email, login, userId, isAuth } ) => ({
   data: { email, login, userId, isAuth },
 });
 
-const authorize = () => ( dispatch ) => {
-  return profileAPI.auth()
-    .then( data => {
-      if ( data.resultCode === 1 ) {
-        throw new Error( data.messages[0] );
-      }
-      const { email, login, id: userId } = data.data;
-      dispatch( setUserData( { email, login, userId, isAuth: true } ) );
-    } )
-    .catch( console.log );
+const authorize = () => async ( dispatch ) => {
+  try {
+    const data = await profileAPI.auth();
+
+    if ( data.resultCode === 1 ) {
+      throw new Error( data.messages[0] );
+    }
+
+    const { email, login, id: userId } = data.data;
+
+    dispatch( setUserData( { email, login, userId, isAuth: true } ) );
+  } catch (error) {
+    console.log( error );
+  }
 };
 
-const login = ( { email, password, rememberMe } ) => ( dispatch ) => {
-  profileAPI.login( { email, password, rememberMe } )
-    .then( ( { data } ) => {
-      if ( data.resultCode === 1 ) {
-        throw new Error( data.messages[0] );
-      }
-      dispatch( authorize() );
-    } )
-    .catch( error => {
-      dispatch( stopSubmit( 'login', { _error: error.message } ) );
-    } );
+const login = ( { email, password, rememberMe } ) => async ( dispatch ) => {
+  try {
+    const { data } = await profileAPI.login( { email, password, rememberMe } );
+
+    if ( data.resultCode === 1 ) {
+      throw new Error( data.messages[0] );
+    }
+
+    dispatch( authorize() );
+  } catch (error) {
+    dispatch( stopSubmit( 'login', { _error: error.message } ) );
+  }
 };
 
-const logout = () => ( dispatch ) => {
-  profileAPI.logout()
-    .then( data => {
-      if ( data.resultCode === 1 ) {
-        throw new Error( data.messages[0] );
-      }
-      dispatch( setUserData( { email: null, login: null, userId: null, isAuth: false } ) );
-    } )
-    .catch( console.log );
+const logout = () => async ( dispatch ) => {
+  try {
+    const data = await profileAPI.logout();
+
+    if ( data.resultCode === 1 ) {
+      throw new Error( data.messages[0] );
+    }
+    dispatch( setUserData( { email: null, login: null, userId: null, isAuth: false } ) );
+  } catch (error) {
+    console.log( error );
+  }
 };
 
 export default reducer;
