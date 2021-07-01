@@ -1,6 +1,6 @@
 import { authorize } from '../auth/reducer';
 
-const SET_INITIALIZED = 'SET_INITIALIZED';
+const SET_INITIALIZED = 'social-network/app/SET_INITIALIZED';
 const initialState = {
   initialized: false,
 };
