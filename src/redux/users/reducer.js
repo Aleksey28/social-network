@@ -1,12 +1,12 @@
 import usersAPI from '../../api/usersAPI';
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
-const SET_USERS_COUNT = 'SET_USERS_COUNT';
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-const SET_IS_FETCHING = 'SET_IS_FETCHING';
-const SET_IS_TOGGLING_FOLLOW_USERS = 'SET_IS_TOGGLING_FOLLOW_USERS';
+const FOLLOW = 'social-network/users/FOLLOW';
+const UNFOLLOW = 'social-network/users/UNFOLLOW';
+const SET_USERS = 'social-network/users/SET_USERS';
+const SET_USERS_COUNT = 'social-network/users/SET_USERS_COUNT';
+const SET_CURRENT_PAGE = 'social-network/users/SET_CURRENT_PAGE';
+const SET_IS_FETCHING = 'social-network/users/SET_IS_FETCHING';
+const SET_IS_TOGGLING_FOLLOW_USERS = 'social-network/users/SET_IS_TOGGLING_FOLLOW_USERS';
 
 const initialState = {
   users: [],
