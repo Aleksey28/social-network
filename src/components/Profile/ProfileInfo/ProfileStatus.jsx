@@ -6,8 +6,8 @@ const ProfileStatus = ( { status, updateUserStatus } ) => {
   const [statusState, setStatusState] = useState( status );
 
   useEffect( () => {
-    setStatusState( statusState );
-  }, [statusState] );
+    setStatusState( status );
+  }, [status] );
 
   const activateEditMode = () => {
     setEditMode( true );
