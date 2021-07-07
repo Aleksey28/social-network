@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { KEY_ENTER } from '../../../utils/constants';
 
 const ProfileStatus = ( { status, updateUserStatus } ) => {
 
   const [editMode, setEditMode] = useState( false );
-  const [status, setStatus] = useState( status );
+  const [statusState, setStatusState] = useState( status );
 
   useEffect( () => {
-    setStatus( status );
+    setStatusState( status );
   }, [status] );
 
   const activateEditMode = () => {
@@ -15,19 +16,25 @@ const ProfileStatus = ( { status, updateUserStatus } ) => {
 
   const deactivateEditMode = () => {
     setEditMode( false );
-    updateUserStatus( status );
+    updateUserStatus( statusState );
   };
 
   const handleChangeStatus = ( e ) => {
-    setStatus( e.currentTarget.value );
+    setStatusState( e.currentTarget.value );
+  };
+
+  const handleKeyUpEnter = ( e ) => {
+    if ( e.key === KEY_ENTER )
+      deactivateEditMode();
   };
 
   return (
     <div>
       { !editMode
-        ? <span onClick={ activateEditMode }>{ status || '---' }</span>
-        : <input value={ status }
+        ? <span onClick={ activateEditMode }>{ statusState || '---' }</span>
+        : <input value={ statusState }
                  onBlur={ deactivateEditMode }
+                 onKeyUp={ handleKeyUpEnter }
                  onChange={ handleChangeStatus }
                  autoFocus={ true }/> }
     </div>
