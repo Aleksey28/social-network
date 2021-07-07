@@ -1,12 +1,13 @@
 import axios from 'axios';
+import { API_SAMURAI_SETTINGS } from '../utils/constants';
 
 class UsersAPI {
   constructor() {
     this._instance = axios.create( {
-      baseURL: 'https://social-network.samuraijs.com/api/1.0',
+      baseURL: API_SAMURAI_SETTINGS.baseUrl,
       withCredentials: true,
       headers: {
-        'API-KEY': '9b281f13-b744-4cc8-8a50-53b0d0396ab3',
+        'API-KEY': API_SAMURAI_SETTINGS.token,
       },
     } );
   }
