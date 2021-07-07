@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 const ProfileStatus = ( { status, updateUserStatus } ) => {
 
   const [editMode, setEditMode] = useState( false );
-  const [status, setStatus] = useState( status );
+  const [statusState, setStatusState] = useState( status );
 
   useEffect( () => {
-    setStatus( status );
-  }, [status] );
+    setStatusState( statusState );
+  }, [statusState] );
 
   const activateEditMode = () => {
     setEditMode( true );
@@ -15,18 +15,18 @@ const ProfileStatus = ( { status, updateUserStatus } ) => {
 
   const deactivateEditMode = () => {
     setEditMode( false );
-    updateUserStatus( status );
+    updateUserStatus( statusState );
   };
 
   const handleChangeStatus = ( e ) => {
-    setStatus( e.currentTarget.value );
+    setStatusState( e.currentTarget.value );
   };
 
   return (
     <div>
       { !editMode
-        ? <span onClick={ activateEditMode }>{ status || '---' }</span>
-        : <input value={ status }
+        ? <span onClick={ activateEditMode }>{ statusState || '---' }</span>
+        : <input value={ statusState }
                  onBlur={ deactivateEditMode }
                  onChange={ handleChangeStatus }
                  autoFocus={ true }/> }
