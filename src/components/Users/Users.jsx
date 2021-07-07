@@ -30,10 +30,12 @@ function Users( {
       <ul>
         {
           users.map( ( userData ) => (
-            <User { ...userData }
-                  isTogglingFollowUsers={ isTogglingFollowUsers }
-                  follow={ follow }
-                  unfollow={ unfollow }/>
+            <li key={ userData.id }>
+              <User { ...userData }
+                    isTogglingFollowUsers={ isTogglingFollowUsers }
+                    follow={ follow }
+                    unfollow={ unfollow }/>
+            </li>
           ) )
         }
       </ul>

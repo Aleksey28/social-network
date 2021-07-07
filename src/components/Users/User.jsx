@@ -11,9 +11,9 @@ const User = ( { id, name, status, photos, followed, isTogglingFollowUsers, foll
           <img src={ photos.small || emptyAvatar } alt="avatar" className={ classes.avatar }/>
         </NavLink>
         { !followed
-          ? <button disabled={ isTogglingFollowUsers.some( id => id === id ) }
+          ? <button disabled={ isTogglingFollowUsers.some( togglingId => togglingId === id ) }
                     onClick={ () => {follow( id );} }>Follow</button>
-          : <button disabled={ isTogglingFollowUsers.some( id => id === id ) }
+          : <button disabled={ isTogglingFollowUsers.some( togglingId => togglingId === id ) }
                     onClick={ () => {unfollow( id );} }>Unfollow</button> }
       </div>
       <div>
