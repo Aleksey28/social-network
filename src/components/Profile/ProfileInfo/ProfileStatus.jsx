@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { KEY_ENTER } from '../../../utils/constants';
 
 const ProfileStatus = ( { status, updateUserStatus } ) => {
 
@@ -22,12 +23,18 @@ const ProfileStatus = ( { status, updateUserStatus } ) => {
     setStatusState( e.currentTarget.value );
   };
 
+  const handleKeyUpEnter = ( e ) => {
+    if ( e.key === KEY_ENTER )
+      deactivateEditMode();
+  };
+
   return (
     <div>
       { !editMode
         ? <span onClick={ activateEditMode }>{ statusState || '---' }</span>
         : <input value={ statusState }
                  onBlur={ deactivateEditMode }
+                 onKeyUp={ handleKeyUpEnter }
                  onChange={ handleChangeStatus }
                  autoFocus={ true }/> }
     </div>
