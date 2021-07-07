@@ -1,0 +1,15 @@
+.pages {
+  display: flex;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 200px;
+  list-style-type: none;
+}
+
+.pages__item {
+  cursor: pointer;
+}
+
+.pages__item_selected {
+  font-weight: bold;
+}

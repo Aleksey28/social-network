@@ -3,6 +3,7 @@ import classes from './User.module.css';
 import emptyAvatar from '../../images/empty_avatar.svg';
 import Preloader from '../common/Preloader/Preloader';
 import { NavLink } from 'react-router-dom';
+import Paginator from '../common/Paginator/Paginator';
 
 function Users( {
   users,
@@ -18,33 +19,16 @@ function Users( {
 } ) {
 
   const countPages = usersCount / pageSize;
-  const pagesBar = [];
-
-  for ( let i = 0; i < countPages; i++ ) {
-    pagesBar.push(
-      <li
-        key={ i }
-        className={ `${ classes.pages__item } ${ currentPage === i
-                                                 ? classes.pages__item_selected
-                                                 : undefined }` }
-        onClick={ _ => {
-          setCurrentPage( i );
-          onPageChange( i );
-        } }>
-        { i + 1 }
-      </li>,
-    );
-  }
+  const handleClickOnPage = ( i ) => {
+    setCurrentPage( i );
+    onPageChange( i );
+  };
 
   return (
     isFetching
     ? <Preloader/>
     : <div>
-      <nav>
-        <ul className={ classes.pages }>
-          { pagesBar }
-        </ul>
-      </nav>
+      <Paginator currentPage={ currentPage } countPages={ countPages } onClick={ handleClickOnPage }/>
       <ul>
         {
           users.map( ( { id, name, status, photos, followed } ) => (
