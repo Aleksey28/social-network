@@ -1,3 +1,1 @@
-export const getInitializedState = ( state ) => {
-  return state.app.initialized;
-};
+export const getInitializedState = ( state ) => state.app.initialized;

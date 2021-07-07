@@ -13,7 +13,8 @@ function Users( {
   isTogglingFollowUsers,
   onPageChange,
   setCurrentPage,
-  toggleFollow,
+  follow,
+  unfollow,
 } ) {
 
   const countPages = usersCount / pageSize;
@@ -46,22 +47,22 @@ function Users( {
       </nav>
       <ul>
         {
-          users.map( u => (
-            <li key={ u.id }>
+          users.map( ( { id, name, status, photos, followed } ) => (
+            <li key={ id }>
               <div>
-                <NavLink to={ `/profile/${ u.id }` }>
-                  <img src={ u.photos.small || emptyAvatar } alt="avatar" className={ classes.avatar }/>
+                <NavLink to={ `/profile/${ id }` }>
+                  <img src={ photos.small || emptyAvatar } alt="avatar" className={ classes.avatar }/>
                 </NavLink>
-                { u.followed
-                  ? <button disabled={ isTogglingFollowUsers.some( id => id === u.id ) }
-                            onClick={ () => {toggleFollow( u.id );} }>Follow</button>
-                  : <button disabled={ isTogglingFollowUsers.some( id => id === u.id ) }
-                            onClick={ () => {toggleFollow( u.id );} }>Unfollow</button> }
+                { !followed
+                  ? <button disabled={ isTogglingFollowUsers.some( id => id === id ) }
+                            onClick={ () => {follow( id );} }>Follow</button>
+                  : <button disabled={ isTogglingFollowUsers.some( id => id === id ) }
+                            onClick={ () => {unfollow( id );} }>Unfollow</button> }
               </div>
               <div>
                 <div>
-                  <p>{ u.name }</p>
-                  <p>{ u.status }</p>
+                  <p>{ name }</p>
+                  <p>{ status }</p>
                 </div>
               </div>
             </li>

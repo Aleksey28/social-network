@@ -1,3 +1,1 @@
-export const getFriendsState = ( state ) => {
-  return state.friends;
-};
+export const getFriendsState = ( state ) => state.friends;

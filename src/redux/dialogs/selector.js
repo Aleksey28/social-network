@@ -1,3 +1,1 @@
-export const getDialogsPageState = ( state ) => {
-  return state.dialogsPage;
-};
+export const getDialogsPageState = ( state ) => state.dialogsPage;

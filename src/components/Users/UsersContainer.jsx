@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
-import { getUsers, setCurrentPage, toggleFollow } from '../../redux/users/reducer';
+import { follow, getUsers, setCurrentPage, unfollow } from '../../redux/users/reducer';
 import { compose } from 'redux';
 import {
   getCurrentPageState,
@@ -45,7 +45,8 @@ const mapStateToProps = ( state ) => {
 const methods = {
   setCurrentPage,
   getUsers,
-  toggleFollow,
+  follow,
+  unfollow,
 };
 
 export default compose(

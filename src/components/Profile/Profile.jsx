@@ -1,11 +1,13 @@
-import React from "react";
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import React from 'react';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
+import MyPostsContainer from './MyPosts/MyPostsContainer';
 
-const Profile = (props) => {
+const Profile = ( { userInfo, userStatus, updateUserStatus } ) => {
   return (
     <main>
-      <ProfileInfo userInfo={props.userInfo} userStatus={ props.userStatus} updateUserStatus={props.updateUserStatus}/>
+      <ProfileInfo userInfo={ userInfo }
+                   userStatus={ userStatus }
+                   updateUserStatus={ updateUserStatus }/>
       <MyPostsContainer/>
     </main>
   );

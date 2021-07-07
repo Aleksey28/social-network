@@ -7,6 +7,6 @@ export const getUserStatusState = ( state ) => {
 export const getUserIdState = ( state ) => {
   return state.profilePage.userId;
 };
-export const getProfilePageState = ( state ) => {
-  return state.profilePage;
+export const getPostsData = ( state ) => {
+  return state.profilePage.postsData;
 };
