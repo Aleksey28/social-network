@@ -20,21 +20,21 @@ class ProfileAPI {
   }
 
   async auth() {
-    const response = await this._instance.get( `/auth/me` );
+    const { data } = await this._instance.get( `/auth/me` );
 
-    return response.data;
+    return data;
   }
 
   async getProfileData( userId ) {
-    const response = await this._instance.get( `/profile/${ userId }` );
+    const { data } = await this._instance.get( `/profile/${ userId }` );
 
-    return response.data;
+    return data;
   }
 
   async getStatus( userId ) {
-    const response = await this._instance.get( `/profile/status/${ userId }` );
+    const { data } = await this._instance.get( `/profile/status/${ userId }` );
 
-    return response.data;
+    return data;
   }
 
   setStatus( status ) {

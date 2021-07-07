@@ -20,9 +20,9 @@ const MyPostsReduxForm = reduxForm( {
   form: 'newPost',
 } )( MyPostsForm );
 
-const MyPosts = React.memo( ( { addPost, profilePage } ) => {
+const MyPosts = React.memo( ( { addPost, postsData } ) => {
 
-  const postsElements = profilePage.postsData.map( ( item ) => <Post key={ item.id } message={ item.message }/> );
+  const postsElements = postsData.map( ( {id, message} ) => <Post key={ id } message={ message }/> );
   const handleAddPost = ( formData ) => {
     addPost( formData );
   };

@@ -9,14 +9,15 @@ import { getUserIdState } from '../../redux/auth/selector';
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
-    let userId = this.props.match.params.userId || this.props.userId;
+    const { history, getUserInfo, getUserStatus } = this.props;
+    const userId = this.props.match.params.userId || this.props.userId;
 
     if ( !userId ) {
-      this.props.history.push( '/login' );
+      history.push( '/login' );
     }
 
-    this.props.getUserInfo( userId );
-    this.props.getUserStatus( userId );
+    getUserInfo( userId );
+    getUserStatus( userId );
   }
 
   render() {

@@ -12,21 +12,21 @@ class UsersAPI {
   }
 
   async getUsers( page, pageSize ) {
-    const response = await this._instance.get( `/users?count=${ pageSize }&page=${ page }` );
+    const { data } = await this._instance.get( `/users?count=${ pageSize }&page=${ page }` );
 
-    return response.data;
+    return data;
   }
 
   async follow( id ) {
-    const response = await this._instance.post( `/follow/${ id }`, {} );
+    const { data } = await this._instance.post( `/follow/${ id }`, {} );
 
-    return response.data;
+    return data;
   }
 
   async unfollow( id ) {
-    const response = await this._instance.delete( `/follow/${ id }` );
+    const { data } = await this._instance.delete( `/follow/${ id }` );
 
-    return response.data;
+    return data;
   }
 }
 
