@@ -1,4 +1,5 @@
 import usersAPI from '../../api/usersAPI';
+import { updateObjectInArray } from '../../utils/helpers';
 
 const FOLLOW = 'social-network/users/FOLLOW';
 const UNFOLLOW = 'social-network/users/UNFOLLOW';
@@ -22,12 +23,12 @@ const reducer = ( state = initialState, action ) => {
     case FOLLOW:
       return {
         ...state,
-        users: state.users.map( u => u.id === action.userId ? { ...u, followed: true } : u ),
+        users: updateObjectInArray( state.users, 'id', action.userId, { followed: true } ),
       };
     case UNFOLLOW:
       return {
         ...state,
-        users: state.users.map( u => u.id === action.userId ? { ...u, followed: false } : u ),
+        users: updateObjectInArray( state.users, 'id', action.userId, { followed: false } ),
       };
     case SET_USERS:
       return {
