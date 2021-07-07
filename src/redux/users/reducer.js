@@ -61,12 +61,12 @@ const reducer = ( state = initialState, action ) => {
   }
 };
 
-const follow = ( userId ) => ({
+const setFollow = ( userId ) => ({
   type: FOLLOW,
   userId,
 });
 
-const unfollow = ( userId ) => ({
+const setUnfollow = ( userId ) => ({
   type: UNFOLLOW,
   userId,
 });
@@ -111,35 +111,35 @@ const getUsers = ( page, pageSize ) => async ( dispatch ) => {
   }
 };
 
-const toggleFollow = ( id ) => async ( dispatch ) => {
-  dispatch( setIsTogglingFollow( id, true ) );
-  if ( initialState.users.some( item => item.id !== id && item.followed ) )
-    try {
-      const data = await usersAPI.follow( id );
+const toggleFollow = async ( userId, dispatch, actionCreator, apiMethod ) => {
+  dispatch( setIsTogglingFollow( userId, true ) );
+  try {
+    const data = await apiMethod( userId );
 
-      if ( data.resultCode === 1 )
-        throw new Error( data.messages[0] );
+    if ( data.resultCode === 1 )
+      throw new Error( data.messages[0] );
 
-      dispatch( follow( id ) );
-    } catch (error) {
-      console.log( error );
-    } finally {
-      dispatch( setIsTogglingFollow( id, false ) );
-    }
-  else
-    try {
-      const data = await usersAPI.unfollow( id );
-
-      if ( data.resultCode === 1 )
-        throw new Error( data.messages[0] );
-
-      dispatch( unfollow( id ) );
-    } catch (error) {
-      console.log( error );
-    } finally {
-      dispatch( setIsTogglingFollow( id, false ) );
-    }
+    dispatch( actionCreator( userId ) );
+  } catch (error) {
+    console.log( error );
+  } finally {
+    dispatch( setIsTogglingFollow( userId, false ) );
+  }
 };
+
+const follow = ( id ) => async ( dispatch ) => toggleFollow(
+  id,
+  dispatch,
+  setFollow,
+  usersAPI.follow.bind( usersAPI ),
+);
+
+const unfollow = ( id ) => async ( dispatch ) => toggleFollow(
+  id,
+  dispatch,
+  setUnfollow,
+  usersAPI.unfollow.bind( usersAPI ),
+);
 
 export default reducer;
 
@@ -152,5 +152,4 @@ export {
   setIsFetching,
   setIsTogglingFollow,
   getUsers,
-  toggleFollow,
 };

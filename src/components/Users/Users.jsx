@@ -13,7 +13,8 @@ function Users( {
   isTogglingFollowUsers,
   onPageChange,
   setCurrentPage,
-  toggleFollow,
+  follow,
+  unfollow,
 } ) {
 
   const countPages = usersCount / pageSize;
@@ -52,11 +53,11 @@ function Users( {
                 <NavLink to={ `/profile/${ u.id }` }>
                   <img src={ u.photos.small || emptyAvatar } alt="avatar" className={ classes.avatar }/>
                 </NavLink>
-                { u.followed
+                { !u.followed
                   ? <button disabled={ isTogglingFollowUsers.some( id => id === u.id ) }
-                            onClick={ () => {toggleFollow( u.id );} }>Follow</button>
+                            onClick={ () => {follow( u.id );} }>Follow</button>
                   : <button disabled={ isTogglingFollowUsers.some( id => id === u.id ) }
-                            onClick={ () => {toggleFollow( u.id );} }>Unfollow</button> }
+                            onClick={ () => {unfollow( u.id );} }>Unfollow</button> }
               </div>
               <div>
                 <div>
