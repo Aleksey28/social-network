@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { KEY_ENTER } from '../../../utils/constants';
+import { KEY_ENTER } from '../../../../utils/constants';
 
 const ProfileStatus = ( { status, updateUserStatus } ) => {
 
