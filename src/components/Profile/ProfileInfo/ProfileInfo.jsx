@@ -2,7 +2,7 @@ import React from 'react';
 import Preloader from '../../common/Preloader/Preloader';
 import emptyAvatar from '../../../images/empty_avatar.svg';
 import classes from './ProfileInfo.module.css';
-import ProfileStatus from './ProfileStatus';
+import ProfileStatus from './ProfileStatus/ProfileStatus';
 
 const ProfileInfo = ( { userInfo, userStatus, updateUserStatus } ) => {
   const { photos, fullName, aboutMe } = userInfo || {};
