@@ -11,4 +11,11 @@ describe( 'Profile status', () => {
 
     expect( queryByText( status, { selector: 'span' } ) ).not.null;
   } );
+
+  it('Should display <input> after creation with status', () => {
+    const status = 'I\'m the best';
+    const { queryByText } = render( <ProfileStatus status={ status }/> );
+
+    expect( queryByText( status, { selector: 'input' } ) ).to.null;
+  })
 } );
