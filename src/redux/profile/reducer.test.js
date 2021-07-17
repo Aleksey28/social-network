@@ -1,5 +1,4 @@
 import reducer, { addPost, removePost } from './reducer';
-import { expect } from 'chai';
 
 describe( 'Profile reducer test', () => {
   const state = {
@@ -21,7 +20,7 @@ describe( 'Profile reducer test', () => {
     const action = addPost( { newPost: 'Hello world' } );
     const newState = reducer( state, action );
 
-    expect( newState.postsData.length ).to.equal( state.postsData.length + 1 );
+    expect( newState.postsData.length ).toEqual( state.postsData.length + 1 );
   } );
 
   it( 'New post should be correct', () => {
@@ -29,7 +28,7 @@ describe( 'Profile reducer test', () => {
     const action = addPost( { newPost } );
     const newState = reducer( state, action );
 
-    expect( newState.postsData[newState.postsData.length - 1].message ).to.equal( newPost );
+    expect( newState.postsData[newState.postsData.length - 1].message ).toEqual( newPost );
   } );
 
   it( 'Should remove post', () => {
@@ -37,7 +36,7 @@ describe( 'Profile reducer test', () => {
     const action = removePost( indexPost );
     const newState = reducer( state, action );
 
-    expect( newState.postsData.length ).to.equal( state.postsData.length - 1 );
+    expect( newState.postsData.length ).toEqual( state.postsData.length - 1 );
   } );
 
   it( 'Shouldn\'t remove post with non-existing index', () => {
@@ -45,6 +44,6 @@ describe( 'Profile reducer test', () => {
     const action = removePost( indexPost );
     const newState = reducer( state, action );
 
-    expect( newState.postsData.length ).to.equal( state.postsData.length );
+    expect( newState.postsData.length ).toEqual( state.postsData.length );
   } );
 } );
