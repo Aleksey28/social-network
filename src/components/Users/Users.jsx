@@ -26,7 +26,7 @@ function Users( {
     isFetching
     ? <Preloader/>
     : <div>
-      <Paginator currentPage={ currentPage } countPages={ countPages } onClick={ handleClickOnPage }/>
+      <Paginator currentItem={ currentPage } totalItemsCount={ countPages } onClick={ handleClickOnPage }/>
       <ul>
         {
           users.map( ( userData ) => (
