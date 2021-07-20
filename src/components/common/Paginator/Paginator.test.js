@@ -11,4 +11,13 @@ describe( 'Paginator', () => {
                                                   onClick={ () => {} }/> );
     expect( queryAllByText( /\d+/ ).length ).toEqual( 10 );
   } );
+
+  it( 'Is pages count is more then 10 button next should be present', () => {
+    const { queryByText } = render( <Paginator totalItemsCount={ 11 }
+                                               currentItem={ 1 }
+                                               itemsProtionSize={ 10 }
+                                               onClick={ () => {} }/> );
+
+    expect( queryByText( /next/i ) ).not.toBeNull();
+  } );
 } );
