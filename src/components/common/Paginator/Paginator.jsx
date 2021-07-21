@@ -5,10 +5,10 @@ const Paginator = ( { totalItemsCount, currentItem, onClick, itemsPortionSize = 
   const [currentPortion, setCurrentPortion] = useState( 1 );
   const pagesBar = [];
   const totalCountPortion = Math.ceil( totalItemsCount / itemsPortionSize );
-  const leftNumberItemOfPortion = itemsPortionSize * (currentPortion - 1) + 1;
-  const rightNumberItemOfPortion = Math.min( itemsPortionSize * (currentPortion), totalItemsCount );
+  const leftNumberItemOfPortion = itemsPortionSize * (currentPortion - 1);
+  const rightNumberItemOfPortion = Math.min( itemsPortionSize * (currentPortion), totalItemsCount) - 1;
 
-  for ( let i = 0; i < totalItemsCount; i++ ) {
+  for ( let i = leftNumberItemOfPortion; i <= rightNumberItemOfPortion; i++ ) {
     pagesBar.push(
       <li
         key={ i }
@@ -22,11 +22,15 @@ const Paginator = ( { totalItemsCount, currentItem, onClick, itemsPortionSize = 
   }
 
   return (
-    <nav>
-      <ul className={ classes.pages }>
-        { pagesBar }
-      </ul>
-    </nav>
+    <div>
+      {currentPortion === 1 && <button>Prev</button> }
+      <nav>
+        <ul className={ classes.pages }>
+          { pagesBar }
+        </ul>
+      </nav>
+      {currentPortion === totalCountPortion && <button>Next</button>}
+    </div>
   );
 };
 
