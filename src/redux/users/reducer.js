@@ -103,6 +103,7 @@ const getUsers = ( page, pageSize ) => async ( dispatch ) => {
   try {
     const data = await usersAPI.getUsers( page + 1, pageSize );
 
+    dispatch( setCurrentPage( page ) );
     dispatch( setUsersCount( data.totalCount ) );
     dispatch( setUsers( data.items ) );
   } catch (error) {
@@ -149,7 +150,6 @@ export {
   unfollow,
   setUsers,
   setUsersCount,
-  setCurrentPage,
   setIsFetching,
   setIsTogglingFollow,
   getUsers,

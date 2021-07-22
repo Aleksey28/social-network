@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
-import { follow, getUsers, setCurrentPage, unfollow } from '../../redux/users/reducer';
+import { follow, getUsers, unfollow } from '../../redux/users/reducer';
 import { compose } from 'redux';
 import {
   getCurrentPageState,
@@ -25,7 +25,7 @@ class UsersContainer extends React.Component {
   render() {
     return (
       <Users
-        onPageChange={ this.loadUsers.bind( this ) }
+        onPageChanged={ this.loadUsers.bind( this ) }
         { ...this.props }/>
     );
   }
@@ -43,7 +43,6 @@ const mapStateToProps = ( state ) => {
 };
 
 const methods = {
-  setCurrentPage,
   getUsers,
   follow,
   unfollow,

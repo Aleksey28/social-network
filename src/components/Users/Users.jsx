@@ -10,16 +10,14 @@ function Users( {
   currentPage,
   isFetching,
   isTogglingFollowUsers,
-  onPageChange,
-  setCurrentPage,
+  onPageChanged,
   follow,
   unfollow,
 } ) {
 
   const countPages = usersCount / pageSize;
   const handleClickOnPage = ( i ) => {
-    setCurrentPage( i );
-    onPageChange( i );
+    onPageChanged( i );
   };
 
   return (
