@@ -30,10 +30,10 @@ const Paginator = ( { totalItemsCount, currentItem, onClick, itemsPortionSize = 
   }
 
   return (
-    <div>
+    <div className={ classes.pages }>
       { currentPortion > 1 && <button onClick={ handleClickPrev }>Prev</button> }
       <nav>
-        <ul className={ classes.pages }>
+        <ul className={ classes.pages__items }>
           { pagesBar }
         </ul>
       </nav>

@@ -1,8 +1,12 @@
 .pages {
   display: flex;
-  overflow: hidden;
   box-sizing: border-box;
-  width: 200px;
+}
+
+.pages__items {
+  display: flex;
+  margin: 0 5px;
+  padding: 0;
   list-style-type: none;
 }
 
