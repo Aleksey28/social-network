@@ -14,10 +14,10 @@ import { initializing } from '../../redux/app/reducer';
 import Preloader from '../common/Preloader/Preloader';
 import { getInitializedState } from '../../redux/app/selector';
 import { getIsAuthState } from '../../redux/auth/selector';
-import SuspenseWrap from '../../hoc/SuspenseWrap';
+import withSuspense from '../../hoc/withSuspense';
 
-const DialogsContainer = lazy( () => import('../Dialogs/DialogsContainer') );
-const UsersContainer = lazy( () => import('../Users/UsersContainer') );
+const DialogsContainer = lazy( () => import('../Dialogs/DialogsContainer').then( DialogsContainer => DialogsContainer ) );
+const UsersContainer = lazy( () => import('../Users/UsersContainer').then( UsersContainer => UsersContainer ) );
 
 class App extends React.Component {
   componentDidMount() {
@@ -41,16 +41,8 @@ class App extends React.Component {
                      <ProfileContainer/>
                    </Route>
                    <ProtectedRoute condition={ isAuth } to={ '/login' }>
-                     <Route path="/messages">
-                       <SuspenseWrap>
-                         <DialogsContainer/>
-                       </SuspenseWrap>
-                     </Route>
-                     <Route path="/users">
-                       <SuspenseWrap>
-                         <UsersContainer/>
-                       </SuspenseWrap>
-                     </Route>
+                     <Route path="/messages" render={ withSuspense( DialogsContainer ) }/>
+                     <Route path="/users" render={ withSuspense( UsersContainer ) }/>
                    </ProtectedRoute>
                    <Route exact path="/">
                      <Redirect to="/profile"/>
