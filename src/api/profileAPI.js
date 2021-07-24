@@ -41,6 +41,13 @@ class ProfileAPI {
   setStatus( status ) {
     return this._instance.put( '/profile/status', { status } );
   }
+
+  setPhoto( image ) {
+    const formData = new FormData();
+    formData.append( 'image', image );
+
+    return this._instance.put( '/profile/status', { formData } );
+  }
 }
 
 export default new ProfileAPI();
