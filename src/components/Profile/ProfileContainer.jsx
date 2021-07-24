@@ -1,7 +1,7 @@
 import React from 'react';
 import Profile from './Profile';
 import { connect } from 'react-redux';
-import { getUserInfo, getUserStatus, updateUserStatus } from '../../redux/profile/reducer';
+import { getUserInfo, getUserStatus, updateUserPhoto, updateUserStatus } from '../../redux/profile/reducer';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
 import { getUserInfoState, getUserStatusState } from '../../redux/profile/selector';
@@ -46,6 +46,7 @@ const mapDispatchToProps = {
   getUserInfo,
   getUserStatus,
   updateUserStatus,
+  updateUserPhoto,
 };
 
 export default compose(

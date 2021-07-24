@@ -2,12 +2,14 @@ import React from 'react';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 
-const Profile = ( { userInfo, userStatus, updateUserStatus } ) => {
+const Profile = ( { userId, userInfo, userStatus, updateUserStatus, updateUserPhoto } ) => {
   return (
     <main>
-      <ProfileInfo userInfo={ userInfo }
+      <ProfileInfo isOwner={ userId === userInfo?.userId }
+                   userInfo={ userInfo }
                    userStatus={ userStatus }
-                   updateUserStatus={ updateUserStatus }/>
+                   updateUserStatus={ updateUserStatus }
+                   updateUserPhoto={ updateUserPhoto }/>
       <MyPostsContainer/>
     </main>
   );
