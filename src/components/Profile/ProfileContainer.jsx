@@ -8,7 +8,7 @@ import { getUserInfoState, getUserStatusState } from '../../redux/profile/select
 import { getUserIdState } from '../../redux/auth/selector';
 
 class ProfileContainer extends React.Component {
-  componentDidMount() {
+  _refreshAvatarProfileInfo = () => {
     const { history, getUserInfo, getUserStatus } = this.props;
     const userId = this.props.match.params.userId || this.props.userId;
 
@@ -18,6 +18,15 @@ class ProfileContainer extends React.Component {
 
     getUserInfo( userId );
     getUserStatus( userId );
+  };
+
+  componentDidMount() {
+    this._refreshAvatarProfileInfo();
+  }
+
+  componentDidUpdate( prevProps, prevState, snapshot ) {
+    if ( this.props.match.params.userId !== prevProps.match.params.userId )
+      this._refreshAvatarProfileInfo();
   }
 
   render() {
