@@ -46,7 +46,7 @@ class ProfileAPI {
     const formData = new FormData();
     formData.append( 'image', image );
 
-    return this._instance.put( '/profile/status', { formData } );
+    return this._instance.put( '/profile/photo', formData );
   }
 }
 
