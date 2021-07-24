@@ -4,6 +4,7 @@ const ADD_POST = 'social-network/reducer/ADD_POST';
 const REMOVE_POST = 'social-network/reducer/REMOVE_POST';
 const SET_USER_INFO = 'social-network/reducer/SET_USER_INFO';
 const SET_USER_STATUS = 'social-network/reducer/SET_USER_STATUS';
+const SET_USER_PHOTOS = 'social-network/reducer/SET_USER_PHOTOS';
 
 const initialState = {
   postsData: [
@@ -46,6 +47,12 @@ const reducer = ( state = initialState, action ) => {
         userStatus: action.userStatus,
       };
     }
+    case SET_USER_PHOTOS: {
+      return {
+        ...state,
+        userInfo: { ...state.userInfo, photos: action.userPhotos },
+      };
+    }
     default:
       return state;
   }
@@ -69,6 +76,11 @@ const setUserInfo = ( userInfo ) => ({
 const setUserStatus = ( userStatus ) => ({
   type: SET_USER_STATUS,
   userStatus,
+});
+
+const setUserPhotos = ( userPhotos ) => ({
+  type: SET_USER_PHOTOS,
+  userPhotos,
 });
 
 const getUserInfo = ( userId ) => async ( dispatch ) => {
@@ -102,6 +114,17 @@ const updateUserStatus = ( status ) => async ( dispatch ) => {
   }
 };
 
+const updateUserPhoto = ( image ) => async ( dispatch ) => {
+  try {
+    const { data } = await profileAPI.setPhoto( image );
+
+    if ( data.resultCode === 0 )
+      dispatch( setUserPhotos( data.data.photos ) );
+  } catch (error) {
+    console.log( error );
+  }
+};
+
 export default reducer;
 
 export {
@@ -110,4 +133,5 @@ export {
   getUserInfo,
   getUserStatus,
   updateUserStatus,
+  updateUserPhoto,
 };
