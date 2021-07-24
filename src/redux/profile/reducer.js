@@ -125,6 +125,19 @@ const updateUserPhoto = ( image ) => async ( dispatch ) => {
   }
 };
 
+const updateUserData = ( userData ) => async ( dispatch ) => {
+  try {
+    const { data } = await profileAPI.setProfileData( userData );
+
+    if ( data.resultCode === 0 ) {
+      const { data } = await profileAPI.getProfileData( userData.userId );
+      dispatch( setUserInfo( data.data ) );
+    }
+  } catch (error) {
+    console.log( error );
+  }
+};
+
 export default reducer;
 
 export {
@@ -134,4 +147,5 @@ export {
   getUserStatus,
   updateUserStatus,
   updateUserPhoto,
+  updateUserData,
 };
