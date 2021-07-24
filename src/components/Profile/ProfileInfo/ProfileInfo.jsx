@@ -3,9 +3,10 @@ import Preloader from '../../common/Preloader/Preloader';
 import emptyAvatar from '../../../images/empty_avatar.svg';
 import classes from './ProfileInfo.module.css';
 import ProfileStatus from './ProfileStatus/ProfileStatus';
+import ProfileData from './ProfileData/ProfileData';
 
 const ProfileInfo = ( { isOwner, userInfo, userStatus, updateUserStatus, updateUserPhoto } ) => {
-  const { photos, fullName, aboutMe } = userInfo || {};
+  const { photos } = userInfo || {};
 
   const handleChangePhoto = ( e ) => {
     if ( e.target.files.length ) {
@@ -22,9 +23,8 @@ const ProfileInfo = ( { isOwner, userInfo, userStatus, updateUserStatus, updateU
       <div>
         <img className={ classes.info__avatar } src={ photos.large || emptyAvatar } alt="Avatar"/>
         { isOwner && <input type="file" onChange={ handleChangePhoto }/> }
+        <ProfileData { ...userInfo }/>
         <ProfileStatus status={ userStatus } updateUserStatus={ updateUserStatus }/>
-        <p>{ fullName }</p>
-        <p>{ aboutMe }</p>
       </div>
     </div>
     : <Preloader/>
