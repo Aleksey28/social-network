@@ -48,6 +48,10 @@ class ProfileAPI {
 
     return this._instance.put( '/profile/photo', formData );
   }
+
+  setProfileData( profileData ) {
+    return this._instance.put( '/profile', profileData );
+  }
 }
 
 export default new ProfileAPI();
