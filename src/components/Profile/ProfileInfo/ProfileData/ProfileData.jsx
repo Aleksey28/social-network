@@ -8,30 +8,31 @@ import classes from './ProfileData.module.css';
 const ProfileDataForm = ( { handleSubmit, error, profileData } ) => {
   return (
     <form onSubmit={ handleSubmit } className={ classes.form }>
-      <Field name="fullName"
-             placeholder="Full name"
-             component={ Input }
-             validate={ [required] }/>
-      <Field name="aboutMe"
-             placeholder="About me"
-             component={ Textarea }
-             validate={ [required] }/>
-      <Field name="lookingForAJob"
-             placeholder="Looking for a job"
-             component={ Input }
-             validate={ [required] }/>
-      <Field name="lookingForAJobDescription"
-             placeholder="Skills"
-             component={ Input }
-             validate={ [required] }/>
+      Name: <Field name="fullName"
+                   placeholder="Full name"
+                   component={ Input }
+                   validate={ [required] }/>
+      About me: <Field name="aboutMe"
+                       placeholder="About me"
+                       component={ Textarea }
+                       validate={ [required] }/>
+      Looking for a job: <Field name="lookingForAJob"
+                                placeholder="Looking for a job"
+                                component={ Input }
+                                validate={ [required] }/>
+      Skills: <Field name="lookingForAJobDescription"
+                     placeholder="Skills"
+                     component={ Input }
+                     validate={ [required] }/>
+      Contacts:
       <ul>
-        Contacts:
         { Object.keys( profileData.contacts ).map( key => (
-          <Field key={ key }
-                 name={ `contacts.${ key }` }
-                 placeholder={ key }
-                 component={ Input }
-                 validate={ [required] }/>
+          <li key={ key }>
+            { key }: <Field name={ `contacts.${ key }` }
+                            placeholder={ key }
+                            component={ Input }
+                            validate={ [required] }/>
+          </li>
         ) ) }
       </ul>
 
@@ -56,7 +57,7 @@ const ProfileDataInfo = ( { fullName, aboutMe, lookingForAJob, lookingForAJobDes
         About me: { aboutMe }
       </li>
       <li>
-        Looking for a job:{ lookingForAJob }
+        Looking for a job: { lookingForAJob }
       </li>
       <li>
         Skills: { lookingForAJobDescription }
@@ -91,7 +92,9 @@ const ProfileData = ( profileData ) => {
     <div>
       <button onClick={ handleClickOnEdit }>Edit</button>
       { editMode
-        ? <ProfileDataReduxForm profileData={ profileData } handleSubmit={ deactivateEditMode }/>
+        ? <ProfileDataReduxForm initialValues={ profileData }
+                                profileData={ profileData }
+                                handleSubmit={ deactivateEditMode }/>
         : <ProfileDataInfo { ...profileData }/> }
     </div>
   );
