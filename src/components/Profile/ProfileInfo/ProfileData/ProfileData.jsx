@@ -73,7 +73,7 @@ const ProfileDataInfo = ( { fullName, aboutMe, lookingForAJob, lookingForAJobDes
   );
 };
 
-const ProfileData = ( profileData ) => {
+const ProfileData = ( { profileData, updateUserData } ) => {
   const [editMode, setEditMode] = useState( false );
 
   const activateEditMode = () => {
@@ -91,13 +91,22 @@ const ProfileData = ( profileData ) => {
       activateEditMode();
   };
 
+  const handleSubmit = async ( formData ) => {
+    try {
+      await updateUserData( formData );
+      deactivateEditMode();
+    } catch (error) {
+      console.log( error );
+    }
+  };
+
   return (
     <div>
       <button onClick={ handleClickOnEdit }>Edit</button>
       { editMode
         ? <ProfileDataReduxForm initialValues={ profileData }
                                 profileData={ profileData }
-                                handleSubmit={ deactivateEditMode }/>
+                                onSubmit={ handleSubmit }/>
         : <ProfileDataInfo { ...profileData }/> }
     </div>
   );
