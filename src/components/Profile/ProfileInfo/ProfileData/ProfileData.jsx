@@ -1,4 +1,3 @@
-import Contacts from './Contacts';
 import { Field, reduxForm } from 'redux-form';
 import { Input, Textarea } from '../../../common/FormsControls/FormsControls';
 import { required } from '../../../../utils/validators';
@@ -64,7 +63,11 @@ const ProfileDataInfo = ( { fullName, aboutMe, lookingForAJob, lookingForAJobDes
       </li>
       <li>
         Contacts:
-        <Contacts contacts={ contacts }/>
+        <ul>
+          { Object.keys( contacts ).map( key => (
+            <li key={ key }>{ key }: { contacts[key] }</li>
+          ) ) }
+        </ul>
       </li>
     </ul>
   );
