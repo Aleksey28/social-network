@@ -130,8 +130,10 @@ const updateUserData = ( userData ) => async ( dispatch ) => {
     const { data } = await profileAPI.setProfileData( userData );
 
     if ( data.resultCode === 0 ) {
-      const { data } = await profileAPI.getProfileData( userData.userId );
-      dispatch( setUserInfo( data.data ) );
+      const data = await profileAPI.getProfileData( userData.userId );
+      dispatch( setUserInfo( data ) );
+    } else {
+      throw new Error( data.messages );
     }
   } catch (error) {
     console.log( error );

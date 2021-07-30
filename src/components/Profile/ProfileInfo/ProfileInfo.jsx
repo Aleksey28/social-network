@@ -5,7 +5,7 @@ import classes from './ProfileInfo.module.css';
 import ProfileStatus from './ProfileStatus/ProfileStatus';
 import ProfileData from './ProfileData/ProfileData';
 
-const ProfileInfo = ( { isOwner, userInfo, userStatus, updateUserStatus, updateUserPhoto } ) => {
+const ProfileInfo = ( { isOwner, userInfo, userStatus, updateUserStatus, updateUserPhoto, updateUserData } ) => {
   const { photos } = userInfo || {};
 
   const handleChangePhoto = ( e ) => {
@@ -23,7 +23,7 @@ const ProfileInfo = ( { isOwner, userInfo, userStatus, updateUserStatus, updateU
       <div>
         <img className={ classes.info__avatar } src={ photos.large || emptyAvatar } alt="Avatar"/>
         { isOwner && <input type="file" onChange={ handleChangePhoto }/> }
-        <ProfileData { ...userInfo }/>
+        <ProfileData profileData={userInfo} updateUserData={ updateUserData }/>
         <ProfileStatus status={ userStatus } updateUserStatus={ updateUserStatus }/>
       </div>
     </div>
