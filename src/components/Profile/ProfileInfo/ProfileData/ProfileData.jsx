@@ -16,6 +16,7 @@ const ProfileDataForm = ( { handleSubmit, error, profileData } ) => {
                        component={ Textarea }
                        validate={ [required] }/>
       Looking for a job: <Field name="lookingForAJob"
+                                type="checkbox"
                                 placeholder="Looking for a job"
                                 component={ Input }
                                 validate={ [required] }/>
@@ -29,8 +30,7 @@ const ProfileDataForm = ( { handleSubmit, error, profileData } ) => {
           <li key={ key }>
             { key }: <Field name={ `contacts.${ key }` }
                             placeholder={ key }
-                            component={ Input }
-                            validate={ [required] }/>
+                            component={ Input }/>
           </li>
         ) ) }
       </ul>
