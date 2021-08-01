@@ -1,4 +1,5 @@
 import profileAPI from '../../api/profileAPI';
+import { stopSubmit } from 'redux-form';
 
 const ADD_POST = 'social-network/reducer/ADD_POST';
 const REMOVE_POST = 'social-network/reducer/REMOVE_POST';
@@ -133,7 +134,25 @@ const updateUserData = ( userData ) => async ( dispatch ) => {
       const data = await profileAPI.getProfileData( userData.userId );
       dispatch( setUserInfo( data ) );
     } else {
-      throw new Error( data.messages );
+      const errors = data.messages.reduce( ( errors, item ) => {
+        const [message, element] = item.split( '(' );
+        const elementRoute = element.slice( 0, element.length - 1 ).split( '->' );
+
+        elementRoute.reduce( ( res, item, index, arr ) => {
+          const key = item[0].toLowerCase() + item.slice( 1 );
+
+          if ( key in res )
+            return res[key];
+
+          res[key] = index < arr.length - 1 ? {} : message.slice( 0, message.length - 1 );
+
+          return res[key];
+        }, errors );
+
+        return errors;
+      }, {} );
+
+      dispatch( stopSubmit( 'profileData', errors ) );
     }
   } catch (error) {
     console.log( error );
