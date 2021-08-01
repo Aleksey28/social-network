@@ -18,8 +18,7 @@ const ProfileDataForm = ( { handleSubmit, error, profileData } ) => {
       Looking for a job: <Field name="lookingForAJob"
                                 type="checkbox"
                                 placeholder="Looking for a job"
-                                component={ Input }
-                                validate={ [required] }/>
+                                component={ Input }/>
       Skills: <Field name="lookingForAJobDescription"
                      placeholder="Skills"
                      component={ Input }
@@ -91,13 +90,8 @@ const ProfileData = ( { profileData, updateUserData } ) => {
       activateEditMode();
   };
 
-  const handleSubmit = async ( formData ) => {
-    try {
-      await updateUserData( formData );
-      deactivateEditMode();
-    } catch (error) {
-      console.log( error );
-    }
+  const handleSubmit = ( formData ) => {
+    updateUserData( formData ).then( deactivateEditMode );
   };
 
   return (
