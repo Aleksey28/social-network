@@ -1,15 +1,8 @@
-import axios from 'axios';
-import { API_SAMURAI_SETTINGS } from '../utils/constants';
+import API from './api';
 
-class ProfileAPI {
+class ProfileAPI extends API {
   constructor() {
-    this._instance = axios.create( {
-      baseURL: API_SAMURAI_SETTINGS.baseUrl,
-      withCredentials: true,
-      headers: {
-        'API-KEY': API_SAMURAI_SETTINGS.token,
-      },
-    } );
+    super();
   }
 
   login( { email, password, rememberMe } ) {
