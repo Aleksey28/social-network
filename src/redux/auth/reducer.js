@@ -2,12 +2,14 @@ import profileAPI from '../../api/profileAPI';
 import { stopSubmit } from 'redux-form';
 
 const SET_USER_DATA = 'social-network/auth/SET_USER_DATA';
+const SET_CAPTCHA_URL = 'social-network/auth/SET_CAPTCHA_URL';
 
 const initialState = {
   email: '',
   login: '',
   userId: '',
   isAuth: false,
+  captchaUrl: null,
 };
 
 const reducer = ( state = initialState, action ) => {
@@ -16,6 +18,11 @@ const reducer = ( state = initialState, action ) => {
       return {
         ...state,
         ...action.data,
+      };
+    case SET_CAPTCHA_URL:
+      return {
+        ...state,
+        captchaUrl: action.captchaUrl,
       };
     default:
       return state;
@@ -26,6 +33,11 @@ const setUserData = ( { email, login, userId, isAuth } ) => ({
   type: SET_USER_DATA,
   data: { email, login, userId, isAuth },
 });
+
+const setCaptchaUrl = ( url ) => ({
+  type: SET_CAPTCHA_URL,
+  captchaUrl: url
+})
 
 const authorize = () => async ( dispatch ) => {
   try {
