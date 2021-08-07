@@ -47,11 +47,11 @@ const login = ( { email, password, rememberMe } ) => async ( dispatch ) => {
   try {
     const { data } = await profileAPI.login( { email, password, rememberMe } );
 
-    if ( data.resultCode === 1 ) {
+    if ( data.resultCode === 0 ) {
+      dispatch( authorize() );
+    } else {
       throw new Error( data.messages[0] );
     }
-
-    dispatch( authorize() );
   } catch (error) {
     dispatch( stopSubmit( 'login', { _error: error.message } ) );
   }
@@ -61,10 +61,11 @@ const logout = () => async ( dispatch ) => {
   try {
     const data = await profileAPI.logout();
 
-    if ( data.resultCode === 1 ) {
+    if ( data.resultCode === 0 ) {
+      dispatch( setUserData( { email: null, login: null, userId: null, isAuth: false } ) );
+    } else {
       throw new Error( data.messages[0] );
     }
-    dispatch( setUserData( { email: null, login: null, userId: null, isAuth: false } ) );
   } catch (error) {
     console.log( error );
   }
