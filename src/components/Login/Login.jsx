@@ -5,7 +5,7 @@ import { maxLength30, required } from '../../utils/validators';
 import { useHistory } from 'react-router';
 import classes from './Login.module.css';
 
-function LoginForm( { handleSubmit, error } ) {
+function LoginForm( { handleSubmit, error, captchaUrl } ) {
   return (
     <form onSubmit={ handleSubmit } className={ classes.form }>
       <Field name="email" placeholder="Email" component={ Input } validate={ [required, maxLength30] }/>
@@ -17,6 +17,12 @@ function LoginForm( { handleSubmit, error } ) {
       <div>
         <Field name="rememberMe" component={ Input } type="checkbox"/>remember me
       </div>
+      { !!captchaUrl && (
+        <div>
+          <img src={ captchaUrl } alt="captcha"/>
+          <Field name="captcha" placeholder="Text from image" component={ Input }/>
+        </div>
+      ) }
       { error && <span className={ classes.form__error }>{ error }</span> }
       <button type="submit">Login</button>
     </form>
@@ -27,7 +33,7 @@ const LoginReduxForm = reduxForm( {
   form: 'login',
 } )( LoginForm );
 
-function Login( { isAuth, login } ) {
+function Login( { isAuth, login, captchaUrl } ) {
 
   const history = useHistory();
   const handleSubmit = ( formData ) => {
@@ -40,7 +46,7 @@ function Login( { isAuth, login } ) {
   return (
     <div>
       <h1>LOGIN</h1>
-      <LoginReduxForm onSubmit={ handleSubmit }/>
+      <LoginReduxForm onSubmit={ handleSubmit } captchaUrl={ captchaUrl }/>
     </div>
   );
 }
