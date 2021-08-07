@@ -1,5 +1,6 @@
 import profileAPI from '../../api/profileAPI';
 import { stopSubmit } from 'redux-form';
+import securityAPI from '../../api/securityAPI';
 
 const SET_USER_DATA = 'social-network/auth/SET_USER_DATA';
 const SET_CAPTCHA_URL = 'social-network/auth/SET_CAPTCHA_URL';
@@ -36,8 +37,8 @@ const setUserData = ( { email, login, userId, isAuth } ) => ({
 
 const setCaptchaUrl = ( url ) => ({
   type: SET_CAPTCHA_URL,
-  captchaUrl: url
-})
+  captchaUrl: url,
+});
 
 const authorize = () => async ( dispatch ) => {
   try {
@@ -61,6 +62,8 @@ const login = ( { email, password, rememberMe } ) => async ( dispatch ) => {
 
     if ( data.resultCode === 0 ) {
       dispatch( authorize() );
+    } else if ( data.resultCode === 10 ) {
+      dispatch( getCaptcha() );
     } else {
       throw new Error( data.messages[0] );
     }
@@ -83,10 +86,25 @@ const logout = () => async ( dispatch ) => {
   }
 };
 
+const getCaptcha = () => async ( dispatch ) => {
+  try {
+    const { url } = await securityAPI.getCaptcha();
+
+    if ( url ) {
+      dispatch( setCaptchaUrl( url ) );
+    } else {
+      throw new Error( 'Error with captcha' );
+    }
+  } catch (error) {
+    console.log( error );
+  }
+};
+
 export default reducer;
 
 export {
   authorize,
   login,
   logout,
+  getCaptcha,
 };
