@@ -5,8 +5,8 @@ class ProfileAPI extends API {
     super();
   }
 
-  login( { email, password, rememberMe } ) {
-    return this._instance.post( '/auth/login', { email, password, rememberMe } );
+  login( data ) {
+    return this._instance.post( '/auth/login', data );
   }
 
   logout() {

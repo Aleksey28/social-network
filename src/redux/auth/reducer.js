@@ -56,9 +56,9 @@ const authorize = () => async ( dispatch ) => {
   }
 };
 
-const login = ( { email, password, rememberMe } ) => async ( dispatch ) => {
+const login = ( { email, password, rememberMe, captcha = null } ) => async ( dispatch ) => {
   try {
-    const { data } = await profileAPI.login( { email, password, rememberMe } );
+    const { data } = await profileAPI.login( { email, password, rememberMe, captcha } );
 
     if ( data.resultCode === 0 ) {
       dispatch( authorize() );
