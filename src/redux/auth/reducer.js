@@ -74,12 +74,13 @@ const login = ( { email, password, rememberMe, captcha = null } ) => async ( dis
 
 const logout = () => async ( dispatch ) => {
   try {
-    const data = await profileAPI.logout();
+    const { data } = await profileAPI.logout();
+    const { resultCode, messages } = data;
 
-    if ( data.resultCode === 0 ) {
+    if ( resultCode === 0 ) {
       dispatch( setUserData( { email: null, login: null, userId: null, isAuth: false } ) );
     } else {
-      throw new Error( data.messages[0] );
+      throw new Error( messages[0] );
     }
   } catch (error) {
     console.log( error );
