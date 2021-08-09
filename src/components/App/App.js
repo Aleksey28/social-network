@@ -34,19 +34,27 @@ class App extends React.Component {
                <SideBarContainer/>
                <div className="app-wrapper__content">
                  <Switch>
+                   <Redirect exact from="/" to="/profile"/>
                    <Route path="/login">
                      <LoginContainer/>
                    </Route>
                    <Route path="/profile/:userId?">
                      <ProfileContainer/>
                    </Route>
-                   <ProtectedRoute condition={ isAuth } to={ '/login' }>
-                     <Route path="/messages" render={ withSuspense( DialogsContainer ) }/>
-                     <Route path="/users" render={ withSuspense( UsersContainer ) }/>
-                   </ProtectedRoute>
-                   <Route exact path="/">
-                     <Redirect to="/profile"/>
+                   <ProtectedRoute path="/messages"
+                                   condition={ isAuth }
+                                   to={ '/login' }
+                                   render={ withSuspense( DialogsContainer ) }/>
+                   <ProtectedRoute path="/users"
+                                   condition={ isAuth }
+                                   to={ '/login' }
+                                   render={ withSuspense( UsersContainer ) }/>
+                   <Route path="/error">
+                     <div>
+                       ERROR 404 =D
+                     </div>
                    </Route>
+                   <Redirect to="/error"/>
                  </Switch>
                </div>
              </div>

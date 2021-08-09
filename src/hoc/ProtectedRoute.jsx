@@ -1,11 +1,9 @@
 import { Redirect, Route } from 'react-router';
 
-function ProtectedRoute( { children, condition, to } ) {
-  return <Route>
-    {
-      () => condition ? children : <Redirect to={ to }/>
-    }
-  </Route>;
+function ProtectedRoute( { path, render, condition, to } ) {
+  return condition
+         ? <Route path={ path } render={ render }/>
+         : <Redirect to={ to }/>;
 }
 
 export default ProtectedRoute;
