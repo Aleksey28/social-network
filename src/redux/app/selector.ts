@@ -1,1 +1,1 @@
-export const getInitializedState = ( state ) => state.app.initialized;
+export const getInitializedState = ( state: any ) => state.app.initialized;
