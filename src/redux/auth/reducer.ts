@@ -67,7 +67,7 @@ const setCaptchaUrl = (url: string): SetCaptchaUrl => ({
   captchaUrl: url,
 });
 
-export const authorize = () => async (dispatch: any) => {
+export const authorize = () => async (dispatch: any): Promise<void> => {
   try {
     const data = await profileAPI.auth();
 
@@ -83,7 +83,7 @@ export const authorize = () => async (dispatch: any) => {
   }
 };
 
-export const login = ({ email, password, rememberMe, captcha = null }: LoginProps) => async (dispatch: any) => {
+export const login = ({ email, password, rememberMe, captcha = null }: LoginProps) => async (dispatch: any): Promise<void> => {
   try {
     const { data } = await profileAPI.login({ email, password, rememberMe, captcha });
 
@@ -99,7 +99,7 @@ export const login = ({ email, password, rememberMe, captcha = null }: LoginProp
   }
 };
 
-export const logout = () => async (dispatch: any) => {
+export const logout = () => async (dispatch: any): Promise<void> => {
   try {
     const { data } = await profileAPI.logout();
     const { resultCode, messages } = data;
@@ -114,7 +114,7 @@ export const logout = () => async (dispatch: any) => {
   }
 };
 
-export const getCaptcha = () => async (dispatch: any) => {
+export const getCaptcha = () => async (dispatch: any): Promise<void> => {
   try {
     const { url } = await securityAPI.getCaptcha();
 
