@@ -10,7 +10,7 @@ type SetInitialized = {
   type: typeof SET_INITIALIZED;
 }
 
-type InitialState = typeof initialState;
+export type InitialState = typeof initialState;
 
 const reducer = (state: InitialState = initialState, action: SetInitialized) => {
   switch (action.type) {
