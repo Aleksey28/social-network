@@ -148,7 +148,7 @@ const setUserPhotos = (userPhotos: string): SetUserPhotos => ({
   userPhotos,
 });
 
-const getUserInfo = (userId: number) => async (dispatch: any) => {
+const getUserInfo = (userId: number) => async (dispatch: any): Promise<void> => {
   try {
     const data = await profileAPI.getProfileData(userId);
 
@@ -158,7 +158,7 @@ const getUserInfo = (userId: number) => async (dispatch: any) => {
   }
 };
 
-const getUserStatus = (userId: number) => async (dispatch: any) => {
+const getUserStatus = (userId: number) => async (dispatch: any): Promise<void> => {
   try {
     const data = await profileAPI.getStatus(userId);
 
@@ -168,7 +168,7 @@ const getUserStatus = (userId: number) => async (dispatch: any) => {
   }
 };
 
-const updateUserStatus = (status: string) => async (dispatch: any) => {
+const updateUserStatus = (status: string) => async (dispatch: any): Promise<void> => {
   try {
     const { data } = await profileAPI.setStatus(status);
 
@@ -180,7 +180,7 @@ const updateUserStatus = (status: string) => async (dispatch: any) => {
   }
 };
 
-const updateUserPhoto = (image: string) => async (dispatch: any) => {
+const updateUserPhoto = (image: string) => async (dispatch: any): Promise<void> => {
   try {
     const { data } = await profileAPI.setPhoto(image);
 
@@ -192,7 +192,7 @@ const updateUserPhoto = (image: string) => async (dispatch: any) => {
   }
 };
 
-const updateUserData = (userData: UserInfo) => async (dispatch: any) => {
+const updateUserData = (userData: UserInfo) => async (dispatch: any): Promise<void> => {
   try {
     const { data } = await profileAPI.setProfileData(userData);
 
