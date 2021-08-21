@@ -1,13 +1,11 @@
 import profileAPI from "../../api/profileAPI";
 import { stopSubmit } from "redux-form";
 
-const ADD_POST = "social-network/reducer/ADD_POST";
-const REMOVE_POST = "social-network/reducer/REMOVE_POST";
-const SET_USER_INFO = "social-network/reducer/SET_USER_INFO";
-const SET_USER_STATUS = "social-network/reducer/SET_USER_STATUS";
-const SET_USER_PHOTOS = "social-network/reducer/SET_USER_PHOTOS";
+type InitialState = typeof initialState;
 
-type UserInfo = {
+type Action = AddPost | RemovePost | SetUserInfo | SetUserStatus | SetUserPhotos;
+
+interface UserInfo {
   userId: number;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
@@ -28,14 +26,45 @@ type UserInfo = {
   };
 }
 
-type Post = {
+interface Post {
   id: number;
   message: string;
 }
 
-type ErrorsObject = {
+interface ErrorsObject {
   [key: string]: string | ErrorsObject;
 }
+
+interface AddPost {
+  type: typeof ADD_POST;
+  newPost: string;
+}
+
+interface RemovePost {
+  type: typeof REMOVE_POST;
+  index: number;
+}
+
+interface SetUserInfo {
+  type: typeof SET_USER_INFO;
+  userInfo: UserInfo;
+}
+
+interface SetUserStatus {
+  type: typeof SET_USER_STATUS;
+  userStatus: string;
+}
+
+interface SetUserPhotos {
+  type: typeof SET_USER_PHOTOS;
+  userPhotos: string;
+}
+
+const ADD_POST = "social-network/reducer/ADD_POST";
+const REMOVE_POST = "social-network/reducer/REMOVE_POST";
+const SET_USER_INFO = "social-network/reducer/SET_USER_INFO";
+const SET_USER_STATUS = "social-network/reducer/SET_USER_STATUS";
+const SET_USER_PHOTOS = "social-network/reducer/SET_USER_PHOTOS";
 
 const initialState = {
   postsData: [
@@ -52,36 +81,7 @@ const initialState = {
   userStatus: "no status" as string,
 };
 
-type ProfileInitialState = typeof initialState;
-
-type AddPost = {
-  type: typeof ADD_POST;
-  newPost: string;
-}
-
-type RemovePost = {
-  type: typeof REMOVE_POST;
-  index: number;
-}
-
-type SetUserInfo = {
-  type: typeof SET_USER_INFO;
-  userInfo: UserInfo;
-}
-
-type SetUserStatus = {
-  type: typeof SET_USER_STATUS;
-  userStatus: string;
-}
-
-type SetUserPhotos = {
-  type: typeof SET_USER_PHOTOS;
-  userPhotos: string;
-};
-
-type Action = AddPost | RemovePost | SetUserInfo | SetUserStatus | SetUserPhotos;
-
-const reducer = (state: ProfileInitialState = initialState, action: Action) => {
+const reducer = (state: InitialState = initialState, action: Action) => {
   switch (action.type) {
     case ADD_POST: {
       return {
