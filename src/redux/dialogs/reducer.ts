@@ -1,43 +1,51 @@
-const SEND_MESSAGE = 'social-network/dialogs/SEND-MESSAGE';
+export type InitialState = typeof initialState;
+type Action = SendMessage;
+
+interface SendMessage {
+  type: typeof SEND_MESSAGE;
+  newMessage: string;
+}
+
+const SEND_MESSAGE = "social-network/dialogs/SEND-MESSAGE";
 
 const initialState = {
   dialogsData: [
     {
       id: 11,
-      name: 'Pety',
+      name: "Pety",
       ownerId: 2,
     },
     {
       id: 12,
-      name: 'Vany',
+      name: "Vany",
       ownerId: 3,
     },
     {
       id: 13,
-      name: 'Sasha',
+      name: "Sasha",
       ownerId: 4,
     },
   ],
   messagesData: [
     {
       id: 1,
-      message: 'Hello',
+      message: "Hello",
       ownerId: 1,
     },
     {
       id: 2,
-      message: 'How are you',
+      message: "How are you",
       ownerId: 2,
     },
     {
       id: 3,
-      message: 'Buy',
+      message: "Buy",
       ownerId: 2,
     },
   ],
 };
 
-const reducer = ( state = initialState, action ) => {
+const reducer = (state = initialState, action: Action) => {
   switch (action.type) {
     case SEND_MESSAGE: {
       return {
@@ -50,7 +58,7 @@ const reducer = ( state = initialState, action ) => {
   }
 };
 
-const sendMessage = (newMessage) => ({
+const sendMessage = (newMessage: string): SendMessage => ({
   type: SEND_MESSAGE,
   newMessage,
 });
