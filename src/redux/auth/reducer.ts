@@ -2,7 +2,7 @@ import profileAPI from "../../api/profileAPI";
 import { stopSubmit } from "redux-form";
 import securityAPI from "../../api/securityAPI";
 
-type InitialState = typeof initialState;
+export type InitialState = typeof initialState;
 type Action = SetUserData | SetCaptchaUrl;
 
 interface UserData {
@@ -67,7 +67,7 @@ const setCaptchaUrl = (url: string): SetCaptchaUrl => ({
   captchaUrl: url,
 });
 
-const authorize = () => async (dispatch: any) => {
+export const authorize = () => async (dispatch: any) => {
   try {
     const data = await profileAPI.auth();
 
@@ -83,7 +83,7 @@ const authorize = () => async (dispatch: any) => {
   }
 };
 
-const login = ({ email, password, rememberMe, captcha = null }: LoginProps) => async (dispatch: any) => {
+export const login = ({ email, password, rememberMe, captcha = null }: LoginProps) => async (dispatch: any) => {
   try {
     const { data } = await profileAPI.login({ email, password, rememberMe, captcha });
 
@@ -99,7 +99,7 @@ const login = ({ email, password, rememberMe, captcha = null }: LoginProps) => a
   }
 };
 
-const logout = () => async (dispatch: any) => {
+export const logout = () => async (dispatch: any) => {
   try {
     const { data } = await profileAPI.logout();
     const { resultCode, messages } = data;
@@ -114,7 +114,7 @@ const logout = () => async (dispatch: any) => {
   }
 };
 
-const getCaptcha = () => async (dispatch: any) => {
+export const getCaptcha = () => async (dispatch: any) => {
   try {
     const { url } = await securityAPI.getCaptcha();
 
@@ -129,10 +129,3 @@ const getCaptcha = () => async (dispatch: any) => {
 };
 
 export default reducer;
-
-export {
-  authorize,
-  login,
-  logout,
-  getCaptcha,
-};
