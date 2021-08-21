@@ -122,12 +122,12 @@ const setUnfollow = ( userId: string ): SetUnfollow => ({
   userId,
 });
 
-const setUsers = ( users: Array<User> ): SetUsers => ({
+export const setUsers = ( users: Array<User> ): SetUsers => ({
   type: SET_USERS,
   users,
 });
 
-const setUsersCount = ( usersCount: number ): SetUsersCount => ({
+export const setUsersCount = ( usersCount: number ): SetUsersCount => ({
   type: SET_USERS_COUNT,
   usersCount,
 });
@@ -137,18 +137,18 @@ const setCurrentPage = ( currentPage: number ): SetCurrentPage => ({
   currentPage,
 });
 
-const setIsFetching = ( isFetching: boolean ): SetIsFetching => ({
+export const setIsFetching = ( isFetching: boolean ): SetIsFetching => ({
   type: SET_IS_FETCHING,
   isFetching,
 });
 
-const setIsTogglingFollow = ( userId: string, isFetching: boolean ): SetIsTogglingFollow => ({
+export const setIsTogglingFollow = ( userId: string, isFetching: boolean ): SetIsTogglingFollow => ({
   type: SET_IS_TOGGLING_FOLLOW_USERS,
   userId,
   isFetching,
 });
 
-const getUsers = ( page: number, pageSize: number ) => async ( dispatch: any ): Promise<void> => {
+export const getUsers = ( page: number, pageSize: number ) => async ( dispatch: any ): Promise<void> => {
   dispatch( setIsFetching( true ) );
   try {
     const data = await usersAPI.getUsers( page + 1, pageSize );
@@ -179,14 +179,14 @@ const toggleFollow = async ( userId: string, dispatch: any, actionCreator: any, 
   }
 };
 
-const follow = ( id: string ) => async ( dispatch: any ): Promise<void> => toggleFollow(
+export const follow = ( id: string ) => async ( dispatch: any ): Promise<void> => toggleFollow(
   id,
   dispatch,
   setFollow,
   usersAPI.follow.bind( usersAPI ),
 );
 
-const unfollow = ( id: string ) => async ( dispatch: any ): Promise<void> => toggleFollow(
+export const unfollow = ( id: string ) => async ( dispatch: any ): Promise<void> => toggleFollow(
   id,
   dispatch,
   setUnfollow,
@@ -194,13 +194,3 @@ const unfollow = ( id: string ) => async ( dispatch: any ): Promise<void> => tog
 );
 
 export default reducer;
-
-export {
-  follow,
-  unfollow,
-  setUsers,
-  setUsersCount,
-  setIsFetching,
-  setIsTogglingFollow,
-  getUsers,
-};
