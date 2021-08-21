@@ -77,11 +77,11 @@ const initialState = {
       message: "It is my first post",
     },
   ] as Array<Post>,
-  userInfo: null as UserInfo | null,
+  userInfo: null as Partial<UserInfo> | null,
   userStatus: "no status" as string,
 };
 
-const reducer = (state: InitialState = initialState, action: Action) => {
+const reducer = (state = initialState, action: Action): InitialState => {
   switch (action.type) {
     case ADD_POST: {
       return {
@@ -110,7 +110,12 @@ const reducer = (state: InitialState = initialState, action: Action) => {
     case SET_USER_PHOTOS: {
       return {
         ...state,
-        userInfo: { ...state.userInfo, photos: action.userPhotos },
+        userInfo: {
+          ...state.userInfo,
+          photos: {
+            large: action.userPhotos, small: action.userPhotos,
+          },
+        },
       };
     }
     default:
