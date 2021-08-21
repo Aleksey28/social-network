@@ -1,13 +1,11 @@
 import profileAPI from "../../api/profileAPI";
 import { stopSubmit } from "redux-form";
 
-const ADD_POST = "social-network/reducer/ADD_POST";
-const REMOVE_POST = "social-network/reducer/REMOVE_POST";
-const SET_USER_INFO = "social-network/reducer/SET_USER_INFO";
-const SET_USER_STATUS = "social-network/reducer/SET_USER_STATUS";
-const SET_USER_PHOTOS = "social-network/reducer/SET_USER_PHOTOS";
+type InitialState = typeof initialState;
 
-type UserInfo = {
+type Action = AddPost | RemovePost | SetUserInfo | SetUserStatus | SetUserPhotos;
+
+interface UserInfo {
   userId: number;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
@@ -28,14 +26,45 @@ type UserInfo = {
   };
 }
 
-type Post = {
+interface Post {
   id: number;
   message: string;
 }
 
-type ErrorsObject = {
+interface ErrorsObject {
   [key: string]: string | ErrorsObject;
 }
+
+interface AddPost {
+  type: typeof ADD_POST;
+  newPost: string;
+}
+
+interface RemovePost {
+  type: typeof REMOVE_POST;
+  index: number;
+}
+
+interface SetUserInfo {
+  type: typeof SET_USER_INFO;
+  userInfo: UserInfo;
+}
+
+interface SetUserStatus {
+  type: typeof SET_USER_STATUS;
+  userStatus: string;
+}
+
+interface SetUserPhotos {
+  type: typeof SET_USER_PHOTOS;
+  userPhotos: string;
+}
+
+const ADD_POST = "social-network/reducer/ADD_POST";
+const REMOVE_POST = "social-network/reducer/REMOVE_POST";
+const SET_USER_INFO = "social-network/reducer/SET_USER_INFO";
+const SET_USER_STATUS = "social-network/reducer/SET_USER_STATUS";
+const SET_USER_PHOTOS = "social-network/reducer/SET_USER_PHOTOS";
 
 const initialState = {
   postsData: [
@@ -48,40 +77,11 @@ const initialState = {
       message: "It is my first post",
     },
   ] as Array<Post>,
-  userInfo: null as UserInfo | null,
+  userInfo: null as Partial<UserInfo> | null,
   userStatus: "no status" as string,
 };
 
-type ProfileInitialState = typeof initialState;
-
-type AddPost = {
-  type: typeof ADD_POST;
-  newPost: string;
-}
-
-type RemovePost = {
-  type: typeof REMOVE_POST;
-  index: number;
-}
-
-type SetUserInfo = {
-  type: typeof SET_USER_INFO;
-  userInfo: UserInfo;
-}
-
-type SetUserStatus = {
-  type: typeof SET_USER_STATUS;
-  userStatus: string;
-}
-
-type SetUserPhotos = {
-  type: typeof SET_USER_PHOTOS;
-  userPhotos: string;
-};
-
-type Action = AddPost | RemovePost | SetUserInfo | SetUserStatus | SetUserPhotos;
-
-const reducer = (state: ProfileInitialState = initialState, action: Action) => {
+const reducer = (state = initialState, action: Action): InitialState => {
   switch (action.type) {
     case ADD_POST: {
       return {
@@ -110,7 +110,12 @@ const reducer = (state: ProfileInitialState = initialState, action: Action) => {
     case SET_USER_PHOTOS: {
       return {
         ...state,
-        userInfo: { ...state.userInfo, photos: action.userPhotos },
+        userInfo: {
+          ...state.userInfo,
+          photos: {
+            large: action.userPhotos, small: action.userPhotos,
+          },
+        },
       };
     }
     default:
@@ -118,12 +123,12 @@ const reducer = (state: ProfileInitialState = initialState, action: Action) => {
   }
 };
 
-const addPost = (newPost: string): AddPost => ({
+export const addPost = (newPost: string): AddPost => ({
   type: ADD_POST,
   newPost,
 });
 
-const removePost = (index: number): RemovePost => ({
+export const removePost = (index: number): RemovePost => ({
   type: REMOVE_POST,
   index,
 });
@@ -143,7 +148,7 @@ const setUserPhotos = (userPhotos: string): SetUserPhotos => ({
   userPhotos,
 });
 
-const getUserInfo = (userId: number) => async (dispatch: any) => {
+export const getUserInfo = (userId: number) => async (dispatch: any): Promise<void> => {
   try {
     const data = await profileAPI.getProfileData(userId);
 
@@ -153,7 +158,7 @@ const getUserInfo = (userId: number) => async (dispatch: any) => {
   }
 };
 
-const getUserStatus = (userId: number) => async (dispatch: any) => {
+export const getUserStatus = (userId: number) => async (dispatch: any): Promise<void> => {
   try {
     const data = await profileAPI.getStatus(userId);
 
@@ -163,7 +168,7 @@ const getUserStatus = (userId: number) => async (dispatch: any) => {
   }
 };
 
-const updateUserStatus = (status: string) => async (dispatch: any) => {
+export const updateUserStatus = (status: string) => async (dispatch: any): Promise<void> => {
   try {
     const { data } = await profileAPI.setStatus(status);
 
@@ -175,7 +180,7 @@ const updateUserStatus = (status: string) => async (dispatch: any) => {
   }
 };
 
-const updateUserPhoto = (image: string) => async (dispatch: any) => {
+export const updateUserPhoto = (image: string) => async (dispatch: any): Promise<void> => {
   try {
     const { data } = await profileAPI.setPhoto(image);
 
@@ -187,7 +192,7 @@ const updateUserPhoto = (image: string) => async (dispatch: any) => {
   }
 };
 
-const updateUserData = (userData: UserInfo) => async (dispatch: any) => {
+export const updateUserData = (userData: UserInfo) => async (dispatch: any): Promise<void> => {
   try {
     const { data } = await profileAPI.setProfileData(userData);
 
@@ -226,13 +231,3 @@ const updateUserData = (userData: UserInfo) => async (dispatch: any) => {
 };
 
 export default reducer;
-
-export {
-  addPost,
-  removePost,
-  getUserInfo,
-  getUserStatus,
-  updateUserStatus,
-  updateUserPhoto,
-  updateUserData,
-};

@@ -1,18 +1,19 @@
 import { authorize } from "../auth/reducer";
 
+export type InitialState = typeof initialState;
+
+interface SetInitialized {
+  type: typeof SET_INITIALIZED;
+}
+
 const SET_INITIALIZED = "social-network/app/SET_INITIALIZED";
 
 const initialState = {
   initialized: false,
 };
 
-type SetInitialized = {
-  type: typeof SET_INITIALIZED;
-}
 
-type InitialState = typeof initialState;
-
-const reducer = (state: InitialState = initialState, action: SetInitialized) => {
+const reducer = (state = initialState, action: SetInitialized): InitialState => {
   switch (action.type) {
     case SET_INITIALIZED:
       return {
@@ -28,7 +29,7 @@ const setInitialized = (): SetInitialized => ({
   type: SET_INITIALIZED,
 });
 
-const initializing = () => async (dispatch: any): Promise<void> => {
+export const initializing = () => async (dispatch: any): Promise<void> => {
   try {
     await dispatch(authorize());
     dispatch(setInitialized());
@@ -38,7 +39,3 @@ const initializing = () => async (dispatch: any): Promise<void> => {
 };
 
 export default reducer;
-
-export {
-  initializing,
-};

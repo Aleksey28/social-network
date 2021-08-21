@@ -1,6 +1,56 @@
 import usersAPI from '../../api/usersAPI';
 import { updateObjectInArray } from '../../utils/helpers';
 
+type InitialState = typeof initialState;
+type Action = SetFollow|SetUnfollow|SetUsers|SetUsersCount|SetCurrentPage|SetIsFetching|SetIsTogglingFollow;
+
+interface User {
+  name: string,
+  id: string,
+  photos: {
+    small: string,
+    large: string
+  },
+  status: string,
+  followed: boolean
+}
+
+interface SetFollow {
+  type: typeof FOLLOW;
+  userId: string;
+}
+
+interface SetUnfollow {
+  type: typeof UNFOLLOW;
+  userId: string;
+}
+
+interface SetUsers {
+  type: typeof SET_USERS;
+  users: Array<any>;
+}
+
+interface SetUsersCount {
+  type: typeof SET_USERS_COUNT;
+  usersCount: number;
+}
+
+interface SetCurrentPage {
+  type: typeof SET_CURRENT_PAGE;
+  currentPage: number;
+}
+
+interface SetIsFetching {
+  type: typeof SET_IS_FETCHING;
+  isFetching: boolean;
+}
+
+interface SetIsTogglingFollow {
+  type: typeof SET_IS_TOGGLING_FOLLOW_USERS;
+  userId: string;
+  isFetching: boolean;
+}
+
 const FOLLOW = 'social-network/users/FOLLOW';
 const UNFOLLOW = 'social-network/users/UNFOLLOW';
 const SET_USERS = 'social-network/users/SET_USERS';
@@ -10,15 +60,15 @@ const SET_IS_FETCHING = 'social-network/users/SET_IS_FETCHING';
 const SET_IS_TOGGLING_FOLLOW_USERS = 'social-network/users/SET_IS_TOGGLING_FOLLOW_USERS';
 
 const initialState = {
-  users: [],
+  users: [] as Array<User>,
   usersCount: 20,
   pageSize: 5,
   currentPage: 0,
   isFetching: false,
-  isTogglingFollowUsers: [],
+  isTogglingFollowUsers: [] as Array<string>,
 };
 
-const reducer = ( state = initialState, action ) => {
+const reducer = ( state = initialState, action: Action ): InitialState => {
   switch (action.type) {
     case FOLLOW:
       return {
@@ -62,43 +112,43 @@ const reducer = ( state = initialState, action ) => {
   }
 };
 
-const setFollow = ( userId ) => ({
+const setFollow = ( userId: string ): SetFollow => ({
   type: FOLLOW,
   userId,
 });
 
-const setUnfollow = ( userId ) => ({
+const setUnfollow = ( userId: string ): SetUnfollow => ({
   type: UNFOLLOW,
   userId,
 });
 
-const setUsers = ( users ) => ({
+export const setUsers = ( users: Array<User> ): SetUsers => ({
   type: SET_USERS,
   users,
 });
 
-const setUsersCount = ( usersCount ) => ({
+export const setUsersCount = ( usersCount: number ): SetUsersCount => ({
   type: SET_USERS_COUNT,
   usersCount,
 });
 
-const setCurrentPage = ( currentPage ) => ({
+const setCurrentPage = ( currentPage: number ): SetCurrentPage => ({
   type: SET_CURRENT_PAGE,
   currentPage,
 });
 
-const setIsFetching = ( isFetching ) => ({
+export const setIsFetching = ( isFetching: boolean ): SetIsFetching => ({
   type: SET_IS_FETCHING,
   isFetching,
 });
 
-const setIsTogglingFollow = ( userId, isFetching ) => ({
+export const setIsTogglingFollow = ( userId: string, isFetching: boolean ): SetIsTogglingFollow => ({
   type: SET_IS_TOGGLING_FOLLOW_USERS,
   userId,
   isFetching,
 });
 
-const getUsers = ( page, pageSize ) => async ( dispatch ) => {
+export const getUsers = ( page: number, pageSize: number ) => async ( dispatch: any ): Promise<void> => {
   dispatch( setIsFetching( true ) );
   try {
     const data = await usersAPI.getUsers( page + 1, pageSize );
@@ -113,7 +163,7 @@ const getUsers = ( page, pageSize ) => async ( dispatch ) => {
   }
 };
 
-const toggleFollow = async ( userId, dispatch, actionCreator, apiMethod ) => {
+const toggleFollow = async ( userId: string, dispatch: any, actionCreator: any, apiMethod: any ): Promise<void> => {
   dispatch( setIsTogglingFollow( userId, true ) );
   try {
     const data = await apiMethod( userId );
@@ -129,14 +179,14 @@ const toggleFollow = async ( userId, dispatch, actionCreator, apiMethod ) => {
   }
 };
 
-const follow = ( id ) => async ( dispatch ) => toggleFollow(
+export const follow = ( id: string ) => async ( dispatch: any ): Promise<void> => toggleFollow(
   id,
   dispatch,
   setFollow,
   usersAPI.follow.bind( usersAPI ),
 );
 
-const unfollow = ( id ) => async ( dispatch ) => toggleFollow(
+export const unfollow = ( id: string ) => async ( dispatch: any ): Promise<void> => toggleFollow(
   id,
   dispatch,
   setUnfollow,
@@ -144,13 +194,3 @@ const unfollow = ( id ) => async ( dispatch ) => toggleFollow(
 );
 
 export default reducer;
-
-export {
-  follow,
-  unfollow,
-  setUsers,
-  setUsersCount,
-  setIsFetching,
-  setIsTogglingFollow,
-  getUsers,
-};

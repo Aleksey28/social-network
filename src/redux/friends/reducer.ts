@@ -1,3 +1,5 @@
+export type InitialState = typeof initialState;
+
 const initialState = [
   {
     id: 2,
@@ -16,7 +18,7 @@ const initialState = [
   },
 ];
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: any): InitialState => {
   switch (action) {
     default:
       return state;
