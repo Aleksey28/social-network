@@ -28,7 +28,7 @@ const setInitialized = (): SetInitialized => ({
   type: SET_INITIALIZED,
 });
 
-const initializing = () => async (dispatch: any): Promise<void> => {
+export const initializing = () => async (dispatch: any): Promise<void> => {
   try {
     await dispatch(authorize());
     dispatch(setInitialized());
@@ -38,7 +38,3 @@ const initializing = () => async (dispatch: any): Promise<void> => {
 };
 
 export default reducer;
-
-export {
-  initializing,
-};
