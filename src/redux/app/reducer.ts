@@ -1,16 +1,17 @@
 import { authorize } from "../auth/reducer";
 
+export type InitialState = typeof initialState;
+
+interface SetInitialized {
+  type: typeof SET_INITIALIZED;
+}
+
 const SET_INITIALIZED = "social-network/app/SET_INITIALIZED";
 
 const initialState = {
   initialized: false,
 };
 
-type SetInitialized = {
-  type: typeof SET_INITIALIZED;
-}
-
-export type InitialState = typeof initialState;
 
 const reducer = (state = initialState, action: SetInitialized): InitialState => {
   switch (action.type) {
