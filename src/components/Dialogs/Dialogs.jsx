@@ -51,7 +51,8 @@ const Dialogs = ( { dialogsPage: { messagesData, dialogsData }, friends, sendMes
   } );
 
   const handleSendMessage = ( formData ) => {
-    sendMessage( formData );
+    const { newMessage } = formData;
+    sendMessage( newMessage );
   };
 
   return (

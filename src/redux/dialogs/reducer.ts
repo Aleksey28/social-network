@@ -50,7 +50,7 @@ const reducer = ( state = initialState, action ) => {
   }
 };
 
-const sendMessage = ( { newMessage } ) => ({
+const sendMessage = (newMessage) => ({
   type: SEND_MESSAGE,
   newMessage,
 });
