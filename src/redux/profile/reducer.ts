@@ -123,12 +123,12 @@ const reducer = (state = initialState, action: Action): InitialState => {
   }
 };
 
-const addPost = (newPost: string): AddPost => ({
+export const addPost = (newPost: string): AddPost => ({
   type: ADD_POST,
   newPost,
 });
 
-const removePost = (index: number): RemovePost => ({
+export const removePost = (index: number): RemovePost => ({
   type: REMOVE_POST,
   index,
 });
@@ -148,7 +148,7 @@ const setUserPhotos = (userPhotos: string): SetUserPhotos => ({
   userPhotos,
 });
 
-const getUserInfo = (userId: number) => async (dispatch: any): Promise<void> => {
+export const getUserInfo = (userId: number) => async (dispatch: any): Promise<void> => {
   try {
     const data = await profileAPI.getProfileData(userId);
 
@@ -158,7 +158,7 @@ const getUserInfo = (userId: number) => async (dispatch: any): Promise<void> => 
   }
 };
 
-const getUserStatus = (userId: number) => async (dispatch: any): Promise<void> => {
+export const getUserStatus = (userId: number) => async (dispatch: any): Promise<void> => {
   try {
     const data = await profileAPI.getStatus(userId);
 
@@ -168,7 +168,7 @@ const getUserStatus = (userId: number) => async (dispatch: any): Promise<void> =
   }
 };
 
-const updateUserStatus = (status: string) => async (dispatch: any): Promise<void> => {
+export const updateUserStatus = (status: string) => async (dispatch: any): Promise<void> => {
   try {
     const { data } = await profileAPI.setStatus(status);
 
@@ -180,7 +180,7 @@ const updateUserStatus = (status: string) => async (dispatch: any): Promise<void
   }
 };
 
-const updateUserPhoto = (image: string) => async (dispatch: any): Promise<void> => {
+export const updateUserPhoto = (image: string) => async (dispatch: any): Promise<void> => {
   try {
     const { data } = await profileAPI.setPhoto(image);
 
@@ -192,7 +192,7 @@ const updateUserPhoto = (image: string) => async (dispatch: any): Promise<void> 
   }
 };
 
-const updateUserData = (userData: UserInfo) => async (dispatch: any): Promise<void> => {
+export const updateUserData = (userData: UserInfo) => async (dispatch: any): Promise<void> => {
   try {
     const { data } = await profileAPI.setProfileData(userData);
 
@@ -231,13 +231,3 @@ const updateUserData = (userData: UserInfo) => async (dispatch: any): Promise<vo
 };
 
 export default reducer;
-
-export {
-  addPost,
-  removePost,
-  getUserInfo,
-  getUserStatus,
-  updateUserStatus,
-  updateUserPhoto,
-  updateUserData,
-};
