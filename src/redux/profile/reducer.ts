@@ -1,6 +1,6 @@
 import profileAPI from "../../api/profileAPI";
 import { stopSubmit } from "redux-form";
-import { Post, Profile } from "../../types";
+import { Photos, Post, Profile } from "../../types";
 
 type InitialState = typeof initialState;
 
@@ -32,7 +32,7 @@ interface SetUserStatus {
 
 interface SetUserPhotos {
   type: typeof SET_USER_PHOTOS;
-  userPhotos: string;
+  userPhotos: Photos;
 }
 
 const ADD_POST = "social-network/reducer/ADD_POST";
@@ -87,9 +87,7 @@ const reducer = (state = initialState, action: Action): InitialState => {
         ...state,
         userInfo: {
           ...state.userInfo,
-          photos: {
-            large: action.userPhotos, small: action.userPhotos,
-          },
+          photos: action.userPhotos,
         },
       };
     }
@@ -118,7 +116,7 @@ const setUserStatus = (userStatus: string): SetUserStatus => ({
   userStatus,
 });
 
-const setUserPhotos = (userPhotos: string): SetUserPhotos => ({
+const setUserPhotos = (userPhotos: Photos): SetUserPhotos => ({
   type: SET_USER_PHOTOS,
   userPhotos,
 });
