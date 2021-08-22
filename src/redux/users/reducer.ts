@@ -1,5 +1,6 @@
 import usersAPI from '../../api/usersAPI';
 import { updateObjectInArray } from '../../utils/helpers';
+import { Photos } from "../../types";
 
 type InitialState = typeof initialState;
 type Action = SetFollow|SetUnfollow|SetUsers|SetUsersCount|SetCurrentPage|SetIsFetching|SetIsTogglingFollow;
@@ -7,10 +8,7 @@ type Action = SetFollow|SetUnfollow|SetUsers|SetUsersCount|SetCurrentPage|SetIsF
 interface User {
   name: string,
   id: string,
-  photos: {
-    small: string,
-    large: string
-  },
+  photos: Photos,
   status: string,
   followed: boolean
 }
