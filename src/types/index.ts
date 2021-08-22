@@ -27,3 +27,11 @@ export interface Post {
   id: number;
   message: string;
 }
+
+export interface User {
+  name: string,
+  id: string,
+  photos: Photos,
+  status: string,
+  followed: boolean
+}

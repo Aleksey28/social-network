@@ -1,17 +1,9 @@
 import usersAPI from '../../api/usersAPI';
 import { updateObjectInArray } from '../../utils/helpers';
-import { Photos } from "../../types";
+import { User } from "../../types";
 
 type InitialState = typeof initialState;
 type Action = SetFollow|SetUnfollow|SetUsers|SetUsersCount|SetCurrentPage|SetIsFetching|SetIsTogglingFollow;
-
-interface User {
-  name: string,
-  id: string,
-  photos: Photos,
-  status: string,
-  followed: boolean
-}
 
 interface SetFollow {
   type: typeof FOLLOW;
