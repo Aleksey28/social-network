@@ -1,35 +1,10 @@
 import profileAPI from "../../api/profileAPI";
 import { stopSubmit } from "redux-form";
+import { Post, Profile } from "../../types";
 
 type InitialState = typeof initialState;
 
 type Action = AddPost | RemovePost | SetUserInfo | SetUserStatus | SetUserPhotos;
-
-interface UserInfo {
-  userId: number;
-  lookingForAJob: boolean;
-  lookingForAJobDescription: string;
-  fullName: string;
-  contacts: {
-    github: string;
-    vk: string;
-    facebook: string;
-    instagram: string;
-    twitter: string;
-    website: string;
-    youtube: string;
-    mainLink: string;
-  };
-  photos: {
-    small: string;
-    large: string
-  };
-}
-
-interface Post {
-  id: number;
-  message: string;
-}
 
 interface ErrorsObject {
   [key: string]: string | ErrorsObject;
@@ -47,7 +22,7 @@ interface RemovePost {
 
 interface SetUserInfo {
   type: typeof SET_USER_INFO;
-  userInfo: UserInfo;
+  userInfo: Profile;
 }
 
 interface SetUserStatus {
@@ -77,7 +52,7 @@ const initialState = {
       message: "It is my first post",
     },
   ] as Array<Post>,
-  userInfo: null as Partial<UserInfo> | null,
+  userInfo: null as Partial<Profile> | null,
   userStatus: "no status" as string,
 };
 
@@ -133,7 +108,7 @@ export const removePost = (index: number): RemovePost => ({
   index,
 });
 
-const setUserInfo = (userInfo: UserInfo): SetUserInfo => ({
+const setUserInfo = (userInfo: Profile): SetUserInfo => ({
   type: SET_USER_INFO,
   userInfo,
 });
@@ -192,7 +167,7 @@ export const updateUserPhoto = (image: string) => async (dispatch: any): Promise
   }
 };
 
-export const updateUserData = (userData: UserInfo) => async (dispatch: any): Promise<void> => {
+export const updateUserData = (userData: Profile) => async (dispatch: any): Promise<void> => {
   try {
     const { data } = await profileAPI.setProfileData(userData);
 
