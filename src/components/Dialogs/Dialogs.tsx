@@ -5,8 +5,20 @@ import Message from './Message/Message';
 import { Field, reduxForm } from 'redux-form';
 import { Textarea } from '../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../utils/validators';
+import { InitialState as Dialogs, SendMessage } from '../../redux/dialogs/reducer';
+import { InitialState as Friends } from '../../redux/friends/reducer';
 
-const DialogsForm = ( { handleSubmit } ) => {
+interface DialogsFormProps {
+  handleSubmit: (formData: any) => void;
+}
+
+interface DialogsProps {
+  dialogsPage: Dialogs;
+  friends: Friends;
+  sendMessage: (newMessage: string) => SendMessage;
+}
+
+const DialogsForm = ( { handleSubmit }: DialogsFormProps ): JSX.Element => {
   return (
     <form onSubmit={ handleSubmit }>
       <Field name="newMessage"
@@ -22,7 +34,7 @@ const DialogsReduxForm = reduxForm( {
   form: 'newMessage',
 } )( DialogsForm );
 
-const Dialogs = ( { dialogsPage: { messagesData, dialogsData }, friends, sendMessage } ) => {
+const Dialogs = ( { dialogsPage: { messagesData, dialogsData }, friends, sendMessage }: DialogsProps ): JSX.Element => {
 
   const messagesElements = messagesData.map( ( { ownerId, id, message } ) => {
     let owner;
@@ -45,12 +57,12 @@ const Dialogs = ( { dialogsPage: { messagesData, dialogsData }, friends, sendMes
     const owner = friends.find( ( { id: friendId } ) => friendId === ownerId );
     return (
       <li key={ id }>
-        <Respondent name={ name } id={ id } owner={ owner }/>
+        <Respondent id={ id } owner={ owner }/>
       </li>
     );
   } );
 
-  const handleSendMessage = ( formData ) => {
+  const handleSendMessage = ( formData: any ) => {
     const { newMessage } = formData;
     sendMessage( newMessage );
   };
