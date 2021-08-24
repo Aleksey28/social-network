@@ -1,7 +1,15 @@
 import React from 'react';
 import classes from './Message.module.css';
 
-const Message = ( { message, owner: { id, avatar } } ) => {
+interface Message {
+  message: string;
+  owner: {
+    id: number;
+    avatar: string;
+  }
+}
+
+const Message = ( { message, owner: { id, avatar } }: Message ): JSX.Element => {
 
   return (
     <div className={ `${ classes.message } ${ id === 1 ? classes.message_own : undefined }` }>
