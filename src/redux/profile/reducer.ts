@@ -2,7 +2,7 @@ import profileAPI from "../../api/profileAPI";
 import { stopSubmit } from "redux-form";
 import { Photos, Post, Profile } from "../../types";
 
-type InitialState = typeof initialState;
+export type InitialState = typeof initialState;
 
 type Action = AddPost | RemovePost | SetUserInfo | SetUserStatus | SetUserPhotos;
 
