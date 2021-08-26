@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import classes from './Navbar.module.css';
 
-export default function Navbar() {
+export default function Navbar(): JSX.Element {
   return (
     <nav className={ classes.nav }>
       <ul className={ classes.list }>
