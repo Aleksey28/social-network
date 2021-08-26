@@ -1,8 +1,18 @@
 import React from 'react';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
+import { Profile } from '../../types';
 
-const Profile = ( { userId, userInfo, userStatus, updateUserStatus, updateUserPhoto, updateUserData } ) => {
+interface ProfileProps {
+  userId: number;
+  userInfo: Profile;
+  userStatus: string;
+  updateUserStatus: any;
+  updateUserPhoto: any;
+  updateUserData: any;
+}
+
+const Profile = ( { userId, userInfo, userStatus, updateUserStatus, updateUserPhoto, updateUserData }: ProfileProps ): JSX.Element => {
   return (
     <main>
       <ProfileInfo isOwner={ userId === userInfo?.userId }
