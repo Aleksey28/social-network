@@ -1,11 +1,30 @@
 import { Field, reduxForm } from 'redux-form';
-import React from 'react';
+import React, { FormEventHandler } from 'react';
 import { Input } from '../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../utils/validators';
 import { useHistory } from 'react-router';
 import classes from './Login.module.css';
 
-function LoginForm( { handleSubmit, error, captchaUrl } ) {
+interface LoginFormProps {
+  handleSubmit: FormEventHandler<HTMLFormElement>;
+  error: string;
+  captchaUrl: string;
+}
+
+interface LoginProps {
+  isAuth: boolean;
+  login: any;
+  captchaUrl: string;
+}
+
+interface FormData {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  captcha: string | null;
+}
+
+function LoginForm( { handleSubmit, error, captchaUrl }: LoginFormProps ) {
   return (
     <form onSubmit={ handleSubmit } className={ classes.form }>
       <Field name="email" placeholder="Email" component={ Input } validate={ [required, maxLength30] }/>
@@ -31,14 +50,15 @@ function LoginForm( { handleSubmit, error, captchaUrl } ) {
 
 const LoginReduxForm = reduxForm( {
   form: 'login',
+// @ts-ignore
 } )( LoginForm );
 
-function Login( { isAuth, login, captchaUrl } ) {
+function Login( { isAuth, login, captchaUrl }: LoginProps ): JSX.Element {
 
   const history = useHistory();
-  const handleSubmit = ( formData ) => {
+  const handleSubmit = (( formData: FormData ) => {
     login( formData );
-  };
+  });
 
   if ( isAuth )
     history.push( '/profile' );
@@ -46,6 +66,7 @@ function Login( { isAuth, login, captchaUrl } ) {
   return (
     <div>
       <h1>LOGIN</h1>
+      {/*@ts-ignore*/}
       <LoginReduxForm onSubmit={ handleSubmit } captchaUrl={ captchaUrl }/>
     </div>
   );

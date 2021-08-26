@@ -1,7 +1,14 @@
 import classes from './Paginator.module.css';
 import React, { useState } from 'react';
 
-const Paginator = ( { totalItemsCount, currentItem, onClick, itemsPortionSize = 10 } ) => {
+interface Paginator {
+  totalItemsCount: number;
+  currentItem: number;
+  onClick: (i: number) => void;
+  itemsPortionSize?: number;
+}
+
+const Paginator = ( { totalItemsCount, currentItem, onClick, itemsPortionSize = 10 }: Paginator ): JSX.Element => {
   const [currentPortion, setCurrentPortion] = useState( Math.ceil( (currentItem + 1) / itemsPortionSize ) );
   const pagesBar = [];
   const totalCountPortion = Math.ceil( totalItemsCount / itemsPortionSize );

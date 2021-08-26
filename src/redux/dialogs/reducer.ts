@@ -1,7 +1,7 @@
 export type InitialState = typeof initialState;
 type Action = SendMessage;
 
-interface SendMessage {
+export interface SendMessage {
   type: typeof SEND_MESSAGE;
   newMessage: string;
 }

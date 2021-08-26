@@ -3,7 +3,7 @@ import MyPosts from './MyPosts';
 import { connect } from 'react-redux';
 import { getPostsData } from '../../../redux/profile/selector';
 
-const mapStateToProps = ( state ) => {
+const mapStateToProps = ( state: any ) => {
   return {
     postsData: getPostsData( state ),
   };

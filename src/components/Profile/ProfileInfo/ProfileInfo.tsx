@@ -4,11 +4,21 @@ import emptyAvatar from '../../../images/empty_avatar.svg';
 import classes from './ProfileInfo.module.css';
 import ProfileStatus from './ProfileStatus/ProfileStatus';
 import ProfileData from './ProfileData/ProfileData';
+import { Profile } from '../../../types';
 
-const ProfileInfo = ( { isOwner, userInfo, userStatus, updateUserStatus, updateUserPhoto, updateUserData } ) => {
+interface ProfileInfoProps {
+  isOwner: boolean;
+  userInfo: Profile;
+  userStatus: string;
+  updateUserStatus: any;
+  updateUserPhoto: any;
+  updateUserData: any;
+}
+
+const ProfileInfo = ( { isOwner, userInfo, userStatus, updateUserStatus, updateUserPhoto, updateUserData }: ProfileInfoProps ): JSX.Element => {
   const { photos } = userInfo || {};
 
-  const handleChangePhoto = ( e ) => {
+  const handleChangePhoto = ( e: any ) => {
     if ( e.target.files.length ) {
       updateUserPhoto( e.target.files[0] );
     }
