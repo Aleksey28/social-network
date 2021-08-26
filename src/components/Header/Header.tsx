@@ -3,7 +3,13 @@ import logo from '../../images/logo.svg';
 import classes from './Header.module.css';
 import { NavLink } from 'react-router-dom';
 
-export default function Header( { login, logout, isAuth } ) {
+interface HeaderProps {
+  login: string;
+  logout: () => Promise<void>;
+  isAuth: boolean;
+}
+
+export default function Header( { login, logout, isAuth }: HeaderProps ): JSX.Element {
   return (
     <header className={ classes.header }>
       <img src={ logo } alt="" className={ classes.header__logo }/>
