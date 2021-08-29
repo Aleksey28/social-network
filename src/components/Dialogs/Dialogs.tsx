@@ -5,16 +5,16 @@ import Message from './Message/Message';
 import { Field, reduxForm } from 'redux-form';
 import { Textarea } from '../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../utils/validators';
-import { InitialState as Dialogs, SendMessage } from '../../redux/dialogs/reducer';
-import { InitialState as Friends } from '../../redux/friends/reducer';
+import { InitialState as DialogsState, SendMessage } from '../../redux/dialogs/reducer';
+import { InitialState as FriendsState } from '../../redux/friends/reducer';
 
 interface DialogsFormProps {
   handleSubmit: (formData: any) => void;
 }
 
 interface DialogsProps {
-  dialogsPage: Dialogs;
-  friends: Friends;
+  dialogsPage: DialogsState;
+  friends: FriendsState;
   sendMessage: (newMessage: string) => SendMessage;
 }
 

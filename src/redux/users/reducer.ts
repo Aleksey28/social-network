@@ -2,7 +2,7 @@ import usersAPI from '../../api/usersAPI';
 import { updateObjectInArray } from '../../utils/helpers';
 import { User } from "../../types";
 
-type InitialState = typeof initialState;
+export type InitialState = typeof initialState;
 type Action = SetFollow|SetUnfollow|SetUsers|SetUsersCount|SetCurrentPage|SetIsFetching|SetIsTogglingFollow;
 
 interface SetFollow {
