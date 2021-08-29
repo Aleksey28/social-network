@@ -10,21 +10,28 @@ import LoginContainer from '../Login/LoginContainer';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { initializing } from '../../redux/app/reducer';
+import { initializing, InitialState } from '../../redux/app/reducer';
 import Preloader from '../common/Preloader/Preloader';
 import { getInitializedState } from '../../redux/app/selector';
 import { getIsAuthState } from '../../redux/auth/selector';
 import withSuspense from '../../hoc/withSuspense';
 
-const DialogsContainer = lazy( () => import('../Dialogs/DialogsContainer').then( DialogsContainer => DialogsContainer ) );
-const UsersContainer = lazy( () => import('../Users/UsersContainer').then( UsersContainer => UsersContainer ) );
+const DialogsContainer = lazy(() => import('../Dialogs/DialogsContainer').then(DialogsContainer => DialogsContainer));
+const UsersContainer   = lazy(() => import('../Users/UsersContainer').then(UsersContainer => UsersContainer));
+
+interface AppProps extends InitialState {
+  initializing: any;
+  isAuth: boolean;
+}
 
 class App extends React.Component {
-  componentDidMount() {
+  props!: AppProps;
+
+  componentDidMount () {
     this.props.initializing();
   }
 
-  render() {
+  render () {
     let { isAuth, initialized } = this.props;
     return initialized
            ? (
@@ -39,16 +46,17 @@ class App extends React.Component {
                      <LoginContainer/>
                    </Route>
                    <Route path="/profile/:userId?">
+                     {/*@ts-ignore*/}
                      <ProfileContainer/>
                    </Route>
                    <ProtectedRoute path="/messages"
-                                   condition={ isAuth }
-                                   to={ '/login' }
-                                   render={ withSuspense( DialogsContainer ) }/>
+                                   condition={isAuth}
+                                   to={'/login'}
+                                   render={withSuspense(DialogsContainer)}/>
                    <ProtectedRoute path="/users"
-                                   condition={ isAuth }
-                                   to={ '/login' }
-                                   render={ withSuspense( UsersContainer ) }/>
+                                   condition={isAuth}
+                                   to={'/login'}
+                                   render={withSuspense(UsersContainer)}/>
                    <Route path="/error">
                      <div>
                        ERROR 404 =D
@@ -63,9 +71,9 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ( state ) => ({
-  isAuth: getIsAuthState( state ),
-  initialized: getInitializedState( state ),
+const mapStateToProps = (state: any) => ({
+  isAuth:      getIsAuthState(state),
+  initialized: getInitializedState(state),
 });
 
 const mapDispatchToProps = {
@@ -74,6 +82,6 @@ const mapDispatchToProps = {
 
 export default compose(
   withRouter,
-  connect( mapStateToProps, mapDispatchToProps ),
-)( App );
+  connect(mapStateToProps, mapDispatchToProps),
+)(App);
 
