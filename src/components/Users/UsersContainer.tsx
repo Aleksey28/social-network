@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
-import { follow, getUsers, InitialState, unfollow } from '../../redux/users/reducer';
+import { follow, getUsers, InitialState as UsersInitialState, unfollow } from '../../redux/users/reducer';
 import { compose } from 'redux';
 import {
   getCurrentPageState,
@@ -11,17 +11,15 @@ import {
   getUsersCountState,
   getUsersState,
 } from '../../redux/users/selector';
+import { AppStateType } from '../../redux/redux-store';
 
-interface UsersContainerProps extends InitialState {
-  getUsers: any;
-  follow: any;
-  unfollow: any;
+interface Props extends UsersInitialState {
+  getUsers: (page: number, pageSize: number) => void;
+  follow: (id: string) => void;
+  unfollow: (id: string) => void;
 }
 
-class UsersContainer extends React.Component {
-
-  props!: UsersContainerProps;
-
+class UsersContainer extends React.Component<Props> {
   componentDidMount () {
     this.loadUsers();
   }
@@ -39,7 +37,7 @@ class UsersContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: AppStateType) => {
   return {
     users:                 getUsersState(state),
     usersCount:            getUsersCountState(state),
@@ -58,5 +56,4 @@ const methods = {
 
 export default compose(
   connect(mapStateToProps, methods),
-// @ts-ignore
 )(UsersContainer);

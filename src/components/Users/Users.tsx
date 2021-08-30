@@ -6,8 +6,8 @@ import { InitialState as UsersInitialState } from '../../redux/users/reducer';
 
 interface UsersProps extends UsersInitialState {
   onPageChanged: (i: number) => void;
-  follow: () => void;
-  unfollow: () => void;
+  follow: (id: string) => void;
+  unfollow: (id: string) => void;
 }
 
 const Users: React.FC<UsersProps> = (props) => {
