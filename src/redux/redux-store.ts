@@ -9,6 +9,7 @@ import thunkMiddleware from 'redux-thunk';
 import appReducer from './app/reducer';
 
 export type Reducers = typeof reducers;
+export type AppStateType = ReturnType<Reducers>;
 
 const reducers = combineReducers( {
   profilePage: profileReducer,
