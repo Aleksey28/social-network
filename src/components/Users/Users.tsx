@@ -2,16 +2,15 @@ import React from 'react';
 import Preloader from '../common/Preloader/Preloader';
 import Paginator from '../common/Paginator/Paginator';
 import User from './User';
-import { InitialState } from '../../redux/users/reducer';
+import { InitialState as UsersInitialState } from '../../redux/users/reducer';
 
-interface UsersProps extends InitialState {
-  onPageChanged: any;
-  follow: any;
-  unfollow: any;
+interface UsersProps extends UsersInitialState {
+  onPageChanged: (i: number) => void;
+  follow: () => void;
+  unfollow: () => void;
 }
 
-function Users (props: UsersProps): JSX.Element {
-
+const Users: React.FC<UsersProps> = (props) => {
   const {
           users,
           usersCount,
@@ -48,6 +47,6 @@ function Users (props: UsersProps): JSX.Element {
       </ul>
     </div>
   );
-}
+};
 
 export default Users;
