@@ -13,11 +13,19 @@ import {
 } from '../../redux/users/selector';
 import { AppStateType } from '../../redux/redux-store';
 
-interface Props extends UsersInitialState {
+interface StateProps extends UsersInitialState {
+}
+
+interface DispatchProps {
   getUsers: (page: number, pageSize: number) => void;
   follow: (id: string) => void;
   unfollow: (id: string) => void;
 }
+
+interface OwnProps {
+}
+
+type Props = OwnProps & StateProps & DispatchProps;
 
 class UsersContainer extends React.Component<Props> {
   componentDidMount () {
@@ -37,7 +45,7 @@ class UsersContainer extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppStateType): StateProps => {
   return {
     users:                 getUsersState(state),
     usersCount:            getUsersCountState(state),
@@ -48,7 +56,7 @@ const mapStateToProps = (state: AppStateType) => {
   };
 };
 
-const methods = {
+const methods: DispatchProps = {
   getUsers,
   follow,
   unfollow,
