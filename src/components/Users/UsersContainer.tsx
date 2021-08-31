@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import Users from './Users';
 import { follow, getUsers, InitialState as UsersInitialState, unfollow } from '../../redux/users/reducer';
-import { compose } from 'redux';
 import {
   getCurrentPageState,
   getIsFetchingState,
@@ -25,7 +24,29 @@ interface DispatchProps {
 interface OwnProps {
 }
 
-type Props = OwnProps & StateProps & DispatchProps;
+type Props = ConnectedProps<typeof connector>;
+
+const mapStateToProps = (state: AppStateType): StateProps => {
+  return {
+    users:                 getUsersState(state),
+    usersCount:            getUsersCountState(state),
+    pageSize:              getPageSizeState(state),
+    currentPage:           getCurrentPageState(state),
+    isFetching:            getIsFetchingState(state),
+    isTogglingFollowUsers: getIsTogglingFollowUsersState(state),
+  };
+};
+
+const methods: DispatchProps = {
+  getUsers,
+  follow,
+  unfollow,
+};
+
+const connector = connect<StateProps, DispatchProps, OwnProps, AppStateType>(
+  mapStateToProps,
+  methods,
+);
 
 class UsersContainer extends React.Component<Props> {
   componentDidMount () {
@@ -45,23 +66,4 @@ class UsersContainer extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: AppStateType): StateProps => {
-  return {
-    users:                 getUsersState(state),
-    usersCount:            getUsersCountState(state),
-    pageSize:              getPageSizeState(state),
-    currentPage:           getCurrentPageState(state),
-    isFetching:            getIsFetchingState(state),
-    isTogglingFollowUsers: getIsTogglingFollowUsersState(state),
-  };
-};
-
-const methods: DispatchProps = {
-  getUsers,
-  follow,
-  unfollow,
-};
-
-export default compose(
-  connect(mapStateToProps, methods),
-)(UsersContainer);
+export default connector(UsersContainer);
