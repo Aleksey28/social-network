@@ -10,12 +10,13 @@ import App from './components/App/App';
 ReactDOM.render(
   <React.StrictMode>
     <HashRouter>
-      <Provider store={ store }>
+      <Provider store={store}>
+        {/*@ts-ignore*/}
         <App/>
       </Provider>
     </HashRouter>
   </React.StrictMode>,
-  document.getElementById( 'root' ),
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function
