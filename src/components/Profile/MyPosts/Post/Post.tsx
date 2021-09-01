@@ -1,7 +1,11 @@
 import React from 'react';
 import classes from './Post.module.css';
 
-const Post = ({ message }: { message: string }): JSX.Element => {
+interface Props {
+  message: string
+}
+
+const Post: React.FC<Props> = ({ message }) => {
   return (
     <div className={classes.item}>
       <img

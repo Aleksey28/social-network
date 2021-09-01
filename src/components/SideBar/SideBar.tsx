@@ -3,11 +3,11 @@ import React from 'react';
 import Friends from './Friends/Friends';
 import { InitialState } from '../../redux/friends/reducer';
 
-interface SideBarProps {
+interface Props {
   friends: InitialState;
 }
 
-const SideBar = ({ friends }: SideBarProps): JSX.Element => {
+const SideBar: React.FC<Props> = ({ friends }) => {
   return (
     <div className={classes.side}>
       <h2 className={classes.title}>Friends</h2>

@@ -5,13 +5,13 @@ import React from 'react';
 import { User as UserInterface } from '../../types';
 import { InitialState } from '../../redux/users/reducer';
 
-interface UserProps extends UserInterface {
+interface Props extends UserInterface {
   isTogglingFollowUsers: InitialState['isTogglingFollowUsers'];
-  follow: any;
-  unfollow: any;
+  follow: (id: string) => void;
+  unfollow: (id: string) => void;
 }
 
-const User = (props: UserProps): JSX.Element => {
+const User: React.FC<Props> = (props) => {
   const { id, name, status, photos, followed, isTogglingFollowUsers, follow, unfollow } = props;
   return (
     <div>

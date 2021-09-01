@@ -1,1 +1,3 @@
-export const getFriendsState = ( state: any ) => state.friends;
+import { AppStateType } from '../redux-store';
+
+export const getFriendsState = (state: AppStateType) => state.friends;

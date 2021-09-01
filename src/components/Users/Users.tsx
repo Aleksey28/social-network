@@ -4,13 +4,13 @@ import Paginator from '../common/Paginator/Paginator';
 import User from './User';
 import { InitialState as UsersInitialState } from '../../redux/users/reducer';
 
-interface UsersProps extends UsersInitialState {
+interface Props extends UsersInitialState {
   onPageChanged: (i: number) => void;
   follow: (id: string) => void;
   unfollow: (id: string) => void;
 }
 
-const Users: React.FC<UsersProps> = (props) => {
+const Users: React.FC<Props> = (props) => {
   const {
           users,
           usersCount,
@@ -24,7 +24,7 @@ const Users: React.FC<UsersProps> = (props) => {
         } = props;
 
   const countPages        = usersCount / pageSize;
-  const handleClickOnPage = (i: any) => {
+  const handleClickOnPage = (i: number) => {
     onPageChanged(i);
   };
 

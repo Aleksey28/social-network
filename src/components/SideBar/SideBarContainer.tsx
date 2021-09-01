@@ -1,17 +1,29 @@
 import SideBar from './SideBar';
 import { connect } from 'react-redux';
 import { getFriendsState } from '../../redux/friends/selector';
+import { AppStateType } from '../../redux/redux-store';
+import { InitialState } from '../../redux/friends/reducer';
 
-const mapStateToProps = (state: any) => {
+interface StateProps {
+  friends: InitialState
+}
+
+interface DispatchProps {
+}
+
+interface OwnProps {
+}
+
+const mapStateToProps = (state: AppStateType): StateProps => {
   return {
     friends: getFriendsState(state),
   };
 };
 
-const mapDispatchToProps = () => {
-  return {};
-};
+const methods: DispatchProps = {};
 
-const SideBarContainer = connect(mapStateToProps, mapDispatchToProps)(SideBar);
+const connector = connect<StateProps, DispatchProps, OwnProps, AppStateType>(mapStateToProps, methods);
+
+const SideBarContainer = connector(SideBar);
 
 export default SideBarContainer;
