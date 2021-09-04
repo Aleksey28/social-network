@@ -5,18 +5,12 @@ import React, { useState } from 'react';
 import classes from './ProfileData.module.css';
 import { Profile } from '../../../../types';
 
-interface ProfileDataFormProps {
-  handleSubmit: any;
-  error: string;
-  profileData: Profile;
-}
-
 interface ProfileDataProps {
   profileData: Profile;
-  updateUserData: any;
+  updateUserData: (userData: Profile) => Promise<void>;
 }
 
-const ProfileDataForm = ({ handleSubmit, error, profileData }: ProfileDataFormProps): JSX.Element => {
+const ProfileDataForm: React.FC<any> = ({ handleSubmit, error, initialValues }) => {
   return (
     <form onSubmit={handleSubmit} className={classes.form}>
       Name: <Field name="fullName"
@@ -37,7 +31,7 @@ const ProfileDataForm = ({ handleSubmit, error, profileData }: ProfileDataFormPr
                      validate={[required]}/>
       Contacts:
       <ul>
-        {Object.keys(profileData.contacts).map(key => (
+        {Object.keys(initialValues.contacts).map(key => (
           <li key={key}>
             {key}: <Field name={`contacts.${key}`}
                           placeholder={key}
@@ -55,16 +49,15 @@ const ProfileDataForm = ({ handleSubmit, error, profileData }: ProfileDataFormPr
 
 const ProfileDataReduxForm = reduxForm({
   form: 'profileData',
-// @ts-ignore
 })(ProfileDataForm);
 
-const ProfileDataInfo = ({
-                           fullName,
-                           aboutMe,
-                           lookingForAJob,
-                           lookingForAJobDescription,
-                           contacts
-                         }: Profile): JSX.Element => {
+const ProfileDataInfo: React.FC<Profile> = ({
+                                              fullName,
+                                              aboutMe,
+                                              lookingForAJob,
+                                              lookingForAJobDescription,
+                                              contacts
+                                            }) => {
   return (
     <ul>
       <li>
@@ -82,9 +75,8 @@ const ProfileDataInfo = ({
       <li>
         Contacts:
         <ul>
-          {Object.keys(contacts).map(key => (
-            // @ts-ignore
-            <li key={key}>{key}: {contacts[key]}</li>
+          {Object.entries(contacts).map(([key, value]) => (
+            <li key={key}>{key}: {value}</li>
           ))}
         </ul>
       </li>
@@ -121,8 +113,6 @@ const ProfileData = ({ profileData, updateUserData }: ProfileDataProps): JSX.Ele
       <button onClick={handleClickOnEdit}>Edit</button>
       {editMode
        ? <ProfileDataReduxForm initialValues={profileData}
-         // @ts-ignore
-                               profileData={profileData}
                                onSubmit={handleSubmit}/>
        : <ProfileDataInfo {...profileData}/>}
     </div>
