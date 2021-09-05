@@ -1,22 +1,38 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'redux';
 import Login from './Login';
 import { login } from '../../redux/auth/reducer';
 import { getCaptchaUrlState, getIsAuthState } from '../../redux/auth/selector';
+import { LoginProps } from '../../types';
+import { AppStateType } from '../../redux/redux-store';
 
-interface MapStateToProps {
+interface StateProps {
   isAuth: boolean;
   captchaUrl: string;
 }
 
-class LoginContainer extends React.Component {
-  props!: {
-    isAuth: boolean;
-    captchaUrl: string;
-    login: any;
-  };
+interface DispatchProps {
+  login: (props: LoginProps) => any
+}
 
+interface OwnProps {
+}
+
+type Props = ConnectedProps<typeof connector>;
+
+const mapStateToProps = (state: AppStateType): StateProps => ({
+  isAuth:     getIsAuthState(state),
+  captchaUrl: getCaptchaUrlState(state),
+});
+
+const mapDispatchToProps: DispatchProps = {
+  login,
+};
+
+const connector = connect<StateProps, DispatchProps, OwnProps, AppStateType>(mapStateToProps, mapDispatchToProps);
+
+class LoginContainer extends React.Component<Props> {
   render () {
     return (
       <Login {...this.props}/>
@@ -24,16 +40,7 @@ class LoginContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state: any):MapStateToProps  => ({
-  isAuth:     getIsAuthState(state),
-  captchaUrl: getCaptchaUrlState(state),
-});
-
-const mapDispatchToProps = {
-  login,
-};
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-// @ts-ignore
+  connector,
 )(LoginContainer);
