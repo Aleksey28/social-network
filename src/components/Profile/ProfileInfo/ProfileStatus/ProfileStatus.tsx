@@ -3,7 +3,7 @@ import { KEY_ENTER } from '../../../../utils/constants';
 
 interface Props {
   status: string;
-  updateUserStatus: (status: string) => Promise<void>;
+  updateUserStatus: (status: string) => any;
 }
 
 const ProfileStatus: React.FC<Props> = ({ status, updateUserStatus }) => {
