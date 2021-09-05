@@ -1,47 +1,47 @@
-import React, { FormEventHandler } from 'react';
+import React from 'react';
 import Post from './Post/Post';
-import { Field, FormSubmitProp, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { Textarea } from '../../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../../utils/validators';
-import { InitialState } from '../../../redux/profile/reducer';
+import { Post as PostType } from '../../../types';
 
 interface Props {
   addPost: any;
-  postsData: InitialState['postsData'];
+  postsData: PostType[];
 }
 
-const MyPostsForm: React.FC<any> = ( { onSubmit } ) => {
+const MyPostsForm: React.FC<any> = ({ onSubmit }) => {
   return (
-    <form onSubmit={ onSubmit }>
+    <form onSubmit={onSubmit}>
       <Field name="newPost"
              placeholder="New post"
-             component={ Textarea }
-             validate={ [required, maxLength30] }/>
+             component={Textarea}
+             validate={[required, maxLength30]}/>
       <button type="submit">Add post</button>
     </form>
   );
 };
 
-const MyPostsReduxForm = reduxForm( {
+const MyPostsReduxForm = reduxForm({
   form: 'newPost',
-} )( MyPostsForm );
+})(MyPostsForm);
 
-const MyPosts: React.FC<Props> = React.memo( ( { addPost, postsData } ) => {
+const MyPosts: React.FC<Props> = React.memo(({ addPost, postsData }) => {
 
-  const postsElements = postsData.map( ( {id, message} ) => <Post key={ id } message={ message }/> );
-  const handleAddPost = ( formData: any ) => {
-    addPost( formData );
+  const postsElements = postsData.map(({ id, message }) => <Post key={id} message={message}/>);
+  const handleAddPost = (formData: any) => {
+    addPost(formData);
   };
 
   return (
     <div>
       My posts
-      <MyPostsReduxForm onSubmit={ handleAddPost }/>
+      <MyPostsReduxForm onSubmit={handleAddPost}/>
       <div>
-        { postsElements }
+        {postsElements}
       </div>
     </div>
   );
-} );
+});
 
 export default MyPosts;
