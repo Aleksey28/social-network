@@ -5,24 +5,26 @@ import { NavLink } from 'react-router-dom';
 
 interface HeaderProps {
   login: string;
-  logout: () => Promise<void>;
+  logout: () => any;
   isAuth: boolean;
 }
 
-export default function Header( { login, logout, isAuth }: HeaderProps ): JSX.Element {
+const Header: React.FC<HeaderProps> = ({ login, logout, isAuth }) => {
   return (
-    <header className={ classes.header }>
-      <img src={ logo } alt="" className={ classes.header__logo }/>
+    <header className={classes.header}>
+      <img src={logo} alt="" className={classes.header__logo}/>
       <div>
-        { isAuth
-          ? (
-            <div className={ classes.header__nav }>
-              <p>{ login }</p>
-              <button onClick={ logout }>Log out</button>
-            </div>
-          )
-          : <NavLink to="/auth">Login</NavLink> }
+        {isAuth
+         ? (
+           <div className={classes.header__nav}>
+             <p>{login}</p>
+             <button onClick={logout}>Log out</button>
+           </div>
+         )
+         : <NavLink to="/auth">Login</NavLink>}
       </div>
     </header>
   );
-}
+};
+
+export default Header;
