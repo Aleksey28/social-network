@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import {
   getUserInfo,
   getUserStatus,
@@ -13,21 +13,46 @@ import { getUserInfoState, getUserStatusState } from '../../redux/profile/select
 import { getUserIdState } from '../../redux/auth/selector';
 import { Profile as ProfileInterface } from '../../types';
 import Profile from './Profile';
+import { AppStateType } from '../../redux/redux-store';
 
-class ProfileContainer extends React.Component {
-  props!: {
-    history: any;
-    getUserInfo: any;
-    getUserStatus: any;
-    match: any;
-    userId: number;
-    userInfo: ProfileInterface;
-    userStatus: string;
-    updateUserStatus: any;
-    updateUserPhoto: any;
-    updateUserData: any;
-  };
+interface StateProps {
+  userInfo: Partial<ProfileInterface>;
+  userStatus: string;
+  userId: string | null;
+}
 
+interface DispatchProps {
+  getUserInfo: (userId: number) => any;
+  getUserStatus: (userId: number) => any;
+  updateUserStatus: (status: string) => any;
+  updateUserPhoto: (image: File) => any;
+  updateUserData: (userData: ProfileInterface) => any;
+}
+
+interface OwnProps {
+  history: any;
+  match: any;
+}
+
+type Props = ConnectedProps<typeof connector>;
+
+const mapStateToProps = (state: AppStateType): StateProps => ({
+  userInfo:   getUserInfoState(state),
+  userStatus: getUserStatusState(state),
+  userId:     getUserIdState(state),
+});
+
+const mapDispatchToProps: DispatchProps = {
+  getUserInfo,
+  getUserStatus,
+  updateUserStatus,
+  updateUserPhoto,
+  updateUserData,
+};
+
+const connector = connect<StateProps, DispatchProps, OwnProps, AppStateType>(mapStateToProps, mapDispatchToProps);
+
+class ProfileContainer extends React.Component<Props & OwnProps> {
   _refreshAvatarProfileInfo = () => {
     const { history, getUserInfo, getUserStatus } = this.props;
     const userId                                  = this.props.match.params.userId || this.props.userId;
@@ -44,7 +69,7 @@ class ProfileContainer extends React.Component {
     this._refreshAvatarProfileInfo();
   }
 
-  componentDidUpdate (prevProps: any, prevState: any, snapshot: any) {
+  componentDidUpdate (prevProps: Props & OwnProps) {
     if (this.props.match.params.userId !== prevProps.match.params.userId) {
       this._refreshAvatarProfileInfo();
     }
@@ -57,21 +82,7 @@ class ProfileContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state: any) => ({
-  userInfo:   getUserInfoState(state),
-  userStatus: getUserStatusState(state),
-  userId:     getUserIdState(state),
-});
-
-const mapDispatchToProps = {
-  getUserInfo,
-  getUserStatus,
-  updateUserStatus,
-  updateUserPhoto,
-  updateUserData,
-};
-
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connector,
   withRouter,
 )(ProfileContainer);
