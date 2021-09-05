@@ -1,38 +1,48 @@
 import React from 'react';
 import Header from './Header';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'redux';
 import { logout } from '../../redux/auth/reducer';
 import { getEmailState, getIsAuthState, getLoginState, getUserIdState } from '../../redux/auth/selector';
+import { AppStateType } from '../../redux/redux-store';
 
-class HeaderContainer extends React.Component {
-  props!: {
-    email: string;
-    login: string;
-    userId: string;
-    isAuth: boolean;
-    logout: () => Promise<void>;
-  };
+interface StateProps {
+  email: string;
+  login: string;
+  userId: string;
+  isAuth: boolean;
+}
 
-  render() {
+interface DispatchProps {
+  logout: () => any
+}
+
+interface OwnProps {
+}
+
+type Props = ConnectedProps<typeof connector>;
+
+const mapStateToProps = (state: AppStateType): StateProps => ({
+  email:  getEmailState(state),
+  login:  getLoginState(state),
+  userId: getUserIdState(state),
+  isAuth: getIsAuthState(state),
+});
+
+const mapDispatchToProps: DispatchProps = {
+  logout,
+};
+
+const connector = connect<StateProps, DispatchProps, OwnProps, AppStateType>(mapStateToProps, mapDispatchToProps);
+
+class HeaderContainer extends React.Component<Props> {
+  render () {
     return (
-      <Header { ...this.props }/>
+      <Header {...this.props}/>
     );
   }
 }
 
-const mapStateToProps = ( state: any ) => ({
-  email: getEmailState( state ),
-  login: getLoginState( state ),
-  userId: getUserIdState( state ),
-  isAuth: getIsAuthState( state ),
-});
-
-const mapDispatchToProps = {
-  logout,
-};
-
 export default compose(
-  connect( mapStateToProps, mapDispatchToProps ),
-// @ts-ignore
-)( HeaderContainer );
+  connector,
+)(HeaderContainer);
