@@ -3,24 +3,31 @@ import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import { Profile as ProfileInterface } from '../../types';
 
-interface ProfileProps {
-  userId: number;
-  userInfo: ProfileInterface;
+interface Props {
+  userId: string | null;
+  userInfo: Partial<ProfileInterface>;
   userStatus: string;
-  updateUserStatus: any;
-  updateUserPhoto: any;
-  updateUserData: any;
+  updateUserStatus: (status: string) => any;
+  updateUserPhoto: (image: File) => any;
+  updateUserData: (userData: ProfileInterface) => any;
 }
 
-const Profile = ( { userId, userInfo, userStatus, updateUserStatus, updateUserPhoto, updateUserData }: ProfileProps ): JSX.Element => {
+const Profile: React.FC<Props> = ({
+                                    userId,
+                                    userInfo,
+                                    userStatus,
+                                    updateUserStatus,
+                                    updateUserPhoto,
+                                    updateUserData
+                                  }) => {
   return (
     <main>
-      <ProfileInfo isOwner={ userId === userInfo?.userId }
-                   userInfo={ userInfo }
-                   userStatus={ userStatus }
-                   updateUserStatus={ updateUserStatus }
-                   updateUserPhoto={ updateUserPhoto }
-                   updateUserData={ updateUserData }/>
+      <ProfileInfo isOwner={userId === userInfo?.userId}
+                   userInfo={userInfo}
+                   userStatus={userStatus}
+                   updateUserStatus={updateUserStatus}
+                   updateUserPhoto={updateUserPhoto}
+                   updateUserData={updateUserData}/>
       <MyPostsContainer/>
     </main>
   );

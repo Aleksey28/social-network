@@ -3,7 +3,7 @@ import classes from './Respondent.module.css';
 import { NavLink, useRouteMatch } from 'react-router-dom';
 import EmptyAvatar from '../../../images/empty_avatar.svg';
 
-interface RespondentProps {
+interface Props {
   id: number;
   owner?: {
     name: string;
@@ -11,7 +11,7 @@ interface RespondentProps {
   }
 }
 
-const Respondent = ( { id, owner: { avatar, name } = { name: 'NoName', avatar: EmptyAvatar } }: RespondentProps ): JSX.Element => {
+const Respondent: React.FC<Props> = ( { id, owner: { avatar, name } = { name: 'NoName', avatar: EmptyAvatar } } ) => {
   const { path } = useRouteMatch();
   return (
     <div className={ classes.respondent }>

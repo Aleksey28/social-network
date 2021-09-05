@@ -15,7 +15,7 @@ export interface Photos {
 }
 
 export interface Profile {
-  userId: number;
+  userId: string;
   aboutMe: string;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
@@ -35,4 +35,11 @@ export interface User {
   photos: Photos,
   status: string,
   followed: boolean
+}
+
+export interface LoginProps {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+  captcha: string | null;
 }

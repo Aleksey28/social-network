@@ -1,6 +1,7 @@
 import profileAPI from "../../api/profileAPI";
 import { stopSubmit } from "redux-form";
 import securityAPI from "../../api/securityAPI";
+import { LoginProps } from '../../types';
 
 export type InitialState = typeof initialState;
 type Action = SetUserData | SetCaptchaUrl;
@@ -20,13 +21,6 @@ interface SetUserData {
 interface SetCaptchaUrl {
   type: typeof SET_CAPTCHA_URL;
   captchaUrl: string;
-}
-
-interface LoginProps {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-  captcha: string | null;
 }
 
 const SET_USER_DATA = "social-network/auth/SET_USER_DATA";

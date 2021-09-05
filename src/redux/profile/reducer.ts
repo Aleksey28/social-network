@@ -153,7 +153,7 @@ export const updateUserStatus = (status: string) => async (dispatch: any): Promi
   }
 };
 
-export const updateUserPhoto = (image: string) => async (dispatch: any): Promise<void> => {
+export const updateUserPhoto = (image: File) => async (dispatch: any): Promise<void> => {
   try {
     const { data } = await profileAPI.setPhoto(image);
 

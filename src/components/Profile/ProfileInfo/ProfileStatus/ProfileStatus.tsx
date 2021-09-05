@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { KEY_ENTER } from '../../../../utils/constants';
 
-interface ProfileStatus {
+interface Props {
   status: string;
-  updateUserStatus: any;
+  updateUserStatus: (status: string) => any;
 }
 
-const ProfileStatus = ({ status, updateUserStatus }: ProfileStatus): JSX.Element => {
+const ProfileStatus: React.FC<Props> = ({ status, updateUserStatus }) => {
 
   const [editMode, setEditMode]       = useState(false);
   const [statusState, setStatusState] = useState(status);
@@ -24,11 +24,11 @@ const ProfileStatus = ({ status, updateUserStatus }: ProfileStatus): JSX.Element
     updateUserStatus(statusState);
   };
 
-  const handleChangeStatus = (e: any) => {
+  const handleChangeStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStatusState(e.currentTarget.value);
   };
 
-  const handleKeyUpEnter = (e: any) => {
+  const handleKeyUpEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === KEY_ENTER) {
       deactivateEditMode();
     }

@@ -6,7 +6,7 @@ import classes from './ProfileData.module.css';
 import { Profile } from '../../../../types';
 
 interface ProfileDataProps {
-  profileData: Profile;
+  profileData: Partial<Profile>;
   updateUserData: (userData: Profile) => Promise<void>;
 }
 
@@ -51,13 +51,13 @@ const ProfileDataReduxForm = reduxForm({
   form: 'profileData',
 })(ProfileDataForm);
 
-const ProfileDataInfo: React.FC<Profile> = ({
-                                              fullName,
-                                              aboutMe,
-                                              lookingForAJob,
-                                              lookingForAJobDescription,
-                                              contacts
-                                            }) => {
+const ProfileDataInfo: React.FC<Partial<Profile>> = ({
+                                                       fullName,
+                                                       aboutMe,
+                                                       lookingForAJob,
+                                                       lookingForAJobDescription,
+                                                       contacts
+                                                     }) => {
   return (
     <ul>
       <li>
@@ -75,7 +75,7 @@ const ProfileDataInfo: React.FC<Profile> = ({
       <li>
         Contacts:
         <ul>
-          {Object.entries(contacts).map(([key, value]) => (
+          {!!contacts && Object.entries(contacts).map(([key, value]) => (
             <li key={key}>{key}: {value}</li>
           ))}
         </ul>
@@ -84,7 +84,7 @@ const ProfileDataInfo: React.FC<Profile> = ({
   );
 };
 
-const ProfileData = ({ profileData, updateUserData }: ProfileDataProps): JSX.Element => {
+const ProfileData: React.FC<ProfileDataProps> = ({ profileData, updateUserData }) => {
   const [editMode, setEditMode] = useState(false);
 
   const activateEditMode = () => {

@@ -6,21 +6,28 @@ import ProfileStatus from './ProfileStatus/ProfileStatus';
 import ProfileData from './ProfileData/ProfileData';
 import { Profile } from '../../../types';
 
-interface ProfileInfoProps {
+interface Props {
   isOwner: boolean;
-  userInfo: Profile;
+  userInfo: Partial<Profile>;
   userStatus: string;
-  updateUserStatus: any;
-  updateUserPhoto: any;
-  updateUserData: any;
+  updateUserStatus: (status: string) => any;
+  updateUserPhoto: (image: File) => any;
+  updateUserData: (userData: Profile) => any;
 }
 
-const ProfileInfo = ( { isOwner, userInfo, userStatus, updateUserStatus, updateUserPhoto, updateUserData }: ProfileInfoProps ): JSX.Element => {
+const ProfileInfo: React.FC<Props> = ({
+                                        isOwner,
+                                        userInfo,
+                                        userStatus,
+                                        updateUserStatus,
+                                        updateUserPhoto,
+                                        updateUserData
+                                      }) => {
   const { photos } = userInfo || {};
 
-  const handleChangePhoto = ( e: any ) => {
-    if ( e.target.files.length ) {
-      updateUserPhoto( e.target.files[0] );
+  const handleChangePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      updateUserPhoto(e.target.files[0]);
     }
   };
 
@@ -31,10 +38,10 @@ const ProfileInfo = ( { isOwner, userInfo, userStatus, updateUserStatus, updateU
         src="https://cdn.pixabay.com/photo/2020/12/19/03/27/person-5843476_960_720.jpg"
         alt="машина"/>
       <div>
-        <img className={ classes.info__avatar } src={ photos.large || emptyAvatar } alt="Avatar"/>
-        { isOwner && <input type="file" onChange={ handleChangePhoto }/> }
-        <ProfileData profileData={userInfo} updateUserData={ updateUserData }/>
-        <ProfileStatus status={ userStatus } updateUserStatus={ updateUserStatus }/>
+        <img className={classes.info__avatar} src={photos?.large || emptyAvatar} alt="Avatar"/>
+        {isOwner && <input type="file" onChange={handleChangePhoto}/>}
+        <ProfileData profileData={userInfo} updateUserData={updateUserData}/>
+        <ProfileStatus status={userStatus} updateUserStatus={updateUserStatus}/>
       </div>
     </div>
     : <Preloader/>

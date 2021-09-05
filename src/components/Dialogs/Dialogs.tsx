@@ -8,75 +8,72 @@ import { maxLength30, required } from '../../utils/validators';
 import { InitialState as DialogsState, SendMessage } from '../../redux/dialogs/reducer';
 import { InitialState as FriendsState } from '../../redux/friends/reducer';
 
-interface DialogsFormProps {
-  handleSubmit: (formData: any) => void;
-}
-
-interface DialogsProps {
+interface Props {
   dialogsPage: DialogsState;
   friends: FriendsState;
   sendMessage: (newMessage: string) => SendMessage;
 }
 
-const DialogsForm = ( { handleSubmit }: DialogsFormProps ): JSX.Element => {
+const DialogsForm: React.FC<any> = ({ handleSubmit }) => {
   return (
-    <form onSubmit={ handleSubmit }>
+    <form onSubmit={handleSubmit}>
       <Field name="newMessage"
              placeholder="Write your message"
-             component={ Textarea }
-             validate={ [required, maxLength30] }/>
+             component={Textarea}
+             validate={[required, maxLength30]}/>
       <button type="submit">Send</button>
     </form>
   );
 };
 
-const DialogsReduxForm = reduxForm( {
+const DialogsReduxForm = reduxForm({
   form: 'newMessage',
-} )( DialogsForm );
+})(DialogsForm);
 
-const Dialogs = ( { dialogsPage: { messagesData, dialogsData }, friends, sendMessage }: DialogsProps ): JSX.Element => {
+const Dialogs: React.FC<Props> = ({ dialogsPage: { messagesData, dialogsData }, friends, sendMessage }) => {
 
-  const messagesElements = messagesData.map( ( { ownerId, id, message } ) => {
+  const messagesElements = messagesData.map(({ ownerId, id, message }) => {
     let owner;
-    if ( ownerId === 1 ) {
+    if (ownerId === 1) {
       owner = {
-        id: 1,
+        id:     1,
         avatar: 'https://sun3-12.userapi.com/impf/c850220/v850220643/1cf89f/09Ze66DlRZ8.jpg?size=200x0&quality=96&crop=0,0,1440,2160&sign=f5a0c1a46079ef18be3b6f634672bd5d&ava=1',
       };
-    } else {
-      owner = friends.find( ( { id: friendId } ) => friendId === ownerId );
+    }
+    else {
+      owner = friends.find(({ id: friendId }) => friendId === ownerId);
     }
     return (
-      <li key={ id }>
-        <Message message={ message } owner={ owner }/>
+      <li key={id}>
+        <Message message={message} owner={owner}/>
       </li>
     );
-  } );
+  });
 
-  const dialogsElements = dialogsData.map( ( { id, ownerId, name } ) => {
-    const owner = friends.find( ( { id: friendId } ) => friendId === ownerId );
+  const dialogsElements = dialogsData.map(({ id, ownerId }) => {
+    const owner = friends.find(({ id: friendId }) => friendId === ownerId);
     return (
-      <li key={ id }>
-        <Respondent id={ id } owner={ owner }/>
+      <li key={id}>
+        <Respondent id={id} owner={owner}/>
       </li>
     );
-  } );
+  });
 
-  const handleSendMessage = ( formData: any ) => {
+  const handleSendMessage = (formData: any) => {
     const { newMessage } = formData;
-    sendMessage( newMessage );
+    sendMessage(newMessage);
   };
 
   return (
-    <section className={ classes.dialogs }>
-      <ul className={ classes.respondents }>
-        { dialogsElements }
+    <section className={classes.dialogs}>
+      <ul className={classes.respondents}>
+        {dialogsElements}
       </ul>
-      <ul className={ classes.messages }>
-        { messagesElements }
+      <ul className={classes.messages}>
+        {messagesElements}
       </ul>
-      <div className={ classes.newMessage }>
-        <DialogsReduxForm onSubmit={ handleSendMessage }/>
+      <div className={classes.newMessage}>
+        <DialogsReduxForm onSubmit={handleSendMessage}/>
       </div>
     </section>
   );
