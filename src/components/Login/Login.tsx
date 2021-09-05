@@ -1,75 +1,62 @@
 import { Field, reduxForm } from 'redux-form';
-import React, { FormEventHandler } from 'react';
+import React from 'react';
 import { Input } from '../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../utils/validators';
 import { useHistory } from 'react-router';
 import classes from './Login.module.css';
+import { LoginProps } from '../../types';
 
-interface LoginFormProps {
-  handleSubmit: FormEventHandler<HTMLFormElement>;
-  error: string;
-  captchaUrl: string;
-}
-
-interface LoginProps {
+interface Props {
   isAuth: boolean;
-  login: any;
+  login: (props: LoginProps) => any;
   captchaUrl: string;
 }
 
-interface FormData {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-  captcha: string | null;
-}
-
-function LoginForm( { handleSubmit, error, captchaUrl }: LoginFormProps ) {
+const LoginForm: React.FC<any> = ({ handleSubmit, error, initialValues }) => {
   return (
-    <form onSubmit={ handleSubmit } className={ classes.form }>
-      <Field name="email" placeholder="Email" component={ Input } validate={ [required, maxLength30] }/>
+    <form onSubmit={handleSubmit} className={classes.form}>
+      <Field name="email" placeholder="Email" component={Input} validate={[required, maxLength30]}/>
       <Field name="password"
              placeholder="Password"
-             component={ Input }
-             validate={ [required, maxLength30] }
+             component={Input}
+             validate={[required, maxLength30]}
              type="password"/>
       <div>
-        <Field name="rememberMe" component={ Input } type="checkbox"/>remember me
+        <Field name="rememberMe" component={Input} type="checkbox"/>remember me
       </div>
-      { !!captchaUrl && (
+      {!!initialValues.captchaUrl && (
         <div>
-          <img src={ captchaUrl } alt="captcha"/>
-          <Field name="captcha" placeholder="Text from image" component={ Input }/>
+          <img src={initialValues.captchaUrl} alt="captcha"/>
+          <Field name="captcha" placeholder="Text from image" component={Input}/>
         </div>
-      ) }
-      { error && <span className={ classes.form__error }>{ error }</span> }
+      )}
+      {error && <span className={classes.form__error}>{error}</span>}
       <button type="submit">Login</button>
     </form>
   );
-}
+};
 
-const LoginReduxForm = reduxForm( {
+const LoginReduxForm = reduxForm({
   form: 'login',
-// @ts-ignore
-} )( LoginForm );
+})(LoginForm);
 
-function Login( { isAuth, login, captchaUrl }: LoginProps ): JSX.Element {
+const Login: React.FC<Props> = ({ isAuth, login, captchaUrl }) => {
 
-  const history = useHistory();
-  const handleSubmit = (( formData: FormData ) => {
-    login( formData );
-  });
+  const history      = useHistory();
+  const handleSubmit = (formData: any) => {
+    login(formData);
+  };
 
-  if ( isAuth )
-    history.push( '/profile' );
+  if (isAuth) {
+    history.push('/profile');
+  }
 
   return (
     <div>
       <h1>LOGIN</h1>
-      {/*@ts-ignore*/}
-      <LoginReduxForm onSubmit={ handleSubmit } captchaUrl={ captchaUrl }/>
+      <LoginReduxForm onSubmit={handleSubmit} initialValues={{ captchaUrl }}/>
     </div>
   );
-}
+};
 
 export default Login;
