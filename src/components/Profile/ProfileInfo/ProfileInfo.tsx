@@ -6,20 +6,20 @@ import ProfileStatus from './ProfileStatus/ProfileStatus';
 import ProfileData from './ProfileData/ProfileData';
 import { Profile } from '../../../types';
 
-interface ProfileInfoProps {
+interface Props {
   isOwner: boolean;
   userInfo: Profile;
   userStatus: string;
-  updateUserStatus: any;
-  updateUserPhoto: any;
-  updateUserData: any;
+  updateUserStatus: (status: string) => Promise<void>;
+  updateUserPhoto: (image: File) => Promise<void>;
+  updateUserData: (userData: Profile) => Promise<void>;
 }
 
-const ProfileInfo = ( { isOwner, userInfo, userStatus, updateUserStatus, updateUserPhoto, updateUserData }: ProfileInfoProps ): JSX.Element => {
+const ProfileInfo: React.FC<Props> = ( { isOwner, userInfo, userStatus, updateUserStatus, updateUserPhoto, updateUserData } ) => {
   const { photos } = userInfo || {};
 
-  const handleChangePhoto = ( e: any ) => {
-    if ( e.target.files.length ) {
+  const handleChangePhoto = ( e: React.ChangeEvent<HTMLInputElement> ) => {
+    if ( e.target.files?.length ) {
       updateUserPhoto( e.target.files[0] );
     }
   };
