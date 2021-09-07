@@ -1,10 +1,13 @@
-import profileAPI from "../../api/profileAPI";
-import { stopSubmit } from "redux-form";
-import { Photos, Post, Profile } from "../../types";
+import profileAPI from '../../api/profileAPI';
+import { FormAction, stopSubmit } from 'redux-form';
+import { Photos, Post, Profile } from '../../types';
+import { ThunkAction } from 'redux-thunk';
+import { AppStateType } from '../redux-store';
 
 export type InitialState = typeof initialState;
 
 type Action = AddPost | RemovePost | SetUserInfo | SetUserStatus | SetUserPhotos;
+type Thunk = ThunkAction<Promise<void>, AppStateType, any, Action | FormAction>;
 
 interface ErrorsObject {
   [key: string]: string | ErrorsObject;
@@ -35,25 +38,25 @@ interface SetUserPhotos {
   userPhotos: Photos;
 }
 
-const ADD_POST = "social-network/reducer/ADD_POST";
-const REMOVE_POST = "social-network/reducer/REMOVE_POST";
-const SET_USER_INFO = "social-network/reducer/SET_USER_INFO";
-const SET_USER_STATUS = "social-network/reducer/SET_USER_STATUS";
-const SET_USER_PHOTOS = "social-network/reducer/SET_USER_PHOTOS";
+const ADD_POST        = 'social-network/reducer/ADD_POST';
+const REMOVE_POST     = 'social-network/reducer/REMOVE_POST';
+const SET_USER_INFO   = 'social-network/reducer/SET_USER_INFO';
+const SET_USER_STATUS = 'social-network/reducer/SET_USER_STATUS';
+const SET_USER_PHOTOS = 'social-network/reducer/SET_USER_PHOTOS';
 
 const initialState = {
-  postsData: [
-    {
-      id: 1,
-      message: "How are you?",
-    },
-    {
-      id: 2,
-      message: "It is my first post",
-    },
-  ] as Array<Post>,
-  userInfo: null as Partial<Profile> | null,
-  userStatus: "no status" as string,
+  postsData:  [
+                {
+                  id:      1,
+                  message: 'How are you?',
+                },
+                {
+                  id:      2,
+                  message: 'It is my first post',
+                },
+              ] as Array<Post>,
+  userInfo:   null as Partial<Profile> | null,
+  userStatus: 'no status' as string,
 };
 
 const reducer = (state = initialState, action: Action): InitialState => {
@@ -121,64 +124,69 @@ const setUserPhotos = (userPhotos: Photos): SetUserPhotos => ({
   userPhotos,
 });
 
-export const getUserInfo = (userId: number) => async (dispatch: any): Promise<void> => {
+export const getUserInfo = (userId: number): Thunk => async (dispatch) => {
   try {
     const data = await profileAPI.getProfileData(userId);
 
     dispatch(setUserInfo(data));
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
   }
 };
 
-export const getUserStatus = (userId: number) => async (dispatch: any): Promise<void> => {
+export const getUserStatus = (userId: number): Thunk => async (dispatch) => {
   try {
     const data = await profileAPI.getStatus(userId);
 
     dispatch(setUserStatus(data));
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
   }
 };
 
-export const updateUserStatus = (status: string) => async (dispatch: any): Promise<void> => {
+export const updateUserStatus = (status: string): Thunk => async (dispatch) => {
   try {
     const { data } = await profileAPI.setStatus(status);
 
     if (data.resultCode === 0) {
       dispatch(setUserStatus(status));
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
   }
 };
 
-export const updateUserPhoto = (image: File) => async (dispatch: any): Promise<void> => {
+export const updateUserPhoto = (image: File): Thunk => async (dispatch) => {
   try {
     const { data } = await profileAPI.setPhoto(image);
 
     if (data.resultCode === 0) {
       dispatch(setUserPhotos(data.data.photos));
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
   }
 };
 
-export const updateUserData = (userData: Profile) => async (dispatch: any): Promise<void> => {
+export const updateUserData = (userData: Profile): Thunk => async (dispatch) => {
   try {
     const { data } = await profileAPI.setProfileData(userData);
 
     if (data.resultCode === 0) {
       const data = await profileAPI.getProfileData(userData.userId);
       dispatch(setUserInfo(data));
-    } else {
+    }
+    else {
       const errors = data.messages.reduce((errors: ErrorsObject, item: string) => {
-        const [message, element] = item.split("(");
-        const elementRoute = element.slice(0, element.length - 1).split("->");
+        const [message, element] = item.split('(');
+        const elementRoute       = element.slice(0, element.length - 1).split('->');
 
         elementRoute.reduce((res: ErrorsObject | string, item, index, arr) => {
-          if (typeof res === "string") {
+          if (typeof res === 'string') {
             return {};
           }
 
@@ -196,9 +204,10 @@ export const updateUserData = (userData: Profile) => async (dispatch: any): Prom
         return errors;
       }, {});
 
-      dispatch(stopSubmit("profileData", errors));
+      dispatch(stopSubmit('profileData', errors));
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
   }
 };

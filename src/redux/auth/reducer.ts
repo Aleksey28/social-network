@@ -1,10 +1,13 @@
-import profileAPI from "../../api/profileAPI";
-import { stopSubmit } from "redux-form";
-import securityAPI from "../../api/securityAPI";
+import profileAPI from '../../api/profileAPI';
+import { FormAction, stopSubmit } from 'redux-form';
+import securityAPI from '../../api/securityAPI';
 import { LoginProps } from '../../types';
+import { AppStateType } from '../redux-store';
+import { ThunkAction } from 'redux-thunk';
 
 export type InitialState = typeof initialState;
 type Action = SetUserData | SetCaptchaUrl;
+type Thunk = ThunkAction<Promise<void>, AppStateType, any, Action | FormAction>
 
 interface UserData {
   email: null | string;
@@ -23,14 +26,14 @@ interface SetCaptchaUrl {
   captchaUrl: string;
 }
 
-const SET_USER_DATA = "social-network/auth/SET_USER_DATA";
-const SET_CAPTCHA_URL = "social-network/auth/SET_CAPTCHA_URL";
+const SET_USER_DATA   = 'social-network/auth/SET_USER_DATA';
+const SET_CAPTCHA_URL = 'social-network/auth/SET_CAPTCHA_URL';
 
 const initialState = {
-  email: "" as null | string,
-  login: "" as null | string,
-  userId: "" as null | string,
-  isAuth: false as null | boolean,
+  email:      '' as null | string,
+  login:      '' as null | string,
+  userId:     '' as null | string,
+  isAuth:     false as null | boolean,
   captchaUrl: null as null | string,
 };
 
@@ -57,7 +60,7 @@ const setUserData = ({ email, login, userId, isAuth }: UserData): SetUserData =>
 });
 
 const setCaptchaUrl = (url: string): SetCaptchaUrl => ({
-  type: SET_CAPTCHA_URL,
+  type:       SET_CAPTCHA_URL,
   captchaUrl: url,
 });
 
@@ -72,52 +75,60 @@ export const authorize = () => async (dispatch: any): Promise<void> => {
     const { email, login, id: userId } = data.data;
 
     dispatch(setUserData({ email, login, userId, isAuth: true }));
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
   }
 };
 
-export const login = ({ email, password, rememberMe, captcha = null }: LoginProps) => async (dispatch: any): Promise<void> => {
+export const login = ({ email, password, rememberMe, captcha = null }: LoginProps): Thunk => async (dispatch) => {
   try {
     const { data } = await profileAPI.login({ email, password, rememberMe, captcha });
 
     if (data.resultCode === 0) {
       dispatch(authorize());
-    } else if (data.resultCode === 10) {
+    }
+    else if (data.resultCode === 10) {
       dispatch(getCaptcha());
-    } else {
+    }
+    else {
       throw new Error(data.messages[0]);
     }
-  } catch (error) {
-    dispatch(stopSubmit("login", { _error: error.message }));
+  }
+  catch (error) {
+    dispatch(stopSubmit('login', { _error: error.message }));
   }
 };
 
-export const logout = () => async (dispatch: any): Promise<void> => {
+export const logout = (): Thunk => async (dispatch) => {
   try {
-    const { data } = await profileAPI.logout();
+    const { data }                 = await profileAPI.logout();
     const { resultCode, messages } = data;
 
     if (resultCode === 0) {
       dispatch(setUserData({ email: null, login: null, userId: null, isAuth: false }));
-    } else {
+    }
+    else {
       throw new Error(messages[0]);
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.log(error);
   }
 };
 
-export const getCaptcha = () => async (dispatch: any): Promise<void> => {
+export const getCaptcha = (): Thunk => async (dispatch) => {
   try {
     const { url } = await securityAPI.getCaptcha();
 
     if (url) {
       dispatch(setCaptchaUrl(url));
-    } else {
-      throw new Error("Error with captcha");
     }
-  } catch (error) {
+    else {
+      throw new Error('Error with captcha');
+    }
+  }
+  catch (error) {
     console.log(error);
   }
 };

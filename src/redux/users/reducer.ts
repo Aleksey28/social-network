@@ -1,9 +1,20 @@
 import usersAPI from '../../api/usersAPI';
 import { updateObjectInArray } from '../../utils/helpers';
-import { User } from "../../types";
+import { User } from '../../types';
+import { AppStateType } from '../redux-store';
+import { Dispatch } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 
 export type InitialState = typeof initialState;
-type Action = SetFollow|SetUnfollow|SetUsers|SetUsersCount|SetCurrentPage|SetIsFetching|SetIsTogglingFollow;
+type Actions =
+  SetFollow
+  | SetUnfollow
+  | SetUsers
+  | SetUsersCount
+  | SetCurrentPage
+  | SetIsFetching
+  | SetIsTogglingFollow;
+type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, Actions>;
 
 interface SetFollow {
   type: typeof FOLLOW;
@@ -41,34 +52,34 @@ interface SetIsTogglingFollow {
   isFetching: boolean;
 }
 
-const FOLLOW = 'social-network/users/FOLLOW';
-const UNFOLLOW = 'social-network/users/UNFOLLOW';
-const SET_USERS = 'social-network/users/SET_USERS';
-const SET_USERS_COUNT = 'social-network/users/SET_USERS_COUNT';
-const SET_CURRENT_PAGE = 'social-network/users/SET_CURRENT_PAGE';
-const SET_IS_FETCHING = 'social-network/users/SET_IS_FETCHING';
+const FOLLOW                       = 'social-network/users/FOLLOW';
+const UNFOLLOW                     = 'social-network/users/UNFOLLOW';
+const SET_USERS                    = 'social-network/users/SET_USERS';
+const SET_USERS_COUNT              = 'social-network/users/SET_USERS_COUNT';
+const SET_CURRENT_PAGE             = 'social-network/users/SET_CURRENT_PAGE';
+const SET_IS_FETCHING              = 'social-network/users/SET_IS_FETCHING';
 const SET_IS_TOGGLING_FOLLOW_USERS = 'social-network/users/SET_IS_TOGGLING_FOLLOW_USERS';
 
 const initialState = {
-  users: [] as Array<User>,
-  usersCount: 20,
-  pageSize: 5,
-  currentPage: 0,
-  isFetching: false,
+  users:                 [] as Array<User>,
+  usersCount:            20,
+  pageSize:              5,
+  currentPage:           0,
+  isFetching:            false,
   isTogglingFollowUsers: [] as Array<string>,
 };
 
-const reducer = ( state = initialState, action: Action ): InitialState => {
+const reducer = (state = initialState, action: Actions): InitialState => {
   switch (action.type) {
     case FOLLOW:
       return {
         ...state,
-        users: updateObjectInArray( state.users, 'id', action.userId, { followed: true } ),
+        users: updateObjectInArray(state.users, 'id', action.userId, { followed: true }),
       };
     case UNFOLLOW:
       return {
         ...state,
-        users: updateObjectInArray( state.users, 'id', action.userId, { followed: false } ),
+        users: updateObjectInArray(state.users, 'id', action.userId, { followed: false }),
       };
     case SET_USERS:
       return {
@@ -95,92 +106,102 @@ const reducer = ( state = initialState, action: Action ): InitialState => {
         ...state,
         isTogglingFollowUsers: action.isFetching
                                ? [...state.isTogglingFollowUsers, action.userId]
-                               : state.isTogglingFollowUsers.filter( id => id !== action.userId ),
+                               : state.isTogglingFollowUsers.filter(id => id !== action.userId),
       };
     default:
       return state;
   }
 };
 
-const setFollow = ( userId: string ): SetFollow => ({
+const setFollow = (userId: string): SetFollow => ({
   type: FOLLOW,
   userId,
 });
 
-const setUnfollow = ( userId: string ): SetUnfollow => ({
+const setUnfollow = (userId: string): SetUnfollow => ({
   type: UNFOLLOW,
   userId,
 });
 
-export const setUsers = ( users: Array<User> ): SetUsers => ({
+export const setUsers = (users: Array<User>): SetUsers => ({
   type: SET_USERS,
   users,
 });
 
-export const setUsersCount = ( usersCount: number ): SetUsersCount => ({
+export const setUsersCount = (usersCount: number): SetUsersCount => ({
   type: SET_USERS_COUNT,
   usersCount,
 });
 
-const setCurrentPage = ( currentPage: number ): SetCurrentPage => ({
+const setCurrentPage = (currentPage: number): SetCurrentPage => ({
   type: SET_CURRENT_PAGE,
   currentPage,
 });
 
-export const setIsFetching = ( isFetching: boolean ): SetIsFetching => ({
+export const setIsFetching = (isFetching: boolean): SetIsFetching => ({
   type: SET_IS_FETCHING,
   isFetching,
 });
 
-export const setIsTogglingFollow = ( userId: string, isFetching: boolean ): SetIsTogglingFollow => ({
+export const setIsTogglingFollow = (userId: string, isFetching: boolean): SetIsTogglingFollow => ({
   type: SET_IS_TOGGLING_FOLLOW_USERS,
   userId,
   isFetching,
 });
 
-export const getUsers = ( page: number, pageSize: number ) => async ( dispatch: any ): Promise<void> => {
-  dispatch( setIsFetching( true ) );
+export const getUsers = (page: number, pageSize: number): Thunk => async (dispatch) => {
+  dispatch(setIsFetching(true));
   try {
-    const data = await usersAPI.getUsers( page + 1, pageSize );
+    const data = await usersAPI.getUsers(page + 1, pageSize);
 
-    dispatch( setCurrentPage( page ) );
-    dispatch( setUsersCount( data.totalCount ) );
-    dispatch( setUsers( data.items ) );
-  } catch (error) {
-    console.log( error );
-  } finally {
-    dispatch( setIsFetching( false ) );
+    dispatch(setCurrentPage(page));
+    dispatch(setUsersCount(data.totalCount));
+    dispatch(setUsers(data.items));
+  }
+  catch (error) {
+    console.log(error);
+  }
+  finally {
+    dispatch(setIsFetching(false));
   }
 };
 
-const toggleFollow = async ( userId: string, dispatch: any, actionCreator: any, apiMethod: any ): Promise<void> => {
-  dispatch( setIsTogglingFollow( userId, true ) );
+const toggleFollow = async (
+  userId: string,
+  dispatch: Dispatch<Actions>,
+  actionCreator: (userId: string) => SetFollow | SetUnfollow,
+  apiMethod: any
+): Promise<void> => {
+  dispatch(setIsTogglingFollow(userId, true));
   try {
-    const data = await apiMethod( userId );
+    const data = await apiMethod(userId);
 
-    if ( data.resultCode === 1 )
-      throw new Error( data.messages[0] );
+    if (data.resultCode === 1) {
+      throw new Error(data.messages[0]);
+    }
 
-    dispatch( actionCreator( userId ) );
-  } catch (error) {
-    console.log( error );
-  } finally {
-    dispatch( setIsTogglingFollow( userId, false ) );
+    dispatch(actionCreator(userId));
+  }
+  catch (error) {
+    console.log(error);
+  }
+  finally {
+    dispatch(setIsTogglingFollow(userId, false));
   }
 };
 
-export const follow = ( id: string ) => async ( dispatch: any ): Promise<void> => toggleFollow(
+export const follow = (id: string): Thunk => async (dispatch) => toggleFollow(
   id,
   dispatch,
   setFollow,
-  usersAPI.follow.bind( usersAPI ),
+  usersAPI.follow.bind(usersAPI),
 );
 
-export const unfollow = ( id: string ) => async ( dispatch: any ): Promise<void> => toggleFollow(
+export const unfollow = (id: string): Thunk => async (dispatch) => toggleFollow(
   id,
   dispatch,
   setUnfollow,
-  usersAPI.unfollow.bind( usersAPI ),
+  usersAPI.unfollow.bind(usersAPI),
 );
 
 export default reducer;
