@@ -4,6 +4,8 @@ import { User } from '../../types';
 import { AppStateType } from '../redux-store';
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
+import { AxiosResponse } from 'axios';
+import { ApiResponse, ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
 type Actions =
@@ -152,7 +154,7 @@ export const setIsTogglingFollow = (userId: string, isFetching: boolean): SetIsT
 export const getUsers = (page: number, pageSize: number): Thunk => async (dispatch) => {
   dispatch(setIsFetching(true));
   try {
-    const data = await usersAPI.getUsers(page + 1, pageSize);
+    const { data } = await usersAPI.getUsers(page + 1, pageSize);
 
     dispatch(setCurrentPage(page));
     dispatch(setUsersCount(data.totalCount));
@@ -170,13 +172,13 @@ const toggleFollow = async (
   userId: string,
   dispatch: Dispatch<Actions>,
   actionCreator: (userId: string) => SetFollow | SetUnfollow,
-  apiMethod: any
+  apiMethod: (userId: string) => Promise<AxiosResponse<ApiResponse>>
 ): Promise<void> => {
   dispatch(setIsTogglingFollow(userId, true));
   try {
-    const data = await apiMethod(userId);
+    const { data } = await apiMethod(userId);
 
-    if (data.resultCode === 1) {
+    if (data.resultCode === ResultCode.Error) {
       throw new Error(data.messages[0]);
     }
 

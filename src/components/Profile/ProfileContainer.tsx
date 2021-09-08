@@ -22,8 +22,8 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  getUserInfo: (userId: number) => any;
-  getUserStatus: (userId: number) => any;
+  getUserInfo: (userId: string) => any;
+  getUserStatus: (userId: string) => any;
   updateUserStatus: (status: string) => any;
   updateUserPhoto: (image: File) => any;
   updateUserData: (userData: ProfileInterface) => any;

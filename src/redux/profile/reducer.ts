@@ -3,6 +3,7 @@ import { FormAction, stopSubmit } from 'redux-form';
 import { Photos, Post, Profile } from '../../types';
 import { ThunkAction } from 'redux-thunk';
 import { AppStateType } from '../redux-store';
+import { ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
 
@@ -124,20 +125,20 @@ const setUserPhotos = (userPhotos: Photos): SetUserPhotos => ({
   userPhotos,
 });
 
-export const getUserInfo = (userId: number): Thunk => async (dispatch) => {
+export const getUserInfo = (userId: string): Thunk => async (dispatch) => {
   try {
-    const data = await profileAPI.getProfileData(userId);
+    const { data } = await profileAPI.getProfileData(userId);
 
-    dispatch(setUserInfo(data));
+    dispatch(setUserInfo(data.data));
   }
   catch (error) {
     console.log(error);
   }
 };
 
-export const getUserStatus = (userId: number): Thunk => async (dispatch) => {
+export const getUserStatus = (userId: string): Thunk => async (dispatch) => {
   try {
-    const data = await profileAPI.getStatus(userId);
+    const { data } = await profileAPI.getStatus(userId);
 
     dispatch(setUserStatus(data));
   }
@@ -150,7 +151,7 @@ export const updateUserStatus = (status: string): Thunk => async (dispatch) => {
   try {
     const { data } = await profileAPI.setStatus(status);
 
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCode.Success) {
       dispatch(setUserStatus(status));
     }
   }
@@ -163,7 +164,7 @@ export const updateUserPhoto = (image: File): Thunk => async (dispatch) => {
   try {
     const { data } = await profileAPI.setPhoto(image);
 
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCode.Success) {
       dispatch(setUserPhotos(data.data.photos));
     }
   }
@@ -176,9 +177,9 @@ export const updateUserData = (userData: Profile): Thunk => async (dispatch) => 
   try {
     const { data } = await profileAPI.setProfileData(userData);
 
-    if (data.resultCode === 0) {
-      const data = await profileAPI.getProfileData(userData.userId);
-      dispatch(setUserInfo(data));
+    if (data.resultCode === ResultCode.Success) {
+      const { data } = await profileAPI.getProfileData(userData.userId);
+      dispatch(setUserInfo(data.data));
     }
     else {
       const errors = data.messages.reduce((errors: ErrorsObject, item: string) => {
