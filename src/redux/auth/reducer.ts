@@ -119,7 +119,7 @@ export const logout = (): Thunk => async (dispatch) => {
 
 export const getCaptcha = (): Thunk => async (dispatch) => {
   try {
-    const { url } = await securityAPI.getCaptcha();
+    const { data: { url } } = await securityAPI.getCaptcha();
 
     if (url) {
       dispatch(setCaptchaUrl(url));
