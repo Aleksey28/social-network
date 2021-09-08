@@ -5,7 +5,7 @@ import { AppStateType } from '../redux-store';
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { AxiosResponse } from 'axios';
-import { ApiResponse } from '../../api/api';
+import { ApiResponse, ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
 type Actions =
@@ -178,7 +178,7 @@ const toggleFollow = async (
   try {
     const { data } = await apiMethod(userId);
 
-    if (data.resultCode === 1) {
+    if (data.resultCode === ResultCode.Error) {
       throw new Error(data.messages[0]);
     }
 

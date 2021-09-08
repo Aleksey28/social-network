@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { API_SAMURAI_SETTINGS } from '../utils/constants';
 
-enum ResultCode {
+export enum ResultCode {
   Success = 0,
   Error   = 1,
   Captcha = 10

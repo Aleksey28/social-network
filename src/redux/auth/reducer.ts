@@ -4,6 +4,7 @@ import securityAPI from '../../api/securityAPI';
 import { LoginProps } from '../../types';
 import { AppStateType } from '../redux-store';
 import { ThunkAction } from 'redux-thunk';
+import { ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
 type Action = SetUserData | SetCaptchaUrl;
@@ -68,7 +69,7 @@ export const authorize = () => async (dispatch: any): Promise<void> => {
   try {
     const { data } = await profileAPI.auth();
 
-    if (data.resultCode === 1) {
+    if (data.resultCode === ResultCode.Error) {
       throw new Error(data.messages[0]);
     }
 
@@ -85,10 +86,10 @@ export const login = ({ email, password, rememberMe, captcha = null }: LoginProp
   try {
     const { data } = await profileAPI.login({ email, password, rememberMe, captcha });
 
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCode.Success) {
       dispatch(authorize());
     }
-    else if (data.resultCode === 10) {
+    else if (data.resultCode === ResultCode.Captcha) {
       dispatch(getCaptcha());
     }
     else {
@@ -105,7 +106,7 @@ export const logout = (): Thunk => async (dispatch) => {
     const { data }                 = await profileAPI.logout();
     const { resultCode, messages } = data;
 
-    if (resultCode === 0) {
+    if (resultCode === ResultCode.Success) {
       dispatch(setUserData({ email: null, login: null, userId: null, isAuth: false }));
     }
     else {
