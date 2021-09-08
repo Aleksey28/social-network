@@ -66,7 +66,7 @@ const setCaptchaUrl = (url: string): SetCaptchaUrl => ({
 
 export const authorize = () => async (dispatch: any): Promise<void> => {
   try {
-    const data = await profileAPI.auth();
+    const { data } = await profileAPI.auth();
 
     if (data.resultCode === 1) {
       throw new Error(data.messages[0]);
