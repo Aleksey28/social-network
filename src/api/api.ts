@@ -4,7 +4,6 @@ import { API_SAMURAI_SETTINGS } from '../utils/constants';
 export enum ResultCode {
   Success = 0,
   Error   = 1,
-  Captcha = 10
 }
 
 export interface ApiResponse {

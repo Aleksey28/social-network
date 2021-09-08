@@ -1,6 +1,10 @@
 import API from './api';
 import { AxiosResponse } from 'axios';
 
+export enum ResultCodeCaptcha {
+  Captcha = 10
+}
+
 interface GetCaptchaResponse {
   url: string;
 }

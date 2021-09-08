@@ -1,6 +1,6 @@
 import profileAPI from '../../api/profileAPI';
 import { FormAction, stopSubmit } from 'redux-form';
-import securityAPI from '../../api/securityAPI';
+import securityAPI, { ResultCodeCaptcha } from '../../api/securityAPI';
 import { LoginProps } from '../../types';
 import { AppStateType } from '../redux-store';
 import { ThunkAction } from 'redux-thunk';
@@ -89,7 +89,7 @@ export const login = ({ email, password, rememberMe, captcha = null }: LoginProp
     if (data.resultCode === ResultCode.Success) {
       dispatch(authorize());
     }
-    else if (data.resultCode === ResultCode.Captcha) {
+    else if (data.resultCode === ResultCodeCaptcha.Captcha) {
       dispatch(getCaptcha());
     }
     else {

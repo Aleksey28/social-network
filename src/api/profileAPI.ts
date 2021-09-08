@@ -1,11 +1,14 @@
-import API, { ApiResponse } from './api';
+import API, { ApiResponse, ResultCode } from './api';
 import { LoginProps, Profile } from '../types';
 import { AxiosResponse } from 'axios';
+import { ResultCodeCaptcha } from './securityAPI';
 
-interface LoginResponse extends ApiResponse {
+interface LoginResponse {
+  resultCode: ResultCode | ResultCodeCaptcha;
   data: {
     userId: string;
   };
+  messages: string[];
 }
 
 interface AuthResponse extends ApiResponse {
