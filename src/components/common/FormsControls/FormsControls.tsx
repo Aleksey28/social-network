@@ -1,17 +1,17 @@
 import classes from './FormsControls.module.css';
 import React from 'react';
+import { WrappedFieldProps } from 'redux-form';
 
 interface Props {
-  Component: string;
-  input: any;
-  meta: {
-    valid: boolean;
-    touched: boolean;
-    error: Error;
-  };
+  Component: any;
 }
 
-const FromControl: React.FC<Props> = ({ Component, input, meta: { valid, touched, error }, ...props }) => {
+const FromControl: React.FC<WrappedFieldProps & Props> = ({
+                                                            Component,
+                                                            input,
+                                                            meta: { valid, touched, error },
+                                                            ...   props
+                                                          }) => {
   const hasError = !valid && touched;
   return (
     <div className={classes.control}>
@@ -21,13 +21,13 @@ const FromControl: React.FC<Props> = ({ Component, input, meta: { valid, touched
   );
 };
 
-export const Textarea: React.FC<any> = (props) => {
+export const Textarea: React.FC<WrappedFieldProps> = (props) => {
   return (
     <FromControl Component="textarea" {...props}/>
   );
 };
 
-export const Input: React.FC<any> = (props) => {
+export const Input: React.FC<WrappedFieldProps> = (props) => {
   return (
     <FromControl Component="input" {...props}/>
   );

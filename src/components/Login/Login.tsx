@@ -1,4 +1,4 @@
-import { Field, reduxForm } from 'redux-form';
+import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import React from 'react';
 import { Input } from '../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../utils/validators';
@@ -12,7 +12,13 @@ interface Props {
   captchaUrl: string;
 }
 
-const LoginForm: React.FC<any> = ({ handleSubmit, error, initialValues }) => {
+interface LoginFormProps {
+  captchaUrl: string;
+}
+
+type LoginFormType = React.FC<InjectedFormProps<LoginProps, LoginFormProps> & LoginFormProps>;
+
+const LoginForm: LoginFormType = ({ handleSubmit, error, captchaUrl }) => {
   return (
     <form onSubmit={handleSubmit} className={classes.form}>
       <Field name="email" placeholder="Email" component={Input} validate={[required, maxLength30]}/>
@@ -24,9 +30,9 @@ const LoginForm: React.FC<any> = ({ handleSubmit, error, initialValues }) => {
       <div>
         <Field name="rememberMe" component={Input} type="checkbox"/>remember me
       </div>
-      {!!initialValues.captchaUrl && (
+      {!!captchaUrl && (
         <div>
-          <img src={initialValues.captchaUrl} alt="captcha"/>
+          <img src={captchaUrl} alt="captcha"/>
           <Field name="captcha" placeholder="Text from image" component={Input}/>
         </div>
       )}
@@ -36,14 +42,12 @@ const LoginForm: React.FC<any> = ({ handleSubmit, error, initialValues }) => {
   );
 };
 
-const LoginReduxForm = reduxForm({
-  form: 'login',
-})(LoginForm);
+const LoginReduxForm = reduxForm<LoginProps, LoginFormProps>({ form: 'login' })(LoginForm);
 
 const Login: React.FC<Props> = ({ isAuth, login, captchaUrl }) => {
 
   const history      = useHistory();
-  const handleSubmit = (formData: any) => {
+  const handleSubmit = (formData: LoginProps) => {
     login(formData);
   };
 
@@ -54,7 +58,7 @@ const Login: React.FC<Props> = ({ isAuth, login, captchaUrl }) => {
   return (
     <div>
       <h1>LOGIN</h1>
-      <LoginReduxForm onSubmit={handleSubmit} initialValues={{ captchaUrl }}/>
+      <LoginReduxForm onSubmit={handleSubmit} captchaUrl={captchaUrl}/>
     </div>
   );
 };
