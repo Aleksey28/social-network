@@ -2,8 +2,8 @@ import React from 'react';
 import classes from './Dialogs.module.css';
 import Respondent from './Respondent/Respondent';
 import Message from './Message/Message';
-import { Field, reduxForm } from 'redux-form';
-import { Textarea } from '../common/FormsControls/FormsControls';
+import { InjectedFormProps, reduxForm } from 'redux-form';
+import { createField, Textarea } from '../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../utils/validators';
 import { InitialState as DialogsState, SendMessage } from '../../redux/dialogs/reducer';
 import { InitialState as FriendsState } from '../../redux/friends/reducer';
@@ -14,19 +14,23 @@ interface Props {
   sendMessage: (newMessage: string) => SendMessage;
 }
 
-const DialogsForm: React.FC<any> = ({ handleSubmit }) => {
+interface DialogsFormProps {
+  newMessage: string;
+}
+
+type DialogsFormType = React.FC<InjectedFormProps<DialogsFormProps>>
+type DialogsFormDataNames = Extract<keyof DialogsFormProps, string>
+
+const DialogsForm: DialogsFormType = ({ handleSubmit }) => {
   return (
     <form onSubmit={handleSubmit}>
-      <Field name="newMessage"
-             placeholder="Write your message"
-             component={Textarea}
-             validate={[required, maxLength30]}/>
+      {createField<DialogsFormDataNames>('newMessage', Textarea, [required, maxLength30], 'Write your message')}
       <button type="submit">Send</button>
     </form>
   );
 };
 
-const DialogsReduxForm = reduxForm({
+const DialogsReduxForm = reduxForm<DialogsFormProps>({
   form: 'newMessage',
 })(DialogsForm);
 
@@ -59,7 +63,7 @@ const Dialogs: React.FC<Props> = ({ dialogsPage: { messagesData, dialogsData }, 
     );
   });
 
-  const handleSendMessage = (formData: any) => {
+  const handleSendMessage = (formData: DialogsFormProps) => {
     const { newMessage } = formData;
     sendMessage(newMessage);
   };
