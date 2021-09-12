@@ -1,41 +1,31 @@
-import { Field, reduxForm } from 'redux-form';
-import { Input, Textarea } from '../../../common/FormsControls/FormsControls';
+import { InjectedFormProps, reduxForm } from 'redux-form';
+import { createField, Input, Textarea } from '../../../common/FormsControls/FormsControls';
 import { required } from '../../../../utils/validators';
 import React, { useState } from 'react';
 import classes from './ProfileData.module.css';
 import { Profile } from '../../../../types';
 
-interface ProfileDataProps {
+interface Props {
   profileData: Partial<Profile>;
   updateUserData: (userData: Profile) => Promise<void>;
 }
 
-const ProfileDataForm: React.FC<any> = ({ handleSubmit, error, initialValues }) => {
+type FormType = React.FC<InjectedFormProps<Profile>>;
+type FormNames = Extract<keyof Profile, string>;
+
+const ProfileDataForm: FormType = ({ handleSubmit, error, initialValues }) => {
   return (
     <form onSubmit={handleSubmit} className={classes.form}>
-      Name: <Field name="fullName"
-                   placeholder="Full name"
-                   component={Input}
-                   validate={[required]}/>
-      About me: <Field name="aboutMe"
-                       placeholder="About me"
-                       component={Textarea}
-                       validate={[required]}/>
-      Looking for a job: <Field name="lookingForAJob"
-                                type="checkbox"
-                                placeholder="Looking for a job"
-                                component={Input}/>
-      Skills: <Field name="lookingForAJobDescription"
-                     placeholder="Skills"
-                     component={Input}
-                     validate={[required]}/>
+      Name: {createField<FormNames>('fullName', Input, [required], 'Full name')}
+      About me: {createField<FormNames>('aboutMe', Textarea, [required], 'About me')}
+      Looking for a job: {createField<FormNames>('lookingForAJob', Input, [], 'Looking for a job', 'checkbox')}
+      Skills: {createField<FormNames>('lookingForAJobDescription', Input, [required], 'Skills')}
       Contacts:
       <ul>
-        {Object.keys(initialValues.contacts).map(key => (
+        {!!initialValues.contacts && Object.keys(initialValues.contacts).map(key => (
           <li key={key}>
-            {key}: <Field name={`contacts.${key}`}
-                          placeholder={key}
-                          component={Input}/>
+            {/*@ts-ignore*/}
+            {key}: {createField<FormNames>(`contacts.${key}`, Input, [], key)}
           </li>
         ))}
       </ul>
@@ -47,7 +37,7 @@ const ProfileDataForm: React.FC<any> = ({ handleSubmit, error, initialValues }) 
   );
 };
 
-const ProfileDataReduxForm = reduxForm({
+const ProfileDataReduxForm = reduxForm<Profile>({
   form: 'profileData',
 })(ProfileDataForm);
 
@@ -84,7 +74,7 @@ const ProfileDataInfo: React.FC<Partial<Profile>> = ({
   );
 };
 
-const ProfileData: React.FC<ProfileDataProps> = ({ profileData, updateUserData }) => {
+const ProfileData: React.FC<Props> = ({ profileData, updateUserData }) => {
   const [editMode, setEditMode] = useState(false);
 
   const activateEditMode = () => {
@@ -104,7 +94,7 @@ const ProfileData: React.FC<ProfileDataProps> = ({ profileData, updateUserData }
     }
   };
 
-  const handleSubmit = (formData: any) => {
+  const handleSubmit = (formData: Profile) => {
     updateUserData(formData).then(deactivateEditMode);
   };
 
