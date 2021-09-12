@@ -129,7 +129,7 @@ export const getUserInfo = (userId: string): Thunk => async (dispatch) => {
   try {
     const { data } = await profileAPI.getProfileData(userId);
 
-    dispatch(setUserInfo(data.data));
+    dispatch(setUserInfo(data));
   }
   catch (error) {
     console.log(error);
@@ -179,7 +179,7 @@ export const updateUserData = (userData: Profile): Thunk => async (dispatch) => 
 
     if (data.resultCode === ResultCode.Success) {
       const { data } = await profileAPI.getProfileData(userData.userId);
-      dispatch(setUserInfo(data.data));
+      dispatch(setUserInfo(data));
     }
     else {
       const errors = data.messages.reduce((errors: ErrorsObject, item: string) => {
