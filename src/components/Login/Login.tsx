@@ -1,6 +1,6 @@
-import { Field, InjectedFormProps, reduxForm } from 'redux-form';
+import { InjectedFormProps, reduxForm } from 'redux-form';
 import React from 'react';
-import { Input } from '../common/FormsControls/FormsControls';
+import { createField, Input } from '../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../utils/validators';
 import { useHistory } from 'react-router';
 import classes from './Login.module.css';
@@ -18,22 +18,21 @@ interface LoginFormProps {
 
 type LoginFormType = React.FC<InjectedFormProps<LoginProps, LoginFormProps> & LoginFormProps>;
 
+type LoginFieldNames = Extract<keyof LoginProps, string>;
+
 const LoginForm: LoginFormType = ({ handleSubmit, error, captchaUrl }) => {
   return (
     <form onSubmit={handleSubmit} className={classes.form}>
-      <Field name="email" placeholder="Email" component={Input} validate={[required, maxLength30]}/>
-      <Field name="password"
-             placeholder="Password"
-             component={Input}
-             validate={[required, maxLength30]}
-             type="password"/>
+      {createField<LoginFieldNames>('email', Input, [required, maxLength30], 'Email')}
+      {createField<LoginFieldNames>('password', Input, [required, maxLength30], 'Password', 'password')}
       <div>
-        <Field name="rememberMe" component={Input} type="checkbox"/>remember me
+        {createField<LoginFieldNames>('rememberMe', Input, [], '', 'checkbox')}
+        remember me
       </div>
       {!!captchaUrl && (
         <div>
           <img src={captchaUrl} alt="captcha"/>
-          <Field name="captcha" placeholder="Text from image" component={Input}/>
+          {createField<LoginFieldNames>('captcha', Input, [], 'Text from image')}
         </div>
       )}
       {error && <span className={classes.form__error}>{error}</span>}
