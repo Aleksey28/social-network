@@ -4,7 +4,7 @@ import React from 'react';
 interface Props {
   path: string;
   render: any;
-  condition: any;
+  condition: boolean;
   to: string;
 }
 
