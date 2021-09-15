@@ -4,7 +4,7 @@ import { ThunkAction } from 'redux-thunk';
 
 export type InitialState = typeof initialState;
 type Actions = SetInitialized;
-type Thunk = ThunkAction<Promise<void>, AppStateType, any, Actions>
+export type Thunk = ThunkAction<Promise<void>, AppStateType, any, Actions>
 
 interface SetInitialized {
   type: typeof SET_INITIALIZED;
