@@ -8,7 +8,7 @@ import { ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
 type Action = SetUserData | SetCaptchaUrl;
-type Thunk = ThunkAction<Promise<void>, AppStateType, any, Action | FormAction>
+export type Thunk = ThunkAction<Promise<void>, AppStateType, any, Action | FormAction>
 
 interface UserData {
   email: null | string;
