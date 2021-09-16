@@ -11,19 +11,21 @@ import appReducer from './app/reducer';
 export type Reducers = typeof reducers;
 export type AppStateType = ReturnType<Reducers>;
 
-const reducers = combineReducers( {
+const reducers = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
-  friends: friendsReducer,
-  usersPage: usersReducer,
-  auth: authReducer,
-  form: formReducer,
-  app: appReducer,
-} );
+  friends:     friendsReducer,
+  usersPage:   usersReducer,
+  auth:        authReducer,
+  form:        formReducer,
+  app:         appReducer,
+});
+
+export type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore( reducers, composeEnhancers( applyMiddleware( thunkMiddleware ) ) );
+const store            = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)));
 
 // @ts-ignore
 window.__store__ = store;
