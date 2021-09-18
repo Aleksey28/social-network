@@ -29,7 +29,7 @@ export interface PostType {
   message: string;
 }
 
-export interface User {
+export interface UserType {
   name: string,
   id: string,
   photos: PhotosType,

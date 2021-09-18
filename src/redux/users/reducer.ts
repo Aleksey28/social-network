@@ -1,6 +1,6 @@
 import usersAPI from '../../api/usersAPI';
 import { updateObjectInArray } from '../../utils/helpers';
-import { User } from '../../types';
+import { UserType } from '../../types';
 import { AppStateType, InferValueTypes } from '../redux-store';
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
@@ -12,7 +12,7 @@ type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, Actions>;
 type Actions = ReturnType<InferValueTypes<typeof actions>>;
 
 const initialState = {
-  users:                 [] as Array<User>,
+  users:                 [] as Array<UserType>,
   usersCount:            20,
   pageSize:              5,
   currentPage:           0,
@@ -67,7 +67,7 @@ const reducer = (state = initialState, action: Actions): InitialState => {
 export const actions = {
   setFollow:           (userId: string) => ({ type: 'FOLLOW', userId, } as const),
   setUnfollow:         (userId: string) => ({ type: 'UNFOLLOW', userId, } as const),
-  setUsers:            (users: Array<User>) => ({ type: 'SET_USERS', users, } as const),
+  setUsers:            (users: Array<UserType>) => ({ type: 'SET_USERS', users, } as const),
   setUsersCount:       (usersCount: number) => ({ type: 'SET_USERS_COUNT', usersCount, } as const),
   setCurrentPage:      (currentPage: number) => ({ type: 'SET_CURRENT_PAGE', currentPage, } as const),
   setIsFetching:       (isFetching: boolean) => ({ type: 'SET_IS_FETCHING', isFetching, } as const),
