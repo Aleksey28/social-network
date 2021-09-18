@@ -14,7 +14,7 @@ export interface PhotosType {
   large: string;
 }
 
-export interface Profile {
+export interface ProfileType {
   userId: string;
   aboutMe: string;
   lookingForAJob: boolean;

@@ -3,15 +3,15 @@ import { createField, Input, Textarea } from '../../../common/FormsControls/Form
 import { required } from '../../../../utils/validators';
 import React, { useState } from 'react';
 import classes from './ProfileData.module.css';
-import { Profile } from '../../../../types';
+import { ProfileType } from '../../../../types';
 
 interface Props {
-  profileData: Partial<Profile>;
-  updateUserData: (userData: Profile) => Promise<void>;
+  profileData: Partial<ProfileType>;
+  updateUserData: (userData: ProfileType) => Promise<void>;
 }
 
-type FormType = React.FC<InjectedFormProps<Profile>>;
-type FormNames = Extract<keyof Profile, string>;
+type FormType = React.FC<InjectedFormProps<ProfileType>>;
+type FormNames = Extract<keyof ProfileType, string>;
 
 const ProfileDataForm: FormType = ({ handleSubmit, error, initialValues }) => {
   return (
@@ -37,11 +37,11 @@ const ProfileDataForm: FormType = ({ handleSubmit, error, initialValues }) => {
   );
 };
 
-const ProfileDataReduxForm = reduxForm<Profile>({
+const ProfileDataReduxForm = reduxForm<ProfileType>({
   form: 'profileData',
 })(ProfileDataForm);
 
-const ProfileDataInfo: React.FC<Partial<Profile>> = ({
+const ProfileDataInfo: React.FC<Partial<ProfileType>> = ({
                                                        fullName,
                                                        aboutMe,
                                                        lookingForAJob,
@@ -94,7 +94,7 @@ const ProfileData: React.FC<Props> = ({ profileData, updateUserData }) => {
     }
   };
 
-  const handleSubmit = (formData: Profile) => {
+  const handleSubmit = (formData: ProfileType) => {
     updateUserData(formData).then(deactivateEditMode);
   };
 

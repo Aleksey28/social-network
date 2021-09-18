@@ -1,15 +1,15 @@
 import React from 'react';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
-import { Profile as ProfileInterface } from '../../types';
+import { ProfileType } from '../../types';
 
 interface Props {
   userId: string | null;
-  userInfo: Partial<ProfileInterface>;
+  userInfo: Partial<ProfileType>;
   userStatus: string;
   updateUserStatus: (status: string) => any;
   updateUserPhoto: (image: File) => any;
-  updateUserData: (userData: ProfileInterface) => any;
+  updateUserData: (userData: ProfileType) => any;
 }
 
 const Profile: React.FC<Props> = ({

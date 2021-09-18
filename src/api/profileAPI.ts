@@ -1,5 +1,5 @@
 import API, { ApiResponse, ResultCode } from './api';
-import { LoginProps, PhotosType, Profile } from '../types';
+import { LoginProps, PhotosType, ProfileType } from '../types';
 import { AxiosResponse } from 'axios';
 import { ResultCodeCaptcha } from './securityAPI';
 
@@ -42,7 +42,7 @@ class ProfileAPI extends API {
     return this._instance.get(`/auth/me`);
   }
 
-  getProfileData (userId: string): Promise<AxiosResponse<Profile>> {
+  getProfileData (userId: string): Promise<AxiosResponse<ProfileType>> {
     return this._instance.get(`/profile/${userId}`);
   }
 
@@ -61,7 +61,7 @@ class ProfileAPI extends API {
     return this._instance.put('/profile/photo', formData);
   }
 
-  setProfileData (profileData: Profile): Promise<AxiosResponse<ApiResponse>> {
+  setProfileData (profileData: ProfileType): Promise<AxiosResponse<ApiResponse>> {
     return this._instance.put('/profile', profileData);
   }
 }

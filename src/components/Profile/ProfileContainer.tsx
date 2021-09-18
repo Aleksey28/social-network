@@ -11,7 +11,7 @@ import { withRouter } from 'react-router';
 import { compose } from 'redux';
 import { getUserInfoState, getUserStatusState } from '../../redux/profile/selector';
 import { getUserIdState } from '../../redux/auth/selector';
-import { Profile as ProfileInterface } from '../../types';
+import { ProfileType as ProfileInterface } from '../../types';
 import Profile from './Profile';
 import { AppStateType } from '../../redux/redux-store';
 
