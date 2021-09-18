@@ -1,4 +1,4 @@
-export interface Contacts {
+export interface ContactsType {
   github: string;
   vk: string;
   facebook: string;
@@ -20,7 +20,7 @@ export interface Profile {
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
   fullName: string;
-  contacts: Contacts;
+  contacts: ContactsType;
   photos: Photos;
 }
 
