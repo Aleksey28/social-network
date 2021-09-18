@@ -1,5 +1,5 @@
 import API, { ApiResponse, ResultCode } from './api';
-import { LoginProps, PhotosType, ProfileType } from '../types';
+import { LoginPropsType, PhotosType, ProfileType } from '../types';
 import { AxiosResponse } from 'axios';
 import { ResultCodeCaptcha } from './securityAPI';
 
@@ -30,7 +30,7 @@ class ProfileAPI extends API {
     super();
   }
 
-  login (data: LoginProps): Promise<AxiosResponse<LoginResponse>> {
+  login (data: LoginPropsType): Promise<AxiosResponse<LoginResponse>> {
     return this._instance.post('/auth/login', data);
   }
 

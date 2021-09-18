@@ -37,7 +37,7 @@ export interface UserType {
   followed: boolean
 }
 
-export interface LoginProps {
+export interface LoginPropsType {
   email: string;
   password: string;
   rememberMe: boolean;

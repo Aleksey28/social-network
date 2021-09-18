@@ -1,7 +1,7 @@
 import profileAPI from '../../api/profileAPI';
 import { FormAction, stopSubmit } from 'redux-form';
 import securityAPI, { ResultCodeCaptcha } from '../../api/securityAPI';
-import { LoginProps } from '../../types';
+import { LoginPropsType } from '../../types';
 import { AppStateType } from '../redux-store';
 import { ThunkAction } from 'redux-thunk';
 import { ResultCode } from '../../api/api';
@@ -82,7 +82,7 @@ export const authorize = () => async (dispatch: any): Promise<void> => {
   }
 };
 
-export const login = ({ email, password, rememberMe, captcha = null }: LoginProps): Thunk => async (dispatch) => {
+export const login = ({ email, password, rememberMe, captcha = null }: LoginPropsType): Thunk => async (dispatch) => {
   try {
     const { data } = await profileAPI.login({ email, password, rememberMe, captcha });
 

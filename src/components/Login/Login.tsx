@@ -4,11 +4,11 @@ import { createField, Input } from '../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../utils/validators';
 import { useHistory } from 'react-router';
 import classes from './Login.module.css';
-import { LoginProps } from '../../types';
+import { LoginPropsType } from '../../types';
 
 interface Props {
   isAuth: boolean;
-  login: (props: LoginProps) => any;
+  login: (props: LoginPropsType) => any;
   captchaUrl: string;
 }
 
@@ -16,9 +16,9 @@ interface LoginFormProps {
   captchaUrl: string;
 }
 
-type LoginFormType = React.FC<InjectedFormProps<LoginProps, LoginFormProps> & LoginFormProps>;
+type LoginFormType = React.FC<InjectedFormProps<LoginPropsType, LoginFormProps> & LoginFormProps>;
 
-type LoginFieldNames = Extract<keyof LoginProps, string>;
+type LoginFieldNames = Extract<keyof LoginPropsType, string>;
 
 const LoginForm: LoginFormType = ({ handleSubmit, error, captchaUrl }) => {
   return (
@@ -41,12 +41,12 @@ const LoginForm: LoginFormType = ({ handleSubmit, error, captchaUrl }) => {
   );
 };
 
-const LoginReduxForm = reduxForm<LoginProps, LoginFormProps>({ form: 'login' })(LoginForm);
+const LoginReduxForm = reduxForm<LoginPropsType, LoginFormProps>({ form: 'login' })(LoginForm);
 
 const Login: React.FC<Props> = ({ isAuth, login, captchaUrl }) => {
 
   const history      = useHistory();
-  const handleSubmit = (formData: LoginProps) => {
+  const handleSubmit = (formData: LoginPropsType) => {
     login(formData);
   };
 
