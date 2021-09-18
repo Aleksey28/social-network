@@ -1,5 +1,5 @@
 import API, { ApiResponse, ResultCode } from './api';
-import { LoginProps, Photos, Profile } from '../types';
+import { LoginProps, PhotosType, Profile } from '../types';
 import { AxiosResponse } from 'axios';
 import { ResultCodeCaptcha } from './securityAPI';
 
@@ -21,7 +21,7 @@ interface AuthResponse extends ApiResponse {
 
 interface SetPhotoResponse extends ApiResponse {
   data: {
-    photos: Photos;
+    photos: PhotosType;
   };
 }
 

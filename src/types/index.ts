@@ -9,7 +9,7 @@ export interface ContactsType {
   mainLink: string;
 }
 
-export interface Photos {
+export interface PhotosType {
   small: string;
   large: string;
 }
@@ -21,7 +21,7 @@ export interface Profile {
   lookingForAJobDescription: string;
   fullName: string;
   contacts: ContactsType;
-  photos: Photos;
+  photos: PhotosType;
 }
 
 export interface Post {
@@ -32,7 +32,7 @@ export interface Post {
 export interface User {
   name: string,
   id: string,
-  photos: Photos,
+  photos: PhotosType,
   status: string,
   followed: boolean
 }
