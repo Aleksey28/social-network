@@ -1,6 +1,6 @@
 import profileAPI from '../../api/profileAPI';
 import { FormAction, stopSubmit } from 'redux-form';
-import { PhotosType, Post, ProfileType } from '../../types';
+import { PhotosType, PostType, ProfileType } from '../../types';
 import { ThunkAction } from 'redux-thunk';
 import { AppStateType } from '../redux-store';
 import { ResultCode } from '../../api/api';
@@ -55,7 +55,7 @@ const initialState = {
                   id:      2,
                   message: 'It is my first post',
                 },
-              ] as Array<Post>,
+              ] as Array<PostType>,
   userInfo:   null as Partial<ProfileType> | null,
   userStatus: 'no status' as string,
 };

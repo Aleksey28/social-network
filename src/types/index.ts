@@ -24,7 +24,7 @@ export interface ProfileType {
   photos: PhotosType;
 }
 
-export interface Post {
+export interface PostType {
   id: number;
   message: string;
 }
