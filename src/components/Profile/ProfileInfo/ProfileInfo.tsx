@@ -4,15 +4,15 @@ import emptyAvatar from '../../../images/empty_avatar.svg';
 import classes from './ProfileInfo.module.css';
 import ProfileStatus from './ProfileStatus/ProfileStatus';
 import ProfileData from './ProfileData/ProfileData';
-import { Profile } from '../../../types';
+import { ProfileType } from '../../../types';
 
 interface Props {
   isOwner: boolean;
-  userInfo: Partial<Profile>;
+  userInfo: Partial<ProfileType>;
   userStatus: string;
   updateUserStatus: (status: string) => any;
   updateUserPhoto: (image: File) => any;
-  updateUserData: (userData: Profile) => any;
+  updateUserData: (userData: ProfileType) => any;
 }
 
 const ProfileInfo: React.FC<Props> = ({

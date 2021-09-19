@@ -3,10 +3,10 @@ import MyPosts from './MyPosts';
 import { connect } from 'react-redux';
 import { getPostsData } from '../../../redux/profile/selector';
 import { AppStateType } from '../../../redux/redux-store';
-import { Post } from '../../../types';
+import { PostType } from '../../../types';
 
 interface StateProps {
-  postsData: Post[],
+  postsData: PostType[],
 }
 
 interface DispatchProps {

@@ -1,4 +1,4 @@
-export interface Contacts {
+export interface ContactsType {
   github: string;
   vk: string;
   facebook: string;
@@ -9,35 +9,35 @@ export interface Contacts {
   mainLink: string;
 }
 
-export interface Photos {
+export interface PhotosType {
   small: string;
   large: string;
 }
 
-export interface Profile {
+export interface ProfileType {
   userId: string;
   aboutMe: string;
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
   fullName: string;
-  contacts: Contacts;
-  photos: Photos;
+  contacts: ContactsType;
+  photos: PhotosType;
 }
 
-export interface Post {
+export interface PostType {
   id: number;
   message: string;
 }
 
-export interface User {
+export interface UserType {
   name: string,
   id: string,
-  photos: Photos,
+  photos: PhotosType,
   status: string,
   followed: boolean
 }
 
-export interface LoginProps {
+export interface LoginPropsType {
   email: string;
   password: string;
   rememberMe: boolean;

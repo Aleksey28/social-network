@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import emptyAvatar from '../../images/empty_avatar.svg';
 import classes from './User.module.css';
 import React from 'react';
-import { User as UserInterface } from '../../types';
+import { UserType as UserInterface } from '../../types';
 import { InitialState } from '../../redux/users/reducer';
 
 interface Props extends UserInterface {

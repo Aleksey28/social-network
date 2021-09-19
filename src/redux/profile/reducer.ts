@@ -1,6 +1,6 @@
 import profileAPI from '../../api/profileAPI';
 import { FormAction, stopSubmit } from 'redux-form';
-import { Photos, Post, Profile } from '../../types';
+import { PhotosType, PostType, ProfileType } from '../../types';
 import { ThunkAction } from 'redux-thunk';
 import { AppStateType } from '../redux-store';
 import { ResultCode } from '../../api/api';
@@ -26,7 +26,7 @@ interface RemovePost {
 
 interface SetUserInfo {
   type: typeof SET_USER_INFO;
-  userInfo: Profile;
+  userInfo: ProfileType;
 }
 
 interface SetUserStatus {
@@ -36,7 +36,7 @@ interface SetUserStatus {
 
 interface SetUserPhotos {
   type: typeof SET_USER_PHOTOS;
-  userPhotos: Photos;
+  userPhotos: PhotosType;
 }
 
 const ADD_POST        = 'social-network/reducer/ADD_POST';
@@ -55,8 +55,8 @@ const initialState = {
                   id:      2,
                   message: 'It is my first post',
                 },
-              ] as Array<Post>,
-  userInfo:   null as Partial<Profile> | null,
+              ] as Array<PostType>,
+  userInfo:   null as Partial<ProfileType> | null,
   userStatus: 'no status' as string,
 };
 
@@ -110,7 +110,7 @@ export const removePost = (index: number): RemovePost => ({
   index,
 });
 
-const setUserInfo = (userInfo: Profile): SetUserInfo => ({
+const setUserInfo = (userInfo: ProfileType): SetUserInfo => ({
   type: SET_USER_INFO,
   userInfo,
 });
@@ -120,7 +120,7 @@ const setUserStatus = (userStatus: string): SetUserStatus => ({
   userStatus,
 });
 
-const setUserPhotos = (userPhotos: Photos): SetUserPhotos => ({
+const setUserPhotos = (userPhotos: PhotosType): SetUserPhotos => ({
   type: SET_USER_PHOTOS,
   userPhotos,
 });
@@ -173,7 +173,7 @@ export const updateUserPhoto = (image: File): Thunk => async (dispatch) => {
   }
 };
 
-export const updateUserData = (userData: Profile): Thunk => async (dispatch) => {
+export const updateUserData = (userData: ProfileType): Thunk => async (dispatch) => {
   try {
     const { data } = await profileAPI.setProfileData(userData);
 

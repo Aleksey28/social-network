@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import Login from './Login';
 import { login } from '../../redux/auth/reducer';
 import { getCaptchaUrlState, getIsAuthState } from '../../redux/auth/selector';
-import { LoginProps } from '../../types';
+import { LoginPropsType } from '../../types';
 import { AppStateType } from '../../redux/redux-store';
 
 interface StateProps {
@@ -13,7 +13,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  login: (props: LoginProps) => any
+  login: (props: LoginPropsType) => any
 }
 
 interface OwnProps {

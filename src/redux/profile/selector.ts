@@ -1,6 +1,6 @@
 import { AppStateType } from '../redux-store';
-import { Post, Profile } from '../../types';
+import { PostType, ProfileType } from '../../types';
 
-export const getUserInfoState   = (state: AppStateType): Partial<Profile> => state.profilePage.userInfo || {};
+export const getUserInfoState   = (state: AppStateType): Partial<ProfileType> => state.profilePage.userInfo || {};
 export const getUserStatusState = (state: AppStateType): string => state.profilePage.userStatus;
-export const getPostsData       = (state: AppStateType): Post[] => state.profilePage.postsData;
+export const getPostsData       = (state: AppStateType): PostType[] => state.profilePage.postsData;

@@ -15,6 +15,7 @@ import Preloader from '../common/Preloader/Preloader';
 import { getInitializedState } from '../../redux/app/selector';
 import { getIsAuthState } from '../../redux/auth/selector';
 import withSuspense from '../../hoc/withSuspense';
+import { AppStateType } from '../../redux/redux-store';
 
 const DialogsContainer = lazy(() => import('../Dialogs/DialogsContainer').then(DialogsContainer => DialogsContainer));
 const UsersContainer   = lazy(() => import('../Users/UsersContainer').then(UsersContainer => UsersContainer));
@@ -71,7 +72,7 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: AppStateType) => ({
   isAuth:      getIsAuthState(state),
   initialized: getInitializedState(state),
 });

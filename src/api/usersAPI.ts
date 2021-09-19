@@ -1,9 +1,9 @@
 import API, { ApiResponse } from './api';
 import { AxiosResponse } from 'axios';
-import { User } from '../types';
+import { UserType } from '../types';
 
 interface GetUsersResponse {
-  items: User[];
+  items: UserType[];
   totalCount: number;
   error: null | string
 }
