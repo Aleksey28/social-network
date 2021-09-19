@@ -1,23 +1,6 @@
-import API, { ApiResponse, ResultCode } from './api';
-import { LoginPropsType, PhotosType, ProfileType } from '../types';
+import API, { ApiResponse } from './api';
+import { PhotosType, ProfileType } from '../types';
 import { AxiosResponse } from 'axios';
-import { ResultCodeCaptcha } from './securityAPI';
-
-interface LoginResponse {
-  resultCode: ResultCode | ResultCodeCaptcha;
-  data: {
-    userId: string;
-  };
-  messages: string[];
-}
-
-interface AuthResponse extends ApiResponse {
-  data: {
-    id: string;
-    email: string;
-    login: string;
-  };
-}
 
 interface SetPhotoResponse extends ApiResponse {
   data: {
@@ -28,18 +11,6 @@ interface SetPhotoResponse extends ApiResponse {
 class ProfileAPI extends API {
   constructor () {
     super();
-  }
-
-  login (data: LoginPropsType): Promise<AxiosResponse<LoginResponse>> {
-    return this._instance.post('/auth/login', data);
-  }
-
-  logout (): Promise<AxiosResponse<ApiResponse>> {
-    return this._instance.delete('/auth/login');
-  }
-
-  auth (): Promise<AxiosResponse<AuthResponse>> {
-    return this._instance.get(`/auth/me`);
   }
 
   getProfileData (userId: string): Promise<AxiosResponse<ProfileType>> {

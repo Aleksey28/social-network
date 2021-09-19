@@ -1,10 +1,10 @@
-import profileAPI from '../../api/profileAPI';
 import { FormAction, stopSubmit } from 'redux-form';
 import securityAPI, { ResultCodeCaptcha } from '../../api/securityAPI';
 import { LoginPropsType } from '../../types';
 import { AppStateType } from '../redux-store';
 import { ThunkAction } from 'redux-thunk';
 import { ResultCode } from '../../api/api';
+import authApi from '../../api/authApi';
 
 export type InitialState = typeof initialState;
 type Action = SetUserData | SetCaptchaUrl;
@@ -67,7 +67,7 @@ const setCaptchaUrl = (url: string): SetCaptchaUrl => ({
 
 export const authorize = () => async (dispatch: any): Promise<void> => {
   try {
-    const { data } = await profileAPI.auth();
+    const { data } = await authApi.auth();
 
     if (data.resultCode === ResultCode.Error) {
       throw new Error(data.messages[0]);
@@ -84,7 +84,7 @@ export const authorize = () => async (dispatch: any): Promise<void> => {
 
 export const login = ({ email, password, rememberMe, captcha = null }: LoginPropsType): Thunk => async (dispatch) => {
   try {
-    const { data } = await profileAPI.login({ email, password, rememberMe, captcha });
+    const { data } = await authApi.login({ email, password, rememberMe, captcha });
 
     if (data.resultCode === ResultCode.Success) {
       dispatch(authorize());
@@ -103,7 +103,7 @@ export const login = ({ email, password, rememberMe, captcha = null }: LoginProp
 
 export const logout = (): Thunk => async (dispatch) => {
   try {
-    const { data }                 = await profileAPI.logout();
+    const { data }                 = await authApi.logout();
     const { resultCode, messages } = data;
 
     if (resultCode === ResultCode.Success) {
