@@ -3,20 +3,14 @@ import { ResultCodeCaptcha } from './securityAPI';
 import { LoginPropsType } from '../types';
 import { AxiosResponse } from 'axios';
 
-export interface LoginResponse {
-  resultCode: ResultCode | ResultCodeCaptcha;
-  data: {
-    userId: string;
-  };
-  messages: string[];
+interface LoginResponseData {
+  userId: string;
 }
 
-export interface AuthResponse extends ApiResponse {
-  data: {
-    id: string;
-    email: string;
-    login: string;
-  };
+interface AuthResponseData {
+  id: string;
+  email: string;
+  login: string;
 }
 
 class AuthAPI extends API {
@@ -24,7 +18,7 @@ class AuthAPI extends API {
     super();
   }
 
-  login (data: LoginPropsType): Promise<AxiosResponse<LoginResponse>> {
+  login (data: LoginPropsType): Promise<AxiosResponse<ApiResponse<LoginResponseData, ResultCode | ResultCodeCaptcha>>> {
     return this._instance.post('/auth/login', data);
   }
 
@@ -32,7 +26,7 @@ class AuthAPI extends API {
     return this._instance.delete('/auth/login');
   }
 
-  auth (): Promise<AxiosResponse<AuthResponse>> {
+  auth (): Promise<AxiosResponse<ApiResponse<AuthResponseData>>> {
     return this._instance.get(`/auth/me`);
   }
 }
