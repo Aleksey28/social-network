@@ -6,10 +6,10 @@ export enum ResultCode {
   Error   = 1,
 }
 
-export interface ApiResponse {
-  resultCode: ResultCode;
+export interface ApiResponse<D = {}, RC = ResultCode> {
+  resultCode: RC;
   messages: string[];
-  data: {};
+  data: D;
 }
 
 class API {

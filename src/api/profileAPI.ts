@@ -2,10 +2,8 @@ import API, { ApiResponse } from './api';
 import { PhotosType, ProfileType } from '../types';
 import { AxiosResponse } from 'axios';
 
-interface SetPhotoResponse extends ApiResponse {
-  data: {
-    photos: PhotosType;
-  };
+interface SetPhotoResponseData {
+  photos: PhotosType;
 }
 
 class ProfileAPI extends API {
@@ -25,7 +23,7 @@ class ProfileAPI extends API {
     return this._instance.put('/profile/status', { status });
   }
 
-  setPhoto (image: File): Promise<AxiosResponse<SetPhotoResponse>> {
+  setPhoto (image: File): Promise<AxiosResponse<ApiResponse<SetPhotoResponseData>>> {
     const formData = new FormData();
     formData.append('image', image);
 
