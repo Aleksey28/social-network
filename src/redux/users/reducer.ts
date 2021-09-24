@@ -22,37 +22,37 @@ const initialState = {
 
 const reducer = (state = initialState, action: ActionTypes): InitialState => {
   switch (action.type) {
-    case 'FOLLOW':
+    case 'social-network/users/FOLLOW':
       return {
         ...state,
         users: updateObjectInArray(state.users, 'id', action.userId, { followed: true }),
       };
-    case 'UNFOLLOW':
+    case 'social-network/users/UNFOLLOW':
       return {
         ...state,
         users: updateObjectInArray(state.users, 'id', action.userId, { followed: false }),
       };
-    case 'SET_USERS':
+    case 'social-network/users/SET_USERS':
       return {
         ...state,
         users: action.users,
       };
-    case 'SET_USERS_COUNT':
+    case 'social-network/users/SET_USERS_COUNT':
       return {
         ...state,
         usersCount: action.usersCount,
       };
-    case 'SET_CURRENT_PAGE':
+    case 'social-network/users/SET_CURRENT_PAGE':
       return {
         ...state,
         currentPage: action.currentPage,
       };
-    case 'SET_IS_FETCHING':
+    case 'social-network/users/SET_IS_FETCHING':
       return {
         ...state,
         isFetching: action.isFetching,
       };
-    case 'SET_IS_TOGGLING_FOLLOW_USERS':
+    case 'social-network/users/SET_IS_TOGGLING_FOLLOW_USERS':
       return {
         ...state,
         isTogglingFollowUsers: action.isFetching
@@ -65,14 +65,20 @@ const reducer = (state = initialState, action: ActionTypes): InitialState => {
 };
 
 export const actions = {
-  setFollow:           (userId: string) => ({ type: 'FOLLOW', userId, } as const),
-  setUnfollow:         (userId: string) => ({ type: 'UNFOLLOW', userId, } as const),
-  setUsers:            (users: Array<UserType>) => ({ type: 'SET_USERS', users, } as const),
-  setUsersCount:       (usersCount: number) => ({ type: 'SET_USERS_COUNT', usersCount, } as const),
-  setCurrentPage:      (currentPage: number) => ({ type: 'SET_CURRENT_PAGE', currentPage, } as const),
-  setIsFetching:       (isFetching: boolean) => ({ type: 'SET_IS_FETCHING', isFetching, } as const),
+  setFollow:           (userId: string) => ({ type: 'social-network/users/FOLLOW', userId, } as const),
+  setUnfollow:         (userId: string) => ({ type: 'social-network/users/UNFOLLOW', userId, } as const),
+  setUsers:            (users: Array<UserType>) => ({ type: 'social-network/users/SET_USERS', users, } as const),
+  setUsersCount:       (usersCount: number) => ({ type: 'social-network/users/SET_USERS_COUNT', usersCount, } as const),
+  setCurrentPage:      (currentPage: number) => ({
+    type: 'social-network/users/SET_CURRENT_PAGE',
+    currentPage,
+  } as const),
+  setIsFetching:       (isFetching: boolean) => ({
+    type: 'social-network/users/SET_IS_FETCHING',
+    isFetching,
+  } as const),
   setIsTogglingFollow: (userId: string, isFetching: boolean) => ({
-    type: 'SET_IS_TOGGLING_FOLLOW_USERS',
+    type: 'social-network/users/SET_IS_TOGGLING_FOLLOW_USERS',
     userId,
     isFetching,
   } as const),
