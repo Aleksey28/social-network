@@ -8,8 +8,8 @@ import { AxiosResponse } from 'axios';
 import { ApiResponse, ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
-type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, Actions>;
-type Actions = ReturnType<InferValueTypes<typeof actions>>;
+type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>;
+type ActionTypes = ReturnType<InferValueTypes<typeof actions>>;
 
 const initialState = {
   users:                 [] as Array<UserType>,
@@ -20,7 +20,7 @@ const initialState = {
   isTogglingFollowUsers: [] as Array<string>,
 };
 
-const reducer = (state = initialState, action: Actions): InitialState => {
+const reducer = (state = initialState, action: ActionTypes): InitialState => {
   switch (action.type) {
     case 'FOLLOW':
       return {
@@ -97,8 +97,8 @@ export const getUsers = (page: number, pageSize: number): Thunk => async (dispat
 
 const toggleFollow = async (
   userId: string,
-  dispatch: Dispatch<Actions>,
-  actionCreator: (userId: string) => Actions,
+  dispatch: Dispatch<ActionTypes>,
+  actionCreator: (userId: string) => ActionTypes,
   apiMethod: (userId: string) => Promise<AxiosResponse<ApiResponse>>
 ): Promise<void> => {
   dispatch(actions.setIsTogglingFollow(userId, true));
