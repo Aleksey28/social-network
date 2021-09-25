@@ -13,7 +13,7 @@ const initialState = {
 
 const reducer = (state = initialState, action: Actions): InitialState => {
   switch (action.type) {
-    case 'SET_INITIALIZED':
+    case 'social-network/app/SET_INITIALIZED':
       return {
         ...state,
         initialized: true,
@@ -24,7 +24,7 @@ const reducer = (state = initialState, action: Actions): InitialState => {
 };
 
 const actions = {
-  setInitialized: () => ({ type: 'SET_INITIALIZED' } as const),
+  setInitialized: () => ({ type: 'social-network/app/SET_INITIALIZED' } as const),
 };
 
 export const initializing = (): Thunk => async (dispatch) => {
