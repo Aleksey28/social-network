@@ -1,16 +1,10 @@
 import { authorize } from '../auth/reducer';
-import { AppStateType } from '../redux-store';
+import { AppStateType, InferValueTypes } from '../redux-store';
 import { ThunkAction } from 'redux-thunk';
 
 export type InitialState = typeof initialState;
-type Actions = SetInitialized;
 export type Thunk = ThunkAction<Promise<void>, AppStateType, any, Actions>
-
-interface SetInitialized {
-  type: typeof SET_INITIALIZED;
-}
-
-const SET_INITIALIZED = 'social-network/app/SET_INITIALIZED';
+type Actions = ReturnType<InferValueTypes<typeof actions>>;
 
 const initialState = {
   initialized: false,
@@ -19,7 +13,7 @@ const initialState = {
 
 const reducer = (state = initialState, action: Actions): InitialState => {
   switch (action.type) {
-    case SET_INITIALIZED:
+    case 'SET_INITIALIZED':
       return {
         ...state,
         initialized: true,
@@ -29,14 +23,14 @@ const reducer = (state = initialState, action: Actions): InitialState => {
   }
 };
 
-const setInitialized = (): SetInitialized => ({
-  type: SET_INITIALIZED,
-});
+const actions = {
+  setInitialized: () => ({ type: 'SET_INITIALIZED' } as const),
+};
 
 export const initializing = (): Thunk => async (dispatch) => {
   try {
     await dispatch(authorize());
-    dispatch(setInitialized());
+    dispatch(actions.setInitialized());
   }
   catch (error) {
     throw Error(error);
