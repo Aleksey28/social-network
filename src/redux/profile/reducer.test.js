@@ -1,49 +1,49 @@
-import reducer, { addPost, removePost } from './reducer';
+import reducer, { actions } from './reducer';
 
-describe( 'Profile reducer test', () => {
+describe('Profile reducer test', () => {
   const state = {
-    postsData: [
+    postsData:  [
       {
-        id: 1,
+        id:      1,
         message: 'How are you?',
       },
       {
-        id: 2,
+        id:      2,
         message: 'It is my first post',
       },
     ],
-    userInfo: null,
+    userInfo:   null,
     userStatus: 'no status',
   };
 
-  it( 'Should add new post', () => {
-    const action = addPost( { newPost: 'Hello world' } );
-    const newState = reducer( state, action );
+  it('Should add new post', () => {
+    const action   = actions.addPost('Hello world');
+    const newState = reducer(state, action);
 
-    expect( newState.postsData.length ).toEqual( state.postsData.length + 1 );
-  } );
+    expect(newState.postsData.length).toEqual(state.postsData.length + 1);
+  });
 
-  it( 'New post should be correct', () => {
-    const newPost = 'Hello world';
-    const action = addPost( { newPost } );
-    const newState = reducer( state, action );
+  it('New post should be correct', () => {
+    const newPost  = 'Hello world';
+    const action   = actions.addPost(newPost);
+    const newState = reducer(state, action);
 
-    expect( newState.postsData[newState.postsData.length - 1].message ).toEqual( newPost );
-  } );
+    expect(newState.postsData[newState.postsData.length - 1].message).toEqual(newPost);
+  });
 
-  it( 'Should remove post', () => {
+  it('Should remove post', () => {
     const indexPost = state.postsData.length - 1;
-    const action = removePost( indexPost );
-    const newState = reducer( state, action );
+    const action    = actions.removePost(indexPost);
+    const newState  = reducer(state, action);
 
-    expect( newState.postsData.length ).toEqual( state.postsData.length - 1 );
-  } );
+    expect(newState.postsData.length).toEqual(state.postsData.length - 1);
+  });
 
-  it( 'Shouldn\'t remove post with non-existing index', () => {
+  it('Shouldn\'t remove post with non-existing index', () => {
     const indexPost = state.postsData.length;
-    const action = removePost( indexPost );
-    const newState = reducer( state, action );
+    const action    = actions.removePost(indexPost);
+    const newState  = reducer(state, action);
 
-    expect( newState.postsData.length ).toEqual( state.postsData.length );
-  } );
-} );
+    expect(newState.postsData.length).toEqual(state.postsData.length);
+  });
+});
