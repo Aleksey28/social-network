@@ -1,7 +1,7 @@
 import { InferValueTypes } from '../redux-store';
 
 export type InitialState = typeof initialState;
-export type Action = ReturnType<InferValueTypes<typeof actions>>;
+export type Actions = ReturnType<InferValueTypes<typeof actions>>;
 
 const initialState = {
   dialogsData:  [
@@ -40,7 +40,7 @@ const initialState = {
   ],
 };
 
-const reducer = (state = initialState, action: Action) => {
+const reducer = (state = initialState, action: Actions) => {
   switch (action.type) {
     case 'SEND_MESSAGE': {
       return {
