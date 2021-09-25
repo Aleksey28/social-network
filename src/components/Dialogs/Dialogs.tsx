@@ -5,13 +5,13 @@ import Message from './Message/Message';
 import { InjectedFormProps, reduxForm } from 'redux-form';
 import { createField, Textarea } from '../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../utils/validators';
-import { InitialState as DialogsState, SendMessage } from '../../redux/dialogs/reducer';
+import { InitialState as DialogsState, ActionsType } from '../../redux/dialogs/reducer';
 import { InitialState as FriendsState } from '../../redux/friends/reducer';
 
 interface Props {
   dialogsPage: DialogsState;
   friends: FriendsState;
-  sendMessage: (newMessage: string) => SendMessage;
+  sendMessage: (newMessage: string) => ActionsType;
 }
 
 interface DialogsFormProps {

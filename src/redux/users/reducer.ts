@@ -1,15 +1,14 @@
 import usersAPI from '../../api/usersAPI';
 import { updateObjectInArray } from '../../utils/helpers';
 import { UserType } from '../../types';
-import { AppStateType, InferValueTypes } from '../redux-store';
+import { BaseThunkType, InferValueTypes } from '../redux-store';
 import { Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 import { AxiosResponse } from 'axios';
 import { ApiResponse, ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
-type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, Actions>;
-type Actions = ReturnType<InferValueTypes<typeof actions>>;
+export type ThunkType = BaseThunkType<ActionsType>
+type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
 const initialState = {
   users:                 [] as Array<UserType>,
@@ -20,39 +19,39 @@ const initialState = {
   isTogglingFollowUsers: [] as Array<string>,
 };
 
-const reducer = (state = initialState, action: Actions): InitialState => {
+const reducer = (state = initialState, action: ActionsType): InitialState => {
   switch (action.type) {
-    case 'FOLLOW':
+    case 'social-network/users/FOLLOW':
       return {
         ...state,
         users: updateObjectInArray(state.users, 'id', action.userId, { followed: true }),
       };
-    case 'UNFOLLOW':
+    case 'social-network/users/UNFOLLOW':
       return {
         ...state,
         users: updateObjectInArray(state.users, 'id', action.userId, { followed: false }),
       };
-    case 'SET_USERS':
+    case 'social-network/users/SET_USERS':
       return {
         ...state,
         users: action.users,
       };
-    case 'SET_USERS_COUNT':
+    case 'social-network/users/SET_USERS_COUNT':
       return {
         ...state,
         usersCount: action.usersCount,
       };
-    case 'SET_CURRENT_PAGE':
+    case 'social-network/users/SET_CURRENT_PAGE':
       return {
         ...state,
         currentPage: action.currentPage,
       };
-    case 'SET_IS_FETCHING':
+    case 'social-network/users/SET_IS_FETCHING':
       return {
         ...state,
         isFetching: action.isFetching,
       };
-    case 'SET_IS_TOGGLING_FOLLOW_USERS':
+    case 'social-network/users/SET_IS_TOGGLING_FOLLOW_USERS':
       return {
         ...state,
         isTogglingFollowUsers: action.isFetching
@@ -65,20 +64,26 @@ const reducer = (state = initialState, action: Actions): InitialState => {
 };
 
 export const actions = {
-  setFollow:           (userId: string) => ({ type: 'FOLLOW', userId, } as const),
-  setUnfollow:         (userId: string) => ({ type: 'UNFOLLOW', userId, } as const),
-  setUsers:            (users: Array<UserType>) => ({ type: 'SET_USERS', users, } as const),
-  setUsersCount:       (usersCount: number) => ({ type: 'SET_USERS_COUNT', usersCount, } as const),
-  setCurrentPage:      (currentPage: number) => ({ type: 'SET_CURRENT_PAGE', currentPage, } as const),
-  setIsFetching:       (isFetching: boolean) => ({ type: 'SET_IS_FETCHING', isFetching, } as const),
+  setFollow:           (userId: string) => ({ type: 'social-network/users/FOLLOW', userId, } as const),
+  setUnfollow:         (userId: string) => ({ type: 'social-network/users/UNFOLLOW', userId, } as const),
+  setUsers:            (users: Array<UserType>) => ({ type: 'social-network/users/SET_USERS', users, } as const),
+  setUsersCount:       (usersCount: number) => ({ type: 'social-network/users/SET_USERS_COUNT', usersCount, } as const),
+  setCurrentPage:      (currentPage: number) => ({
+    type: 'social-network/users/SET_CURRENT_PAGE',
+    currentPage,
+  } as const),
+  setIsFetching:       (isFetching: boolean) => ({
+    type: 'social-network/users/SET_IS_FETCHING',
+    isFetching,
+  } as const),
   setIsTogglingFollow: (userId: string, isFetching: boolean) => ({
-    type: 'SET_IS_TOGGLING_FOLLOW_USERS',
+    type: 'social-network/users/SET_IS_TOGGLING_FOLLOW_USERS',
     userId,
     isFetching,
   } as const),
 };
 
-export const getUsers = (page: number, pageSize: number): Thunk => async (dispatch) => {
+export const getUsers = (page: number, pageSize: number): ThunkType => async (dispatch) => {
   dispatch(actions.setIsFetching(true));
   try {
     const { data } = await usersAPI.getUsers(page + 1, pageSize);
@@ -97,8 +102,8 @@ export const getUsers = (page: number, pageSize: number): Thunk => async (dispat
 
 const toggleFollow = async (
   userId: string,
-  dispatch: Dispatch<Actions>,
-  actionCreator: (userId: string) => Actions,
+  dispatch: Dispatch<ActionsType>,
+  actionCreator: (userId: string) => ActionsType,
   apiMethod: (userId: string) => Promise<AxiosResponse<ApiResponse>>
 ): Promise<void> => {
   dispatch(actions.setIsTogglingFollow(userId, true));
@@ -119,14 +124,14 @@ const toggleFollow = async (
   }
 };
 
-export const follow = (id: string): Thunk => async (dispatch) => toggleFollow(
+export const follow = (id: string): ThunkType => async (dispatch) => toggleFollow(
   id,
   dispatch,
   actions.setFollow,
   usersAPI.follow.bind(usersAPI),
 );
 
-export const unfollow = (id: string): Thunk => async (dispatch) => toggleFollow(
+export const unfollow = (id: string): ThunkType => async (dispatch) => toggleFollow(
   id,
   dispatch,
   actions.setUnfollow,

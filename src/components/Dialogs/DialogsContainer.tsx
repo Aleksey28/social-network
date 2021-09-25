@@ -1,4 +1,4 @@
-import { InitialState as DialogsInitialState, SendMessage, sendMessage } from '../../redux/dialogs/reducer';
+import { InitialState as DialogsInitialState, ActionsType, actions } from '../../redux/dialogs/reducer';
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -13,7 +13,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  sendMessage: (newMessage: string) => SendMessage;
+  sendMessage: (newMessage: string) => ActionsType;
 }
 
 interface OwnProps {
@@ -27,7 +27,7 @@ const mapStateToProps = (state: AppStateType): StateProps => {
 };
 
 const methods: DispatchProps = {
-  sendMessage,
+  sendMessage: actions.sendMessage,
 };
 
 const connector = connect<StateProps, DispatchProps, OwnProps, AppStateType>(mapStateToProps, methods);

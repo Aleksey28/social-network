@@ -1,25 +1,18 @@
 import { authorize } from '../auth/reducer';
-import { AppStateType } from '../redux-store';
-import { ThunkAction } from 'redux-thunk';
+import { BaseThunkType, InferValueTypes } from '../redux-store';
 
 export type InitialState = typeof initialState;
-type Actions = SetInitialized;
-export type Thunk = ThunkAction<Promise<void>, AppStateType, any, Actions>
-
-interface SetInitialized {
-  type: typeof SET_INITIALIZED;
-}
-
-const SET_INITIALIZED = 'social-network/app/SET_INITIALIZED';
+export type ThunkType = BaseThunkType<ActionsType>
+type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
 const initialState = {
   initialized: false,
 };
 
 
-const reducer = (state = initialState, action: Actions): InitialState => {
+const reducer = (state = initialState, action: ActionsType): InitialState => {
   switch (action.type) {
-    case SET_INITIALIZED:
+    case 'social-network/app/SET_INITIALIZED':
       return {
         ...state,
         initialized: true,
@@ -29,14 +22,14 @@ const reducer = (state = initialState, action: Actions): InitialState => {
   }
 };
 
-const setInitialized = (): SetInitialized => ({
-  type: SET_INITIALIZED,
-});
+const actions = {
+  setInitialized: () => ({ type: 'social-network/app/SET_INITIALIZED' } as const),
+};
 
-export const initializing = (): Thunk => async (dispatch) => {
+export const initializing = (): ThunkType => async (dispatch) => {
   try {
     await dispatch(authorize());
-    dispatch(setInitialized());
+    dispatch(actions.setInitialized());
   }
   catch (error) {
     throw Error(error);

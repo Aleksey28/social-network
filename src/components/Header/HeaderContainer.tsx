@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './Header';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'redux';
-import { logout, Thunk } from '../../redux/auth/reducer';
+import { logout, ThunkType } from '../../redux/auth/reducer';
 import { getEmailState, getIsAuthState, getLoginState, getUserIdState } from '../../redux/auth/selector';
 import { AppStateType } from '../../redux/redux-store';
 
@@ -14,7 +14,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  logout: () => Thunk;
+  logout: () => ThunkType;
 }
 
 interface OwnProps {
