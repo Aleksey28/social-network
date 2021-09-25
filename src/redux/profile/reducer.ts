@@ -30,31 +30,31 @@ const initialState = {
 
 const reducer = (state = initialState, action: Actions): InitialState => {
   switch (action.type) {
-    case 'ADD_POST': {
+    case 'social-network/profile/ADD_POST': {
       return {
         ...state,
         postsData: [...state.postsData, { id: 5, message: action.newPost }],
       };
     }
-    case 'REMOVE_POST': {
+    case 'social-network/profile/REMOVE_POST': {
       return {
         ...state,
         postsData: state.postsData.filter((item, index) => action.index !== index),
       };
     }
-    case 'SET_USER_INFO': {
+    case 'social-network/profile/SET_USER_INFO': {
       return {
         ...state,
         userInfo: action.userInfo,
       };
     }
-    case 'SET_USER_STATUS': {
+    case 'social-network/profile/SET_USER_STATUS': {
       return {
         ...state,
         userStatus: action.userStatus,
       };
     }
-    case 'SET_USER_PHOTOS': {
+    case 'social-network/profile/SET_USER_PHOTOS': {
       return {
         ...state,
         userInfo: {
@@ -69,11 +69,11 @@ const reducer = (state = initialState, action: Actions): InitialState => {
 };
 
 export const actions = {
-  addPost:       (newPost: string) => ({ type: 'ADD_POST', newPost } as const),
-  removePost:    (index: number) => ({ type: 'REMOVE_POST', index } as const),
-  setUserInfo:   (userInfo: ProfileType) => ({ type: 'SET_USER_INFO', userInfo } as const),
-  setUserStatus: (userStatus: string) => ({ type: 'SET_USER_STATUS', userStatus } as const),
-  setUserPhotos: (userPhotos: PhotosType) => ({ type: 'SET_USER_PHOTOS', userPhotos } as const),
+  addPost:       (newPost: string) => ({ type: 'social-network/profile/ADD_POST', newPost } as const),
+  removePost:    (index: number) => ({ type: 'social-network/profile/REMOVE_POST', index } as const),
+  setUserInfo:   (userInfo: ProfileType) => ({ type: 'social-network/profile/SET_USER_INFO', userInfo } as const),
+  setUserStatus: (userStatus: string) => ({ type: 'social-network/profile/SET_USER_STATUS', userStatus } as const),
+  setUserPhotos: (userPhotos: PhotosType) => ({ type: 'social-network/profile/SET_USER_PHOTOS', userPhotos } as const),
 };
 
 
