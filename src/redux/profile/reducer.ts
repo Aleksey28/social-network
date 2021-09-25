@@ -1,13 +1,12 @@
 import profileAPI from '../../api/profileAPI';
 import { FormAction, stopSubmit } from 'redux-form';
 import { PhotosType, PostType, ProfileType } from '../../types';
-import { ThunkAction } from 'redux-thunk';
-import { AppStateType, InferValueTypes } from '../redux-store';
+import { BaseThunkType, InferValueTypes } from '../redux-store';
 import { ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
 type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | FormAction>;
+export type ThunkType = BaseThunkType<ActionsType | FormAction>
 
 interface ErrorsObject {
   [key: string]: string | ErrorsObject;

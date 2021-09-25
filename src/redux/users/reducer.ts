@@ -1,14 +1,13 @@
 import usersAPI from '../../api/usersAPI';
 import { updateObjectInArray } from '../../utils/helpers';
 import { UserType } from '../../types';
-import { AppStateType, InferValueTypes } from '../redux-store';
+import { BaseThunkType, InferValueTypes } from '../redux-store';
 import { Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 import { AxiosResponse } from 'axios';
 import { ApiResponse, ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>;
+export type ThunkType = BaseThunkType<ActionsType>
 type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
 const initialState = {

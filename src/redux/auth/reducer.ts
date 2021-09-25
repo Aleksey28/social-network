@@ -1,13 +1,12 @@
 import { FormAction, stopSubmit } from 'redux-form';
 import securityAPI, { ResultCodeCaptcha } from '../../api/securityAPI';
 import { LoginPropsType } from '../../types';
-import { AppStateType, InferValueTypes } from '../redux-store';
-import { ThunkAction } from 'redux-thunk';
+import { BaseThunkType, InferValueTypes } from '../redux-store';
 import { ResultCode } from '../../api/api';
 import authApi from '../../api/authApi';
 
 export type InitialState = typeof initialState;
-export type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | FormAction>
+export type ThunkType = BaseThunkType<ActionsType | FormAction>
 type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
 interface UserData {
@@ -68,7 +67,12 @@ export const authorize = (): ThunkType => async (dispatch) => {
   }
 };
 
-export const login = ({ email, password, rememberMe, captcha = null }: LoginPropsType): ThunkType => async (dispatch) => {
+export const login = ({
+                        email,
+                        password,
+                        rememberMe,
+                        captcha = null
+                      }: LoginPropsType): ThunkType => async (dispatch) => {
   try {
     const { data } = await authApi.login({ email, password, rememberMe, captcha });
 

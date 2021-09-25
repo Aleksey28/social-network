@@ -1,9 +1,8 @@
 import { authorize } from '../auth/reducer';
-import { AppStateType, InferValueTypes } from '../redux-store';
-import { ThunkAction } from 'redux-thunk';
+import { BaseThunkType, InferValueTypes } from '../redux-store';
 
 export type InitialState = typeof initialState;
-export type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
+export type ThunkType = BaseThunkType<ActionsType>
 type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
 const initialState = {
