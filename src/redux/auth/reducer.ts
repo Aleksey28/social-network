@@ -7,7 +7,7 @@ import { ResultCode } from '../../api/api';
 import authApi from '../../api/authApi';
 
 export type InitialState = typeof initialState;
-export type Thunk = ThunkAction<Promise<void>, AppStateType, any, Action | FormAction>
+export type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, Action | FormAction>
 type Action = ReturnType<InferValueTypes<typeof actions>>;
 
 interface UserData {
@@ -51,7 +51,7 @@ export const actions = {
 };
 
 
-export const authorize = () => async (dispatch: any): Promise<void> => {
+export const authorize = (): Thunk => async (dispatch) => {
   try {
     const { data } = await authApi.auth();
 

@@ -3,7 +3,7 @@ import { AppStateType, InferValueTypes } from '../redux-store';
 import { ThunkAction } from 'redux-thunk';
 
 export type InitialState = typeof initialState;
-export type Thunk = ThunkAction<Promise<void>, AppStateType, any, Actions>
+export type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, Actions>
 type Actions = ReturnType<InferValueTypes<typeof actions>>;
 
 const initialState = {
