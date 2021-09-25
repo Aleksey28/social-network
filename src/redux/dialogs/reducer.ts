@@ -42,7 +42,7 @@ const initialState = {
 
 const reducer = (state = initialState, action: Actions) => {
   switch (action.type) {
-    case 'SEND_MESSAGE': {
+    case 'social-network/dialogs/SEND_MESSAGE': {
       return {
         ...state,
         messagesData: [...state.messagesData, { id: 7, message: action.newMessage, ownerId: 1 }],
@@ -54,7 +54,7 @@ const reducer = (state = initialState, action: Actions) => {
 };
 
 export const actions = {
-  sendMessage: (newMessage: string) => ({ type: 'SEND_MESSAGE', newMessage } as const)
+  sendMessage: (newMessage: string) => ({ type: 'social-network/dialogs/SEND_MESSAGE', newMessage } as const)
 };
 
 export default reducer;
