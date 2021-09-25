@@ -27,12 +27,12 @@ const initialState = {
 
 const reducer = (state = initialState, action: Actions): InitialState => {
   switch (action.type) {
-    case 'SET_USER_DATA':
+    case 'social-network/auth/SET_USER_DATA':
       return {
         ...state,
         ...action.data,
       };
-    case 'SET_CAPTCHA_URL':
+    case 'social-network/auth/SET_CAPTCHA_URL':
       return {
         ...state,
         captchaUrl: action.captchaUrl,
@@ -44,10 +44,10 @@ const reducer = (state = initialState, action: Actions): InitialState => {
 
 export const actions = {
   setUserData:   ({ email, login, userId, isAuth }: UserData) => ({
-    type: 'SET_USER_DATA',
+    type: 'social-network/auth/SET_USER_DATA',
     data: { email, login, userId, isAuth },
   } as const),
-  setCaptchaUrl: (url: string) => ({ type: 'SET_CAPTCHA_URL', captchaUrl: url } as const)
+  setCaptchaUrl: (url: string) => ({ type: 'social-network/auth/SET_CAPTCHA_URL', captchaUrl: url } as const)
 };
 
 
