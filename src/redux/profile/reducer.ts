@@ -2,48 +2,16 @@ import profileAPI from '../../api/profileAPI';
 import { FormAction, stopSubmit } from 'redux-form';
 import { PhotosType, PostType, ProfileType } from '../../types';
 import { ThunkAction } from 'redux-thunk';
-import { AppStateType } from '../redux-store';
+import { AppStateType, InferValueTypes } from '../redux-store';
 import { ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
-
-type Action = AddPost | RemovePost | SetUserInfo | SetUserStatus | SetUserPhotos;
-type Thunk = ThunkAction<Promise<void>, AppStateType, any, Action | FormAction>;
+type Actions = ReturnType<InferValueTypes<typeof actions>>;
+type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, Actions | FormAction>;
 
 interface ErrorsObject {
   [key: string]: string | ErrorsObject;
 }
-
-interface AddPost {
-  type: typeof ADD_POST;
-  newPost: string;
-}
-
-interface RemovePost {
-  type: typeof REMOVE_POST;
-  index: number;
-}
-
-interface SetUserInfo {
-  type: typeof SET_USER_INFO;
-  userInfo: ProfileType;
-}
-
-interface SetUserStatus {
-  type: typeof SET_USER_STATUS;
-  userStatus: string;
-}
-
-interface SetUserPhotos {
-  type: typeof SET_USER_PHOTOS;
-  userPhotos: PhotosType;
-}
-
-const ADD_POST        = 'social-network/reducer/ADD_POST';
-const REMOVE_POST     = 'social-network/reducer/REMOVE_POST';
-const SET_USER_INFO   = 'social-network/reducer/SET_USER_INFO';
-const SET_USER_STATUS = 'social-network/reducer/SET_USER_STATUS';
-const SET_USER_PHOTOS = 'social-network/reducer/SET_USER_PHOTOS';
 
 const initialState = {
   postsData:  [
@@ -60,33 +28,33 @@ const initialState = {
   userStatus: 'no status' as string,
 };
 
-const reducer = (state = initialState, action: Action): InitialState => {
+const reducer = (state = initialState, action: Actions): InitialState => {
   switch (action.type) {
-    case ADD_POST: {
+    case 'ADD_POST': {
       return {
         ...state,
         postsData: [...state.postsData, { id: 5, message: action.newPost }],
       };
     }
-    case REMOVE_POST: {
+    case 'REMOVE_POST': {
       return {
         ...state,
         postsData: state.postsData.filter((item, index) => action.index !== index),
       };
     }
-    case SET_USER_INFO: {
+    case 'SET_USER_INFO': {
       return {
         ...state,
         userInfo: action.userInfo,
       };
     }
-    case SET_USER_STATUS: {
+    case 'SET_USER_STATUS': {
       return {
         ...state,
         userStatus: action.userStatus,
       };
     }
-    case SET_USER_PHOTOS: {
+    case 'SET_USER_PHOTOS': {
       return {
         ...state,
         userInfo: {
@@ -100,36 +68,20 @@ const reducer = (state = initialState, action: Action): InitialState => {
   }
 };
 
-export const addPost = (newPost: string): AddPost => ({
-  type: ADD_POST,
-  newPost,
-});
+export const actions = {
+  addPost:       (newPost: string) => ({ type: 'ADD_POST', newPost } as const),
+  removePost:    (index: number) => ({ type: 'REMOVE_POST', index } as const),
+  setUserInfo:   (userInfo: ProfileType) => ({ type: 'SET_USER_INFO', userInfo } as const),
+  setUserStatus: (userStatus: string) => ({ type: 'SET_USER_STATUS', userStatus } as const),
+  setUserPhotos: (userPhotos: PhotosType) => ({ type: 'SET_USER_PHOTOS', userPhotos } as const),
+};
 
-export const removePost = (index: number): RemovePost => ({
-  type: REMOVE_POST,
-  index,
-});
-
-const setUserInfo = (userInfo: ProfileType): SetUserInfo => ({
-  type: SET_USER_INFO,
-  userInfo,
-});
-
-const setUserStatus = (userStatus: string): SetUserStatus => ({
-  type: SET_USER_STATUS,
-  userStatus,
-});
-
-const setUserPhotos = (userPhotos: PhotosType): SetUserPhotos => ({
-  type: SET_USER_PHOTOS,
-  userPhotos,
-});
 
 export const getUserInfo = (userId: string): Thunk => async (dispatch) => {
   try {
     const { data } = await profileAPI.getProfileData(userId);
 
-    dispatch(setUserInfo(data));
+    dispatch(actions.setUserInfo(data));
   }
   catch (error) {
     console.log(error);
@@ -140,7 +92,7 @@ export const getUserStatus = (userId: string): Thunk => async (dispatch) => {
   try {
     const { data } = await profileAPI.getStatus(userId);
 
-    dispatch(setUserStatus(data));
+    dispatch(actions.setUserStatus(data));
   }
   catch (error) {
     console.log(error);
@@ -152,7 +104,7 @@ export const updateUserStatus = (status: string): Thunk => async (dispatch) => {
     const { data } = await profileAPI.setStatus(status);
 
     if (data.resultCode === ResultCode.Success) {
-      dispatch(setUserStatus(status));
+      dispatch(actions.setUserStatus(status));
     }
   }
   catch (error) {
@@ -165,7 +117,7 @@ export const updateUserPhoto = (image: File): Thunk => async (dispatch) => {
     const { data } = await profileAPI.setPhoto(image);
 
     if (data.resultCode === ResultCode.Success) {
-      dispatch(setUserPhotos(data.data.photos));
+      dispatch(actions.setUserPhotos(data.data.photos));
     }
   }
   catch (error) {
@@ -179,7 +131,7 @@ export const updateUserData = (userData: ProfileType): Thunk => async (dispatch)
 
     if (data.resultCode === ResultCode.Success) {
       const { data } = await profileAPI.getProfileData(userData.userId);
-      dispatch(setUserInfo(data));
+      dispatch(actions.setUserInfo(data));
     }
     else {
       const errors = data.messages.reduce((errors: ErrorsObject, item: string) => {

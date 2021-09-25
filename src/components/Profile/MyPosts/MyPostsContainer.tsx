@@ -1,4 +1,4 @@
-import { addPost } from '../../../redux/profile/reducer';
+import { actions } from '../../../redux/profile/reducer';
 import MyPosts from './MyPosts';
 import { connect } from 'react-redux';
 import { getPostsData } from '../../../redux/profile/selector';
@@ -24,7 +24,7 @@ const mapStateToProps = (state: AppStateType): StateProps => {
 };
 
 const methods: DispatchProps = {
-  addPost,
+  addPost: actions.addPost,
 };
 
 const connector = connect<StateProps, DispatchProps, OwnProps, AppStateType>(mapStateToProps, methods);
