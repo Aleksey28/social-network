@@ -1,45 +1,40 @@
+import { InferValueTypes } from '../redux-store';
+
 export type InitialState = typeof initialState;
-type Action = SendMessage;
-
-export interface SendMessage {
-  type: typeof SEND_MESSAGE;
-  newMessage: string;
-}
-
-const SEND_MESSAGE = "social-network/dialogs/SEND-MESSAGE";
+export type Action = ReturnType<InferValueTypes<typeof actions>>;
 
 const initialState = {
-  dialogsData: [
+  dialogsData:  [
     {
-      id: 11,
-      name: "Pety",
+      id:      11,
+      name:    'Pety',
       ownerId: 2,
     },
     {
-      id: 12,
-      name: "Vany",
+      id:      12,
+      name:    'Vany',
       ownerId: 3,
     },
     {
-      id: 13,
-      name: "Sasha",
+      id:      13,
+      name:    'Sasha',
       ownerId: 4,
     },
   ],
   messagesData: [
     {
-      id: 1,
-      message: "Hello",
+      id:      1,
+      message: 'Hello',
       ownerId: 1,
     },
     {
-      id: 2,
-      message: "How are you",
+      id:      2,
+      message: 'How are you',
       ownerId: 2,
     },
     {
-      id: 3,
-      message: "Buy",
+      id:      3,
+      message: 'Buy',
       ownerId: 2,
     },
   ],
@@ -47,7 +42,7 @@ const initialState = {
 
 const reducer = (state = initialState, action: Action) => {
   switch (action.type) {
-    case SEND_MESSAGE: {
+    case 'SEND_MESSAGE': {
       return {
         ...state,
         messagesData: [...state.messagesData, { id: 7, message: action.newMessage, ownerId: 1 }],
@@ -58,13 +53,8 @@ const reducer = (state = initialState, action: Action) => {
   }
 };
 
-const sendMessage = (newMessage: string): SendMessage => ({
-  type: SEND_MESSAGE,
-  newMessage,
-});
+export const actions = {
+  sendMessage: (newMessage: string) => ({ type: 'SEND_MESSAGE', newMessage } as const)
+};
 
 export default reducer;
-
-export {
-  sendMessage,
-};
