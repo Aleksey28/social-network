@@ -1,7 +1,7 @@
 import { InferValueTypes } from '../redux-store';
 
 export type InitialState = typeof initialState;
-export type Actions = ReturnType<InferValueTypes<typeof actions>>;
+export type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
 const initialState = {
   dialogsData:  [
@@ -40,7 +40,7 @@ const initialState = {
   ],
 };
 
-const reducer = (state = initialState, action: Actions) => {
+const reducer = (state = initialState, action: ActionsType) => {
   switch (action.type) {
     case 'social-network/dialogs/SEND_MESSAGE': {
       return {

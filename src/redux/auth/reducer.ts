@@ -7,8 +7,8 @@ import { ResultCode } from '../../api/api';
 import authApi from '../../api/authApi';
 
 export type InitialState = typeof initialState;
-export type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, Actions | FormAction>
-type Actions = ReturnType<InferValueTypes<typeof actions>>;
+export type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | FormAction>
+type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
 interface UserData {
   email: null | string;
@@ -25,7 +25,7 @@ const initialState = {
   captchaUrl: null as null | string,
 };
 
-const reducer = (state = initialState, action: Actions): InitialState => {
+const reducer = (state = initialState, action: ActionsType): InitialState => {
   switch (action.type) {
     case 'social-network/auth/SET_USER_DATA':
       return {

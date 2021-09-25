@@ -1,4 +1,4 @@
-import { InitialState as DialogsInitialState, Actions, actions } from '../../redux/dialogs/reducer';
+import { InitialState as DialogsInitialState, ActionsType, actions } from '../../redux/dialogs/reducer';
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -13,7 +13,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  sendMessage: (newMessage: string) => Actions;
+  sendMessage: (newMessage: string) => ActionsType;
 }
 
 interface OwnProps {

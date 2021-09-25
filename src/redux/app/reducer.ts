@@ -3,15 +3,15 @@ import { AppStateType, InferValueTypes } from '../redux-store';
 import { ThunkAction } from 'redux-thunk';
 
 export type InitialState = typeof initialState;
-export type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, Actions>
-type Actions = ReturnType<InferValueTypes<typeof actions>>;
+export type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
+type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
 const initialState = {
   initialized: false,
 };
 
 
-const reducer = (state = initialState, action: Actions): InitialState => {
+const reducer = (state = initialState, action: ActionsType): InitialState => {
   switch (action.type) {
     case 'social-network/app/SET_INITIALIZED':
       return {

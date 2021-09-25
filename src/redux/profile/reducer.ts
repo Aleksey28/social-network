@@ -6,8 +6,8 @@ import { AppStateType, InferValueTypes } from '../redux-store';
 import { ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
-type Actions = ReturnType<InferValueTypes<typeof actions>>;
-type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, Actions | FormAction>;
+type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
+type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | FormAction>;
 
 interface ErrorsObject {
   [key: string]: string | ErrorsObject;
@@ -28,7 +28,7 @@ const initialState = {
   userStatus: 'no status' as string,
 };
 
-const reducer = (state = initialState, action: Actions): InitialState => {
+const reducer = (state = initialState, action: ActionsType): InitialState => {
   switch (action.type) {
     case 'social-network/profile/ADD_POST': {
       return {
