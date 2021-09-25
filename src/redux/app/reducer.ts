@@ -3,7 +3,7 @@ import { AppStateType, InferValueTypes } from '../redux-store';
 import { ThunkAction } from 'redux-thunk';
 
 export type InitialState = typeof initialState;
-export type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
+export type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
 type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
 const initialState = {
@@ -27,7 +27,7 @@ const actions = {
   setInitialized: () => ({ type: 'social-network/app/SET_INITIALIZED' } as const),
 };
 
-export const initializing = (): Thunk => async (dispatch) => {
+export const initializing = (): ThunkType => async (dispatch) => {
   try {
     await dispatch(authorize());
     dispatch(actions.setInitialized());

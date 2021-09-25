@@ -7,7 +7,7 @@ import { ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
 type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
-type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | FormAction>;
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | FormAction>;
 
 interface ErrorsObject {
   [key: string]: string | ErrorsObject;
@@ -77,7 +77,7 @@ export const actions = {
 };
 
 
-export const getUserInfo = (userId: string): Thunk => async (dispatch) => {
+export const getUserInfo = (userId: string): ThunkType => async (dispatch) => {
   try {
     const { data } = await profileAPI.getProfileData(userId);
 
@@ -88,7 +88,7 @@ export const getUserInfo = (userId: string): Thunk => async (dispatch) => {
   }
 };
 
-export const getUserStatus = (userId: string): Thunk => async (dispatch) => {
+export const getUserStatus = (userId: string): ThunkType => async (dispatch) => {
   try {
     const { data } = await profileAPI.getStatus(userId);
 
@@ -99,7 +99,7 @@ export const getUserStatus = (userId: string): Thunk => async (dispatch) => {
   }
 };
 
-export const updateUserStatus = (status: string): Thunk => async (dispatch) => {
+export const updateUserStatus = (status: string): ThunkType => async (dispatch) => {
   try {
     const { data } = await profileAPI.setStatus(status);
 
@@ -112,7 +112,7 @@ export const updateUserStatus = (status: string): Thunk => async (dispatch) => {
   }
 };
 
-export const updateUserPhoto = (image: File): Thunk => async (dispatch) => {
+export const updateUserPhoto = (image: File): ThunkType => async (dispatch) => {
   try {
     const { data } = await profileAPI.setPhoto(image);
 
@@ -125,7 +125,7 @@ export const updateUserPhoto = (image: File): Thunk => async (dispatch) => {
   }
 };
 
-export const updateUserData = (userData: ProfileType): Thunk => async (dispatch) => {
+export const updateUserData = (userData: ProfileType): ThunkType => async (dispatch) => {
   try {
     const { data } = await profileAPI.setProfileData(userData);
 

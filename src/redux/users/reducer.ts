@@ -8,7 +8,7 @@ import { AxiosResponse } from 'axios';
 import { ApiResponse, ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
-type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>;
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>;
 type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
 const initialState = {
@@ -84,7 +84,7 @@ export const actions = {
   } as const),
 };
 
-export const getUsers = (page: number, pageSize: number): Thunk => async (dispatch) => {
+export const getUsers = (page: number, pageSize: number): ThunkType => async (dispatch) => {
   dispatch(actions.setIsFetching(true));
   try {
     const { data } = await usersAPI.getUsers(page + 1, pageSize);
@@ -125,14 +125,14 @@ const toggleFollow = async (
   }
 };
 
-export const follow = (id: string): Thunk => async (dispatch) => toggleFollow(
+export const follow = (id: string): ThunkType => async (dispatch) => toggleFollow(
   id,
   dispatch,
   actions.setFollow,
   usersAPI.follow.bind(usersAPI),
 );
 
-export const unfollow = (id: string): Thunk => async (dispatch) => toggleFollow(
+export const unfollow = (id: string): ThunkType => async (dispatch) => toggleFollow(
   id,
   dispatch,
   actions.setUnfollow,

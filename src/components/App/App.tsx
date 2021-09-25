@@ -10,7 +10,7 @@ import LoginContainer from '../Login/LoginContainer';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { initializing, InitialState, Thunk } from '../../redux/app/reducer';
+import { initializing, InitialState, ThunkType } from '../../redux/app/reducer';
 import Preloader from '../common/Preloader/Preloader';
 import { getInitializedState } from '../../redux/app/selector';
 import { getIsAuthState } from '../../redux/auth/selector';
@@ -21,7 +21,7 @@ const DialogsContainer = lazy(() => import('../Dialogs/DialogsContainer').then(D
 const UsersContainer   = lazy(() => import('../Users/UsersContainer').then(UsersContainer => UsersContainer));
 
 interface AppProps extends InitialState {
-  initializing: () => Thunk;
+  initializing: () => ThunkType;
   isAuth: boolean;
 }
 

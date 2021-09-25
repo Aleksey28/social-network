@@ -7,7 +7,7 @@ import { ResultCode } from '../../api/api';
 import authApi from '../../api/authApi';
 
 export type InitialState = typeof initialState;
-export type Thunk = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | FormAction>
+export type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType | FormAction>
 type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
 
 interface UserData {
@@ -51,7 +51,7 @@ export const actions = {
 };
 
 
-export const authorize = (): Thunk => async (dispatch) => {
+export const authorize = (): ThunkType => async (dispatch) => {
   try {
     const { data } = await authApi.auth();
 
@@ -68,7 +68,7 @@ export const authorize = (): Thunk => async (dispatch) => {
   }
 };
 
-export const login = ({ email, password, rememberMe, captcha = null }: LoginPropsType): Thunk => async (dispatch) => {
+export const login = ({ email, password, rememberMe, captcha = null }: LoginPropsType): ThunkType => async (dispatch) => {
   try {
     const { data } = await authApi.login({ email, password, rememberMe, captcha });
 
@@ -87,7 +87,7 @@ export const login = ({ email, password, rememberMe, captcha = null }: LoginProp
   }
 };
 
-export const logout = (): Thunk => async (dispatch) => {
+export const logout = (): ThunkType => async (dispatch) => {
   try {
     const { data }                 = await authApi.logout();
     const { resultCode, messages } = data;
@@ -104,7 +104,7 @@ export const logout = (): Thunk => async (dispatch) => {
   }
 };
 
-export const getCaptcha = (): Thunk => async (dispatch) => {
+export const getCaptcha = (): ThunkType => async (dispatch) => {
   try {
     const { data: { url } } = await securityAPI.getCaptcha();
 
