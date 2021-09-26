@@ -1,14 +1,14 @@
 import usersAPI from '../../api/usersAPI';
 import { updateObjectInArray } from '../../utils/helpers';
 import { UserType } from '../../types';
-import { BaseThunkType, InferValueTypes } from '../redux-store';
+import { BaseThunkType, BaseActionType } from '../redux-store';
 import { Dispatch } from 'redux';
 import { AxiosResponse } from 'axios';
 import { ApiResponse, ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
 export type ThunkType = BaseThunkType<ActionsType>
-type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
+type ActionsType = BaseActionType<typeof actions>;
 
 const initialState = {
   users:                 [] as Array<UserType>,

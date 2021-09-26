@@ -1,7 +1,7 @@
-import { InferValueTypes } from '../redux-store';
+import { BaseActionType } from '../redux-store';
 
 export type InitialState = typeof initialState;
-export type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
+export type ActionsType = BaseActionType<typeof actions>;
 
 const initialState = {
   dialogsData:  [
