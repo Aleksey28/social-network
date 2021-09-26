@@ -1,9 +1,9 @@
-import { Redirect, Route } from 'react-router';
+import { Redirect, Route, RouteComponentProps } from 'react-router';
 import React from 'react';
 
 interface Props {
   path: string;
-  render: any;
+  render: (props: RouteComponentProps) => React.ReactNode
   condition: boolean;
   to: string;
 }
