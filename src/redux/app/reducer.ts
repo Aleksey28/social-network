@@ -1,9 +1,9 @@
 import { authorize } from '../auth/reducer';
-import { BaseThunkType, InferValueTypes } from '../redux-store';
+import { BaseThunkType, BaseActionType } from '../redux-store';
 
 export type InitialState = typeof initialState;
 export type ThunkType = BaseThunkType<ActionsType>
-type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
+type ActionsType = BaseActionType<typeof actions>;
 
 const initialState = {
   initialized: false,

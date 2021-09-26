@@ -1,13 +1,13 @@
 import { FormAction, stopSubmit } from 'redux-form';
 import securityAPI, { ResultCodeCaptcha } from '../../api/securityAPI';
 import { LoginPropsType } from '../../types';
-import { BaseThunkType, InferValueTypes } from '../redux-store';
+import { BaseThunkType, BaseActionType } from '../redux-store';
 import { ResultCode } from '../../api/api';
 import authApi from '../../api/authApi';
 
 export type InitialState = typeof initialState;
 export type ThunkType = BaseThunkType<ActionsType | FormAction>
-type ActionsType = ReturnType<InferValueTypes<typeof actions>>;
+type ActionsType = BaseActionType<typeof actions>;
 
 interface UserData {
   email: null | string;
