@@ -82,7 +82,7 @@ class ProfileContainer extends React.Component<Props & OwnProps> {
   }
 }
 
-export default compose(
+export default compose<React.ComponentType>(
   connector,
   withRouter,
 )(ProfileContainer);

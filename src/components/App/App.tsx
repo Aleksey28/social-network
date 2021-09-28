@@ -8,9 +8,9 @@ import HeaderContainer from '../Header/HeaderContainer';
 import ProtectedRoute from '../../hoc/ProtectedRoute';
 import LoginContainer from '../Login/LoginContainer';
 import { compose } from 'redux';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { withRouter } from 'react-router';
-import { initializing, InitialState, ThunkType } from '../../redux/app/reducer';
+import { initializing } from '../../redux/app/reducer';
 import Preloader from '../common/Preloader/Preloader';
 import { getInitializedState } from '../../redux/app/selector';
 import { getIsAuthState } from '../../redux/auth/selector';
@@ -20,14 +20,32 @@ import { AppStateType } from '../../redux/redux-store';
 const DialogsContainer = lazy(() => import('../Dialogs/DialogsContainer').then(DialogsContainer => DialogsContainer));
 const UsersContainer   = lazy(() => import('../Users/UsersContainer').then(UsersContainer => UsersContainer));
 
-interface AppProps extends InitialState {
-  initializing: () => ThunkType;
+interface StatePropsType {
   isAuth: boolean;
+  initialized: boolean;
 }
 
-class App extends React.Component {
-  props!: AppProps;
+interface DispatchPropsType {
+  initializing: () => void;
+}
 
+interface OwnProps {
+}
+
+type PropsType = ConnectedProps<typeof connector>;
+
+const mapStateToProps = (state: AppStateType): StatePropsType => ({
+  isAuth:      getIsAuthState(state),
+  initialized: getInitializedState(state),
+});
+
+const mapDispatchToProps: DispatchPropsType = {
+  initializing,
+};
+
+const connector = connect<StatePropsType, DispatchPropsType, OwnProps, AppStateType>(mapStateToProps, mapDispatchToProps);
+
+class App extends React.Component<PropsType> {
   componentDidMount () {
     this.props.initializing();
   }
@@ -47,7 +65,6 @@ class App extends React.Component {
                      <LoginContainer/>
                    </Route>
                    <Route path="/profile/:userId?">
-                     {/*@ts-ignore*/}
                      <ProfileContainer/>
                    </Route>
                    <ProtectedRoute path="/messages"
@@ -72,17 +89,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state: AppStateType) => ({
-  isAuth:      getIsAuthState(state),
-  initialized: getInitializedState(state),
-});
-
-const mapDispatchToProps = {
-  initializing,
-};
-
-export default compose(
+export default compose<React.ComponentType>(
   withRouter,
-  connect(mapStateToProps, mapDispatchToProps),
+  connector,
 )(App);
 

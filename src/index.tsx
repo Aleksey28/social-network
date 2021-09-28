@@ -11,7 +11,6 @@ ReactDOM.render(
   <React.StrictMode>
     <HashRouter>
       <Provider store={store}>
-        {/*@ts-ignore*/}
         <App/>
       </Provider>
     </HashRouter>
