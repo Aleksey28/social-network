@@ -65,7 +65,6 @@ class App extends React.Component<PropsType> {
                      <LoginContainer/>
                    </Route>
                    <Route path="/profile/:userId?">
-                     {/*@ts-ignore*/}
                      <ProfileContainer/>
                    </Route>
                    <ProtectedRoute path="/messages"
