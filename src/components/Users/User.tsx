@@ -3,10 +3,9 @@ import emptyAvatar from '../../images/empty_avatar.svg';
 import classes from './User.module.css';
 import React from 'react';
 import { UserType as UserInterface } from '../../types';
-import { InitialState } from '../../redux/users/reducer';
 
 interface Props extends UserInterface {
-  isTogglingFollowUsers: InitialState['isTogglingFollowUsers'];
+  isTogglingFollowUsers: string[];
   follow: (id: string) => void;
   unfollow: (id: string) => void;
 }
