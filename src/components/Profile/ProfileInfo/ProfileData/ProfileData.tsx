@@ -95,6 +95,7 @@ const ProfileData: React.FC<Props> = ({ profileData, updateUserData }) => {
   };
 
   const handleSubmit = (formData: ProfileType) => {
+    //TODO: remove then
     updateUserData(formData).then(deactivateEditMode);
   };
 
