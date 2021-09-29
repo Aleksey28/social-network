@@ -10,9 +10,9 @@ interface Props {
   isOwner: boolean;
   userInfo: Partial<ProfileType>;
   userStatus: string;
-  updateUserStatus: (status: string) => any;
-  updateUserPhoto: (image: File) => any;
-  updateUserData: (userData: ProfileType) => any;
+  updateUserStatus: (status: string) => void;
+  updateUserPhoto: (image: File) => void;
+  updateUserData: (userData: ProfileType) => Promise<void>;
 }
 
 const ProfileInfo: React.FC<Props> = ({

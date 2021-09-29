@@ -6,7 +6,7 @@ import { maxLength30, required } from '../../../utils/validators';
 import { PostType as PostType } from '../../../types';
 
 interface Props {
-  addPost: any;
+  addPost: (newPost: string) => void;
   postsData: PostType[];
 }
 

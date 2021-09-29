@@ -45,6 +45,9 @@ const mapDispatchToProps: DispatchPropsType = {
 
 const connector = connect<StatePropsType, DispatchPropsType, OwnProps, AppStateType>(mapStateToProps, mapDispatchToProps);
 
+const Dialogs = withSuspense(DialogsContainer);
+const Users   = withSuspense(UsersContainer);
+
 class App extends React.Component<PropsType> {
   componentDidMount () {
     this.props.initializing();
@@ -70,11 +73,11 @@ class App extends React.Component<PropsType> {
                    <ProtectedRoute path="/messages"
                                    condition={isAuth}
                                    to={'/login'}
-                                   render={withSuspense(DialogsContainer)}/>
+                                   render={() => <Dialogs/>}/>
                    <ProtectedRoute path="/users"
                                    condition={isAuth}
                                    to={'/login'}
-                                   render={withSuspense(UsersContainer)}/>
+                                   render={() => <Users/>}/>
                    <Route path="/error">
                      <div>
                        ERROR 404 =D
