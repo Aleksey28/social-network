@@ -3,7 +3,7 @@ import { createField, Input, Textarea } from '../../../common/FormsControls/Form
 import { required } from '../../../../utils/validators';
 import React, { useState } from 'react';
 import classes from './ProfileData.module.css';
-import { ProfileType } from '../../../../types';
+import { ContactsType, ProfileType } from '../../../../types';
 
 interface Props {
   profileData: Partial<ProfileType>;
@@ -12,6 +12,8 @@ interface Props {
 
 type FormType = React.FC<InjectedFormProps<ProfileType>>;
 type FormNames = Extract<keyof ProfileType, string>;
+type ContactNames = Extract<keyof ContactsType, string>;
+type FullContactNames = `contacts.${ContactNames}`;
 
 const ProfileDataForm: FormType = ({ handleSubmit, error, initialValues }) => {
   return (
@@ -22,10 +24,9 @@ const ProfileDataForm: FormType = ({ handleSubmit, error, initialValues }) => {
       Skills: {createField<FormNames>('lookingForAJobDescription', Input, [required], 'Skills')}
       Contacts:
       <ul>
-        {!!initialValues.contacts && Object.keys(initialValues.contacts).map(key => (
+        {!!initialValues.contacts && (Object.keys(initialValues.contacts) as Array<ContactNames>).map(key => (
           <li key={key}>
-            {/*@ts-ignore*/}
-            {key}: {createField<FormNames>(`contacts.${key}`, Input, [], key)}
+            {key}: {createField<FullContactNames>(`contacts.${key}`, Input, [], key)}
           </li>
         ))}
       </ul>
