@@ -3,15 +3,18 @@ import { createField, Input, Textarea } from '../../../common/FormsControls/Form
 import { required } from '../../../../utils/validators';
 import React, { useState } from 'react';
 import classes from './ProfileData.module.css';
-import { ProfileType } from '../../../../types';
+import { ContactsType, ProfileType } from '../../../../types';
 
 interface Props {
   profileData: Partial<ProfileType>;
+  isValid: boolean;
   updateUserData: (userData: ProfileType) => Promise<void>;
 }
 
 type FormType = React.FC<InjectedFormProps<ProfileType>>;
 type FormNames = Extract<keyof ProfileType, string>;
+type ContactNames = Extract<keyof ContactsType, string>;
+type FullContactNames = `contacts.${ContactNames}`;
 
 const ProfileDataForm: FormType = ({ handleSubmit, error, initialValues }) => {
   return (
@@ -22,10 +25,9 @@ const ProfileDataForm: FormType = ({ handleSubmit, error, initialValues }) => {
       Skills: {createField<FormNames>('lookingForAJobDescription', Input, [required], 'Skills')}
       Contacts:
       <ul>
-        {!!initialValues.contacts && Object.keys(initialValues.contacts).map(key => (
+        {!!initialValues.contacts && (Object.keys(initialValues.contacts) as Array<ContactNames>).map(key => (
           <li key={key}>
-            {/*@ts-ignore*/}
-            {key}: {createField<FormNames>(`contacts.${key}`, Input, [], key)}
+            {key}: {createField<FullContactNames>(`contacts.${key}`, Input, [], key)}
           </li>
         ))}
       </ul>
@@ -42,12 +44,12 @@ const ProfileDataReduxForm = reduxForm<ProfileType>({
 })(ProfileDataForm);
 
 const ProfileDataInfo: React.FC<Partial<ProfileType>> = ({
-                                                       fullName,
-                                                       aboutMe,
-                                                       lookingForAJob,
-                                                       lookingForAJobDescription,
-                                                       contacts
-                                                     }) => {
+                                                           fullName,
+                                                           aboutMe,
+                                                           lookingForAJob,
+                                                           lookingForAJobDescription,
+                                                           contacts
+                                                         }) => {
   return (
     <ul>
       <li>
@@ -74,7 +76,7 @@ const ProfileDataInfo: React.FC<Partial<ProfileType>> = ({
   );
 };
 
-const ProfileData: React.FC<Props> = ({ profileData, updateUserData }) => {
+const ProfileData: React.FC<Props> = ({ profileData, isValid, updateUserData }) => {
   const [editMode, setEditMode] = useState(false);
 
   const activateEditMode = () => {
@@ -96,7 +98,9 @@ const ProfileData: React.FC<Props> = ({ profileData, updateUserData }) => {
 
   const handleSubmit = (formData: ProfileType) => {
     //TODO: remove then
-    updateUserData(formData).then(deactivateEditMode);
+    updateUserData(formData).then(() => {
+      if (isValid) setEditMode(false);
+    });
   };
 
   return (

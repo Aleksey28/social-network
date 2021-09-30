@@ -10,6 +10,7 @@ interface Props {
   isOwner: boolean;
   userInfo: Partial<ProfileType>;
   userStatus: string;
+  isValid: boolean;
   updateUserStatus: (status: string) => void;
   updateUserPhoto: (image: File) => void;
   updateUserData: (userData: ProfileType) => Promise<void>;
@@ -19,6 +20,7 @@ const ProfileInfo: React.FC<Props> = ({
                                         isOwner,
                                         userInfo,
                                         userStatus,
+                                        isValid,
                                         updateUserStatus,
                                         updateUserPhoto,
                                         updateUserData
@@ -40,7 +42,7 @@ const ProfileInfo: React.FC<Props> = ({
       <div>
         <img className={classes.info__avatar} src={photos?.large || emptyAvatar} alt="Avatar"/>
         {isOwner && <input type="file" onChange={handleChangePhoto}/>}
-        <ProfileData profileData={userInfo} updateUserData={updateUserData}/>
+        <ProfileData profileData={userInfo} isValid={isValid} updateUserData={updateUserData}/>
         <ProfileStatus status={userStatus} updateUserStatus={updateUserStatus}/>
       </div>
     </div>

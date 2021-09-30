@@ -7,6 +7,7 @@ interface Props {
   userId: string | null;
   userInfo: Partial<ProfileType>;
   userStatus: string;
+  isValid: boolean;
   updateUserStatus: (status: string) => any;
   updateUserPhoto: (image: File) => any;
   updateUserData: (userData: ProfileType) => any;
@@ -16,6 +17,7 @@ const Profile: React.FC<Props> = ({
                                     userId,
                                     userInfo,
                                     userStatus,
+                                    isValid,
                                     updateUserStatus,
                                     updateUserPhoto,
                                     updateUserData
@@ -25,6 +27,7 @@ const Profile: React.FC<Props> = ({
       <ProfileInfo isOwner={userId === userInfo?.userId}
                    userInfo={userInfo}
                    userStatus={userStatus}
+                   isValid={isValid}
                    updateUserStatus={updateUserStatus}
                    updateUserPhoto={updateUserPhoto}
                    updateUserData={updateUserData}/>

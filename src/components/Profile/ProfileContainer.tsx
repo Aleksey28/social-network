@@ -9,7 +9,7 @@ import {
 } from '../../redux/profile/reducer';
 import { withRouter } from 'react-router';
 import { compose } from 'redux';
-import { getUserInfoState, getUserStatusState } from '../../redux/profile/selector';
+import { getUserInfoState, getUserStatusState, getIsValid } from '../../redux/profile/selector';
 import { getUserIdState } from '../../redux/auth/selector';
 import { ProfileType as ProfileInterface } from '../../types';
 import Profile from './Profile';
@@ -19,6 +19,7 @@ interface StateProps {
   userInfo: Partial<ProfileInterface>;
   userStatus: string;
   userId: string | null;
+  isValid: boolean;
 }
 
 interface DispatchProps {
@@ -40,6 +41,7 @@ const mapStateToProps = (state: AppStateType): StateProps => ({
   userInfo:   getUserInfoState(state),
   userStatus: getUserStatusState(state),
   userId:     getUserIdState(state),
+  isValid:    getIsValid(state),
 });
 
 const mapDispatchToProps: DispatchProps = {
