@@ -1,7 +1,7 @@
 import profileAPI from '../../api/profileAPI';
 import { FormAction, stopSubmit } from 'redux-form';
 import { PhotosType, PostType, ProfileType } from '../../types';
-import { BaseThunkType, BaseActionType } from '../redux-store';
+import { BaseActionType, BaseThunkType } from '../redux-store';
 import { ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
@@ -25,6 +25,7 @@ const initialState = {
               ] as Array<PostType>,
   userInfo:   null as Partial<ProfileType> | null,
   userStatus: 'no status' as string,
+  isValid:    true,
 };
 
 const reducer = (state = initialState, action: ActionsType): InitialState => {
@@ -62,6 +63,12 @@ const reducer = (state = initialState, action: ActionsType): InitialState => {
         },
       };
     }
+    case 'social-network/profile/SET_VALID': {
+      return {
+        ...state,
+        isValid: action.isValid
+      };
+    }
     default:
       return state;
   }
@@ -73,6 +80,7 @@ export const actions = {
   setUserInfo:   (userInfo: ProfileType) => ({ type: 'social-network/profile/SET_USER_INFO', userInfo } as const),
   setUserStatus: (userStatus: string) => ({ type: 'social-network/profile/SET_USER_STATUS', userStatus } as const),
   setUserPhotos: (userPhotos: PhotosType) => ({ type: 'social-network/profile/SET_USER_PHOTOS', userPhotos } as const),
+  setIsValid:    (isValid: boolean) => ({ type: 'social-network/profile/SET_VALID', isValid } as const),
 };
 
 
@@ -130,10 +138,12 @@ export const updateUserData = (userData: ProfileType): ThunkType => async (dispa
 
     if (data.resultCode === ResultCode.Success) {
       const { data } = await profileAPI.getProfileData(userData.userId);
+      dispatch(actions.setIsValid(true));
       dispatch(actions.setUserInfo(data));
     }
     else {
       const errors = data.messages.reduce((errors: ErrorsObject, item: string) => {
+        dispatch(actions.setIsValid(false));
         const [message, element] = item.split('(');
         const elementRoute       = element.slice(0, element.length - 1).split('->');
 
@@ -152,6 +162,7 @@ export const updateUserData = (userData: ProfileType): ThunkType => async (dispa
 
           return res[key];
         }, errors);
+
 
         return errors;
       }, {});

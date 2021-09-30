@@ -7,6 +7,7 @@ import { ContactsType, ProfileType } from '../../../../types';
 
 interface Props {
   profileData: Partial<ProfileType>;
+  isValid: boolean;
   updateUserData: (userData: ProfileType) => Promise<void>;
 }
 
@@ -43,12 +44,12 @@ const ProfileDataReduxForm = reduxForm<ProfileType>({
 })(ProfileDataForm);
 
 const ProfileDataInfo: React.FC<Partial<ProfileType>> = ({
-                                                       fullName,
-                                                       aboutMe,
-                                                       lookingForAJob,
-                                                       lookingForAJobDescription,
-                                                       contacts
-                                                     }) => {
+                                                           fullName,
+                                                           aboutMe,
+                                                           lookingForAJob,
+                                                           lookingForAJobDescription,
+                                                           contacts
+                                                         }) => {
   return (
     <ul>
       <li>
@@ -75,7 +76,7 @@ const ProfileDataInfo: React.FC<Partial<ProfileType>> = ({
   );
 };
 
-const ProfileData: React.FC<Props> = ({ profileData, updateUserData }) => {
+const ProfileData: React.FC<Props> = ({ profileData, isValid, updateUserData }) => {
   const [editMode, setEditMode] = useState(false);
 
   const activateEditMode = () => {
@@ -97,7 +98,9 @@ const ProfileData: React.FC<Props> = ({ profileData, updateUserData }) => {
 
   const handleSubmit = (formData: ProfileType) => {
     //TODO: remove then
-    updateUserData(formData).then(deactivateEditMode);
+    updateUserData(formData).then(() => {
+      if (isValid) setEditMode(false);
+    });
   };
 
   return (
