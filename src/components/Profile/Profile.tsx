@@ -8,9 +8,9 @@ interface Props {
   userInfo: Partial<ProfileType>;
   userStatus: string;
   isValid: boolean;
-  updateUserStatus: (status: string) => any;
-  updateUserPhoto: (image: File) => any;
-  updateUserData: (userData: ProfileType) => any;
+  updateUserStatus: (status: string) => void;
+  updateUserPhoto: (image: File) => void;
+  updateUserData: (userData: ProfileType) => Promise<void>;
 }
 
 const Profile: React.FC<Props> = ({

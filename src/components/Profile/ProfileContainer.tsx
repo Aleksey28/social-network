@@ -23,11 +23,11 @@ interface StatePropsType {
 }
 
 interface DispatchPropsType {
-  getUserInfo: (userId: string) => any;
-  getUserStatus: (userId: string) => any;
-  updateUserStatus: (status: string) => any;
-  updateUserPhoto: (image: File) => any;
-  updateUserData: (userData: ProfileInterface) => any;
+  getUserInfo: (userId: string) => void;
+  getUserStatus: (userId: string) => void;
+  updateUserStatus: (status: string) => void;
+  updateUserPhoto: (image: File) => void;
+  updateUserData: (userData: ProfileInterface) => Promise<void>;
 }
 
 interface OwnPropsType {}
@@ -50,6 +50,7 @@ const mapDispatchToProps: DispatchPropsType = {
   getUserStatus,
   updateUserStatus,
   updateUserPhoto,
+// @ts-ignore
   updateUserData,
 };
 

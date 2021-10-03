@@ -13,7 +13,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  login: (props: LoginPropsType) => any
+  login: (props: LoginPropsType) => void
 }
 
 interface OwnProps {
