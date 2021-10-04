@@ -50,9 +50,8 @@ const mapDispatchToProps: DispatchPropsType = {
   getUserStatus,
   updateUserStatus,
   updateUserPhoto,
-// @ts-ignore
   updateUserData,
-};
+} as unknown as DispatchPropsType;
 
 const connector = connect<StatePropsType, DispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, mapDispatchToProps);
 
