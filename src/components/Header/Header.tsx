@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 interface HeaderProps {
   login: string;
-  logout: () => any;
+  logout: () => void;
   isAuth: boolean;
 }
 

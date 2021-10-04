@@ -10,7 +10,7 @@ interface StateProps {
 }
 
 interface DispatchProps {
-  addPost: (newPost: string) => any
+  addPost: (newPost: string) => void
 }
 
 interface OwnProps {

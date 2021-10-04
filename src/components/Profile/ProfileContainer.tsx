@@ -7,7 +7,7 @@ import {
   updateUserPhoto,
   updateUserStatus,
 } from '../../redux/profile/reducer';
-import { withRouter } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router';
 import { compose } from 'redux';
 import { getUserInfoState, getUserStatusState, getIsValid } from '../../redux/profile/selector';
 import { getUserIdState } from '../../redux/auth/selector';
@@ -15,49 +15,50 @@ import { ProfileType as ProfileInterface } from '../../types';
 import Profile from './Profile';
 import { AppStateType } from '../../redux/redux-store';
 
-interface StateProps {
+interface StatePropsType {
   userInfo: Partial<ProfileInterface>;
   userStatus: string;
   userId: string | null;
   isValid: boolean;
 }
 
-interface DispatchProps {
-  getUserInfo: (userId: string) => any;
-  getUserStatus: (userId: string) => any;
-  updateUserStatus: (status: string) => any;
-  updateUserPhoto: (image: File) => any;
-  updateUserData: (userData: ProfileInterface) => any;
+interface DispatchPropsType {
+  getUserInfo: (userId: string) => void;
+  getUserStatus: (userId: string) => void;
+  updateUserStatus: (status: string) => void;
+  updateUserPhoto: (image: File) => void;
+  updateUserData: (userData: ProfileInterface) => Promise<void>;
 }
 
-interface OwnProps {
-  history: any;
-  match: any;
+interface OwnPropsType {}
+
+interface PathParamsType {
+  userId: string;
 }
 
-type Props = ConnectedProps<typeof connector>;
+type PropsType = ConnectedProps<typeof connector> & RouteComponentProps<PathParamsType>;
 
-const mapStateToProps = (state: AppStateType): StateProps => ({
+const mapStateToProps = (state: AppStateType): StatePropsType => ({
   userInfo:   getUserInfoState(state),
   userStatus: getUserStatusState(state),
   userId:     getUserIdState(state),
   isValid:    getIsValid(state),
 });
 
-const mapDispatchToProps: DispatchProps = {
+const mapDispatchToProps: DispatchPropsType = {
   getUserInfo,
   getUserStatus,
   updateUserStatus,
   updateUserPhoto,
   updateUserData,
-};
+} as unknown as DispatchPropsType;
 
-const connector = connect<StateProps, DispatchProps, OwnProps, AppStateType>(mapStateToProps, mapDispatchToProps);
+const connector = connect<StatePropsType, DispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, mapDispatchToProps);
 
-class ProfileContainer extends React.Component<Props & OwnProps> {
+class ProfileContainer extends React.Component<PropsType> {
   _refreshAvatarProfileInfo = () => {
     const { history, getUserInfo, getUserStatus } = this.props;
-    const userId                                  = this.props.match.params.userId || this.props.userId;
+    const userId                                  = this.props.match.params.userId || this.props.userId || '';
 
     if (!userId) {
       history.push('/login');
@@ -71,7 +72,7 @@ class ProfileContainer extends React.Component<Props & OwnProps> {
     this._refreshAvatarProfileInfo();
   }
 
-  componentDidUpdate (prevProps: Props & OwnProps) {
+  componentDidUpdate (prevProps: PropsType) {
     if (this.props.match.params.userId !== prevProps.match.params.userId) {
       this._refreshAvatarProfileInfo();
     }

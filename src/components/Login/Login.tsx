@@ -8,7 +8,7 @@ import { LoginPropsType } from '../../types';
 
 interface Props {
   isAuth: boolean;
-  login: (props: LoginPropsType) => any;
+  login: (props: LoginPropsType) => void;
   captchaUrl: string;
 }
 
