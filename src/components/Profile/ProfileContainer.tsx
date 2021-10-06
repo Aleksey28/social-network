@@ -56,7 +56,7 @@ const mapDispatchToProps: DispatchPropsType = {
 const connector = connect<StatePropsType, DispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, mapDispatchToProps);
 
 class ProfileContainer extends React.Component<PropsType> {
-  _refreshAvatarProfileInfo = () => {
+  _refreshProfileInfo = () => {
     const { history, getUserInfo, getUserStatus } = this.props;
     const userId                                  = this.props.match.params.userId || this.props.userId || '';
 
@@ -69,12 +69,12 @@ class ProfileContainer extends React.Component<PropsType> {
   };
 
   componentDidMount () {
-    this._refreshAvatarProfileInfo();
+    this._refreshProfileInfo();
   }
 
   componentDidUpdate (prevProps: PropsType) {
     if (this.props.match.params.userId !== prevProps.match.params.userId) {
-      this._refreshAvatarProfileInfo();
+      this._refreshProfileInfo();
     }
   }
 
