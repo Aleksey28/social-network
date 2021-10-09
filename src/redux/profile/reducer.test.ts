@@ -14,6 +14,7 @@ describe('Profile reducer test', () => {
     ],
     userInfo:   null,
     userStatus: 'no status',
+    isValid: true
   };
 
   it('Should add new post', () => {
