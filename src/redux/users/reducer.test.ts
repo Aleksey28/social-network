@@ -61,4 +61,11 @@ describe('Users reducer tests', () => {
     expect(state.users[0].followed).toBeTruthy();
     expect(state.users[1].followed).toBeFalsy();
   });
+
+  test('Unfollow success', () => {
+    state = reducer(state, actions.setUnfollow('3'));
+
+    expect(state.users[2].followed).toBeFalsy();
+    expect(state.users[3].followed).toBeTruthy();
+  });
 });
