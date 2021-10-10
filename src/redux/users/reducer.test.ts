@@ -92,4 +92,17 @@ describe('Users reducer tests', () => {
     expect(mockDispatch).toHaveBeenNthCalledWith(2, actions.setFollow('1'));
     expect(mockDispatch).toHaveBeenNthCalledWith(3, actions.setIsTogglingFollow('1', false));
   });
+
+  test('Succeed unfollow thunk', async () => {
+    mockUserAPI.follow.mockResolvedValue(successResponseData);
+
+    const thunk = follow('3');
+
+    await thunk(mockDispatch, mockGetState, {});
+
+    expect(mockDispatch).toBeCalledTimes(3);
+    expect(mockDispatch).toHaveBeenNthCalledWith(1, actions.setIsTogglingFollow('3', true));
+    expect(mockDispatch).toHaveBeenNthCalledWith(2, actions.setFollow('3'));
+    expect(mockDispatch).toHaveBeenNthCalledWith(3, actions.setIsTogglingFollow('3', false));
+  });
 });
