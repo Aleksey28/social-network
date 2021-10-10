@@ -1,6 +1,14 @@
-import reducer, { actions, InitialState } from './reducer';
+import reducer, { actions, follow, InitialState } from './reducer';
+import usersAPI from '../../api/usersAPI';
+import { ApiResponse, ResultCode } from '../../api/api';
+
+jest.mock('../../api/usersAPI');
 
 let state: InitialState;
+const mockDispatch                     = jest.fn();
+const mockGetState                     = jest.fn();
+const mockUserAPI                      = usersAPI as jest.Mocked<typeof usersAPI>;
+const successResponseData: ApiResponse = { data: {}, messages: [], resultCode: ResultCode.Success };
 
 describe('Users reducer tests', () => {
   beforeEach(() => {
@@ -53,6 +61,9 @@ describe('Users reducer tests', () => {
       isFetching:            false,
       isTogglingFollowUsers: [],
     };
+    mockDispatch.mockClear();
+    mockGetState.mockClear();
+    mockUserAPI.follow.mockClear();
   });
 
   test('Follow success', () => {
@@ -67,5 +78,18 @@ describe('Users reducer tests', () => {
 
     expect(state.users[2].followed).toBeFalsy();
     expect(state.users[3].followed).toBeTruthy();
+  });
+
+  test('Succeed follow thunk', async () => {
+    mockUserAPI.follow.mockResolvedValue(successResponseData);
+
+    const thunk = follow('1');
+
+    await thunk(mockDispatch, mockGetState, {});
+
+    expect(mockDispatch).toBeCalledTimes(3);
+    expect(mockDispatch).toHaveBeenNthCalledWith(1, actions.setIsTogglingFollow('1', true));
+    expect(mockDispatch).toHaveBeenNthCalledWith(2, actions.setFollow('1'));
+    expect(mockDispatch).toHaveBeenNthCalledWith(3, actions.setIsTogglingFollow('1', false));
   });
 });
