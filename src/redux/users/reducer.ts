@@ -1,9 +1,8 @@
 import usersAPI from '../../api/usersAPI';
 import { updateObjectInArray } from '../../utils/helpers';
 import { UserType } from '../../types';
-import { BaseThunkType, BaseActionType } from '../redux-store';
+import { BaseActionType, BaseThunkType } from '../redux-store';
 import { Dispatch } from 'redux';
-import { AxiosResponse } from 'axios';
 import { ApiResponse, ResultCode } from '../../api/api';
 
 export type InitialState = typeof initialState;
@@ -86,11 +85,11 @@ export const actions = {
 export const getUsers = (page: number, pageSize: number): ThunkType => async (dispatch) => {
   dispatch(actions.setIsFetching(true));
   try {
-    const { data } = await usersAPI.getUsers(page + 1, pageSize);
+    const { totalCount, items } = await usersAPI.getUsers(page + 1, pageSize);
 
     dispatch(actions.setCurrentPage(page));
-    dispatch(actions.setUsersCount(data.totalCount));
-    dispatch(actions.setUsers(data.items));
+    dispatch(actions.setUsersCount(totalCount));
+    dispatch(actions.setUsers(items));
   }
   catch (error) {
     console.log(error);
@@ -104,14 +103,14 @@ const toggleFollow = async (
   userId: string,
   dispatch: Dispatch<ActionsType>,
   actionCreator: (userId: string) => ActionsType,
-  apiMethod: (userId: string) => Promise<AxiosResponse<ApiResponse>>
+  apiMethod: (userId: string) => Promise<ApiResponse>
 ): Promise<void> => {
   dispatch(actions.setIsTogglingFollow(userId, true));
   try {
-    const { data } = await apiMethod(userId);
+    const { resultCode, messages } = await apiMethod(userId);
 
-    if (data.resultCode === ResultCode.Error) {
-      throw new Error(data.messages[0]);
+    if (resultCode === ResultCode.Error) {
+      throw new Error(messages[0]);
     }
 
     dispatch(actionCreator(userId));
