@@ -3,6 +3,7 @@ import Preloader from '../common/Preloader/Preloader';
 import Paginator from '../common/Paginator/Paginator';
 import User from './User';
 import { InitialState as UsersInitialState } from '../../redux/users/reducer';
+import SearchUsersForm from './SearchUsersForm';
 
 interface Props extends UsersInitialState {
   onPageChanged: (i: number) => void;
@@ -32,6 +33,7 @@ const Users: React.FC<Props> = (props) => {
     isFetching
     ? <Preloader/>
     : <div>
+      <SearchUsersForm/>
       <Paginator currentItem={currentPage} totalItemsCount={countPages} onClick={handleClickOnPage}/>
       <ul>
         {

@@ -3,7 +3,7 @@ import Post from './Post/Post';
 import { InjectedFormProps, reduxForm } from 'redux-form';
 import { createField, Textarea } from '../../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../../utils/validators';
-import { PostType as PostType } from '../../../types';
+import { PostType } from '../../../types';
 
 interface Props {
   addPost: (newPost: string) => void;
