@@ -43,3 +43,8 @@ export interface LoginPropsType {
   rememberMe: boolean;
   captcha: string | null;
 }
+
+export interface UserFiltersType {
+  term: string;
+  friend: boolean;
+}
