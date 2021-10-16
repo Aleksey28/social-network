@@ -1,5 +1,6 @@
 import API, { ApiResponse } from './api';
-import { UserFiltersType, UserType } from '../types';
+import { UserType } from '../types';
+import { UserFiltersType } from '../redux/users/reducer';
 
 interface GetUsersResponse {
   items: UserType[];

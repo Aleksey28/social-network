@@ -8,6 +8,7 @@ import { ApiResponse, ResultCode } from '../../api/api';
 export type InitialState = typeof initialState;
 export type ThunkType = BaseThunkType<ActionsType>
 type ActionsType = BaseActionType<typeof actions>;
+export type UserFiltersType = InitialState['filters'];
 
 const initialState = {
   users:                 [] as Array<UserType>,
@@ -16,6 +17,10 @@ const initialState = {
   currentPage:           0,
   isFetching:            false,
   isTogglingFollowUsers: [] as Array<string>,
+  filters:    {
+    term:   '',
+    friend: false,
+  }
 };
 
 const reducer = (state = initialState, action: ActionsType): InitialState => {
