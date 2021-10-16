@@ -62,6 +62,12 @@ const reducer = (state = initialState, action: ActionsType): InitialState => {
                                ? [...state.isTogglingFollowUsers, action.userId]
                                : state.isTogglingFollowUsers.filter(id => id !== action.userId),
       };
+    case 'social-network/profile/SET_FILTERS' : {
+      return {
+        ...state,
+        filters: action.filters,
+      };
+    }
     default:
       return state;
   }
@@ -85,6 +91,7 @@ export const actions = {
     userId,
     isFetching,
   } as const),
+  setFilters:          (filters: UserFiltersType) => ({ type: 'social-network/profile/SET_FILTERS', filters } as const),
 };
 
 export const getUsers = (page: number, pageSize: number): ThunkType => async (dispatch) => {
