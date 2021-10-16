@@ -17,10 +17,10 @@ const initialState = {
   currentPage:           0,
   isFetching:            false,
   isTogglingFollowUsers: [] as Array<string>,
-  filters:    {
+  filters:               {
     term:   '',
     friend: false,
-  }
+  },
 };
 
 const reducer = (state = initialState, action: ActionsType): InitialState => {
@@ -74,10 +74,10 @@ const reducer = (state = initialState, action: ActionsType): InitialState => {
 };
 
 export const actions = {
-  setFollow:           (userId: string) => ({ type: 'social-network/users/FOLLOW', userId, } as const),
-  setUnfollow:         (userId: string) => ({ type: 'social-network/users/UNFOLLOW', userId, } as const),
-  setUsers:            (users: Array<UserType>) => ({ type: 'social-network/users/SET_USERS', users, } as const),
-  setUsersCount:       (usersCount: number) => ({ type: 'social-network/users/SET_USERS_COUNT', usersCount, } as const),
+  setFollow:           (userId: string) => ({ type: 'social-network/users/FOLLOW', userId } as const),
+  setUnfollow:         (userId: string) => ({ type: 'social-network/users/UNFOLLOW', userId } as const),
+  setUsers:            (users: Array<UserType>) => ({ type: 'social-network/users/SET_USERS', users } as const),
+  setUsersCount:       (usersCount: number) => ({ type: 'social-network/users/SET_USERS_COUNT', usersCount } as const),
   setCurrentPage:      (currentPage: number) => ({
     type: 'social-network/users/SET_CURRENT_PAGE',
     currentPage,
@@ -115,7 +115,7 @@ const toggleFollow = async (
   userId: string,
   dispatch: Dispatch<ActionsType>,
   actionCreator: (userId: string) => ActionsType,
-  apiMethod: (userId: string) => Promise<ApiResponse>
+  apiMethod: (userId: string) => Promise<ApiResponse>,
 ): Promise<void> => {
   dispatch(actions.setIsTogglingFollow(userId, true));
   try {
