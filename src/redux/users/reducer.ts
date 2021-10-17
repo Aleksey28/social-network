@@ -94,10 +94,10 @@ export const actions = {
   setFilters:          (filters: UserFiltersType) => ({ type: 'social-network/profile/SET_FILTERS', filters } as const),
 };
 
-export const getUsers = (page: number, pageSize: number): ThunkType => async (dispatch) => {
+export const getUsers = (page: number, pageSize: number, filters: UserFiltersType): ThunkType => async (dispatch) => {
   dispatch(actions.setIsFetching(true));
   try {
-    const { totalCount, items } = await usersAPI.getUsers(page + 1, pageSize);
+    const { totalCount, items } = await usersAPI.getUsers(page + 1, pageSize, filters);
 
     dispatch(actions.setCurrentPage(page));
     dispatch(actions.setUsersCount(totalCount));
