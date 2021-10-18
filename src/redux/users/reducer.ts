@@ -100,6 +100,7 @@ export const getUsers = (page: number, pageSize: number, filters: UserFiltersTyp
     const { totalCount, items } = await usersAPI.getUsers(page + 1, pageSize, filters);
 
     dispatch(actions.setCurrentPage(page));
+    dispatch(actions.setFilters(filters));
     dispatch(actions.setUsersCount(totalCount));
     dispatch(actions.setUsers(items));
   }
