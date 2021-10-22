@@ -8,6 +8,7 @@ import { ApiResponse, ResultCode } from '../../api/api';
 export type InitialState = typeof initialState;
 export type ThunkType = BaseThunkType<ActionsType>
 type ActionsType = BaseActionType<typeof actions>;
+export type UserFiltersType = InitialState['filters'];
 
 const initialState = {
   users:                 [] as Array<UserType>,
@@ -16,6 +17,10 @@ const initialState = {
   currentPage:           0,
   isFetching:            false,
   isTogglingFollowUsers: [] as Array<string>,
+  filters:               {
+    term:   '',
+    friend: false,
+  },
 };
 
 const reducer = (state = initialState, action: ActionsType): InitialState => {
@@ -57,16 +62,22 @@ const reducer = (state = initialState, action: ActionsType): InitialState => {
                                ? [...state.isTogglingFollowUsers, action.userId]
                                : state.isTogglingFollowUsers.filter(id => id !== action.userId),
       };
+    case 'social-network/profile/SET_FILTERS' : {
+      return {
+        ...state,
+        filters: action.filters,
+      };
+    }
     default:
       return state;
   }
 };
 
 export const actions = {
-  setFollow:           (userId: string) => ({ type: 'social-network/users/FOLLOW', userId, } as const),
-  setUnfollow:         (userId: string) => ({ type: 'social-network/users/UNFOLLOW', userId, } as const),
-  setUsers:            (users: Array<UserType>) => ({ type: 'social-network/users/SET_USERS', users, } as const),
-  setUsersCount:       (usersCount: number) => ({ type: 'social-network/users/SET_USERS_COUNT', usersCount, } as const),
+  setFollow:           (userId: string) => ({ type: 'social-network/users/FOLLOW', userId } as const),
+  setUnfollow:         (userId: string) => ({ type: 'social-network/users/UNFOLLOW', userId } as const),
+  setUsers:            (users: Array<UserType>) => ({ type: 'social-network/users/SET_USERS', users } as const),
+  setUsersCount:       (usersCount: number) => ({ type: 'social-network/users/SET_USERS_COUNT', usersCount } as const),
   setCurrentPage:      (currentPage: number) => ({
     type: 'social-network/users/SET_CURRENT_PAGE',
     currentPage,
@@ -80,12 +91,13 @@ export const actions = {
     userId,
     isFetching,
   } as const),
+  setFilters:          (filters: UserFiltersType) => ({ type: 'social-network/profile/SET_FILTERS', filters } as const),
 };
 
-export const getUsers = (page: number, pageSize: number): ThunkType => async (dispatch) => {
+export const getUsers = (page: number, pageSize: number, filters: UserFiltersType): ThunkType => async (dispatch) => {
   dispatch(actions.setIsFetching(true));
   try {
-    const { totalCount, items } = await usersAPI.getUsers(page + 1, pageSize);
+    const { totalCount, items } = await usersAPI.getUsers(page + 1, pageSize, filters);
 
     dispatch(actions.setCurrentPage(page));
     dispatch(actions.setUsersCount(totalCount));
@@ -103,7 +115,7 @@ const toggleFollow = async (
   userId: string,
   dispatch: Dispatch<ActionsType>,
   actionCreator: (userId: string) => ActionsType,
-  apiMethod: (userId: string) => Promise<ApiResponse>
+  apiMethod: (userId: string) => Promise<ApiResponse>,
 ): Promise<void> => {
   dispatch(actions.setIsTogglingFollow(userId, true));
   try {

@@ -1,5 +1,6 @@
 import API, { ApiResponse } from './api';
 import { UserType } from '../types';
+import { UserFiltersType } from '../redux/users/reducer';
 
 interface GetUsersResponse {
   items: UserType[];
@@ -12,8 +13,18 @@ class UsersAPI extends API {
     super();
   }
 
-  getUsers (page: number, pageSize: number): Promise<GetUsersResponse> {
-    return this._instance.get(`/users?count=${pageSize}&page=${page}`).then(res => res.data);
+  getUsers (page: number, pageSize: number, filters: UserFiltersType): Promise<GetUsersResponse> {
+    const params = [`count=${pageSize}`, `page=${page}`];
+
+    if (filters.term) {
+      params.push(`term=${filters.term}`);
+    }
+
+    if (filters.friend) {
+      params.push(`friend=${filters.friend}`);
+    }
+
+    return this._instance.get(`/users?count=${params.join('&')}`).then(res => res.data);
   }
 
   follow (id: string): Promise<ApiResponse> {

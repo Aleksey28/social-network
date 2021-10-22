@@ -21,7 +21,7 @@ const Header: React.FC<PropsType> = ({ login, logout, isAuth }) => {
              <button onClick={logout}>Log out</button>
            </div>
          )
-         : <NavLink to="/auth">Login</NavLink>}
+         : <NavLink to="/login">Login</NavLink>}
       </div>
     </header>
   );
