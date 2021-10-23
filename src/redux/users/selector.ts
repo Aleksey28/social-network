@@ -6,3 +6,4 @@ export const getPageSizeState              = (state: AppStateType) => state.user
 export const getCurrentPageState           = (state: AppStateType) => state.usersPage.currentPage;
 export const getIsFetchingState            = (state: AppStateType) => state.usersPage.isFetching;
 export const getIsTogglingFollowUsersState = (state: AppStateType) => state.usersPage.isTogglingFollowUsers;
+export const getFilters                    = (state: AppStateType) => state.usersPage.filters;
