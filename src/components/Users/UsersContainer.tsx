@@ -1,9 +1,16 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import Users from './Users';
-import { follow, getUsers, InitialState as UsersInitialState, unfollow } from '../../redux/users/reducer';
+import {
+  follow,
+  getUsers,
+  InitialState as UsersInitialState,
+  unfollow,
+  UserFiltersType,
+} from '../../redux/users/reducer';
 import {
   getCurrentPageState,
+  getFilters,
   getIsFetchingState,
   getIsTogglingFollowUsersState,
   getPageSizeState,
@@ -16,7 +23,7 @@ interface StateProps extends UsersInitialState {
 }
 
 interface DispatchProps {
-  getUsers: (page: number, pageSize: number) => void;
+  getUsers: (page: number, pageSize: number, filters: UserFiltersType) => void;
   follow: (id: string) => void;
   unfollow: (id: string) => void;
 }
@@ -34,6 +41,7 @@ const mapStateToProps = (state: AppStateType): StateProps => {
     currentPage:           getCurrentPageState(state),
     isFetching:            getIsFetchingState(state),
     isTogglingFollowUsers: getIsTogglingFollowUsersState(state),
+    filters:               getFilters(state),
   };
 };
 
@@ -53,14 +61,15 @@ class UsersContainer extends React.Component<Props> {
     this.loadUsers();
   }
 
-  loadUsers (page = this.props.currentPage) {
-    this.props.getUsers(page, this.props.pageSize);
+  loadUsers (page = this.props.currentPage, filters = this.props.filters) {
+    this.props.getUsers(page, this.props.pageSize, filters);
   }
 
   render () {
     return (
       <Users
-        onPageChanged={this.loadUsers.bind(this)}
+        onPageChanged={(i) => this.loadUsers(i)}
+        onSearch={(filters) => this.loadUsers(this.props.currentPage, filters)}
         {...this.props}/>
     );
   }
