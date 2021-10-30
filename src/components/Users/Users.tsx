@@ -36,7 +36,7 @@ const Users: React.FC<Props> = (props) => {
     isFetching
     ? <Preloader/>
     : <div>
-      <SearchUsersForm/>
+      <SearchUsersForm onSearch={onSearch} filters={filters}/>
       <Paginator currentItem={currentPage} totalItemsCount={countPages} onClick={handleClickOnPage}/>
       <ul>
         {
