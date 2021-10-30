@@ -1,8 +1,15 @@
 import { ErrorMessage, Field, Form, Formik, FormikErrors } from 'formik';
 import React from 'react';
+import { UserFiltersType } from '../../redux/users/reducer';
+
+interface PropsType {
+  filters: UserFiltersType;
+  onSearch: (filters: UserFiltersType) => void;
+}
 
 interface FieldsType {
   term: string;
+  friend: boolean;
 }
 
 const validation = (values: FieldsType) => {
@@ -18,22 +25,18 @@ const validation = (values: FieldsType) => {
   return errors;
 };
 
-const SearchUsersForm: React.FC = () => {
+const SearchUsersForm: React.FC<PropsType> = ({ onSearch, filters }) => {
   return (
     <Formik
-      initialValues={{ term: '' }}
+      initialValues={filters}
       validate={validation}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
-      }}
+      onSubmit={(values) => onSearch(values)}
     >
       {({ isSubmitting }) => (
         <Form>
           <Field type="input" name="term"/>
           <ErrorMessage name="term" component="span"/>
+          <Field type="checkbox" name="friend"/>
           <button type="submit" disabled={isSubmitting}>
             Search
           </button>
