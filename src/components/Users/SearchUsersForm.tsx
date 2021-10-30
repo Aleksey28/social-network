@@ -34,6 +34,7 @@ const SearchUsersForm: React.FC = () => {
         <Form>
           <Field type="input" name="term"/>
           <ErrorMessage name="term" component="span"/>
+          <Field type="checkbox" name="friend"/>
           <button type="submit" disabled={isSubmitting}>
             Search
           </button>
