@@ -2,11 +2,12 @@ import React from 'react';
 import Preloader from '../common/Preloader/Preloader';
 import Paginator from '../common/Paginator/Paginator';
 import User from './User';
-import { InitialState as UsersInitialState } from '../../redux/users/reducer';
+import { InitialState as UsersInitialState, UserFiltersType } from '../../redux/users/reducer';
 import SearchUsersForm from './SearchUsersForm';
 
 interface Props extends UsersInitialState {
   onPageChanged: (i: number) => void;
+  onSearch: (filters: UserFiltersType) => void;
   follow: (id: string) => void;
   unfollow: (id: string) => void;
 }
@@ -19,7 +20,9 @@ const Users: React.FC<Props> = (props) => {
           currentPage,
           isFetching,
           isTogglingFollowUsers,
+          filters,
           onPageChanged,
+          onSearch,
           follow,
           unfollow,
         } = props;
