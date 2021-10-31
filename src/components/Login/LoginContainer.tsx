@@ -8,8 +8,6 @@ import { LoginPropsType } from '../../types';
 import { AppStateType } from '../../redux/redux-store';
 
 interface StateProps {
-  isAuth: boolean;
-  captchaUrl: string;
 }
 
 interface DispatchProps {
@@ -22,8 +20,6 @@ interface OwnProps {
 type Props = ConnectedProps<typeof connector>;
 
 const mapStateToProps = (state: AppStateType): StateProps => ({
-  isAuth:     getIsAuthState(state),
-  captchaUrl: getCaptchaUrlState(state),
 });
 
 const mapDispatchToProps: DispatchProps = {

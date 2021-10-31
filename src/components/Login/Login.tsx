@@ -5,11 +5,11 @@ import { maxLength30, required } from '../../utils/validators';
 import { useHistory } from 'react-router';
 import classes from './Login.module.css';
 import { LoginPropsType } from '../../types';
+import { useSelector } from 'react-redux';
+import { getCaptchaUrlState, getIsAuthState } from '../../redux/auth/selector';
 
 interface Props {
-  isAuth: boolean;
   login: (props: LoginPropsType) => void;
-  captchaUrl: string;
 }
 
 interface LoginFormProps {
@@ -43,9 +43,13 @@ const LoginForm: LoginFormType = ({ handleSubmit, error, captchaUrl }) => {
 
 const LoginReduxForm = reduxForm<LoginPropsType, LoginFormProps>({ form: 'login' })(LoginForm);
 
-const Login: React.FC<Props> = ({ isAuth, login, captchaUrl }) => {
+const Login: React.FC<Props> = ({ login }) => {
 
-  const history      = useHistory();
+  const history = useHistory();
+
+  const isAuth     = useSelector(getIsAuthState);
+  const captchaUrl = useSelector(getCaptchaUrlState);
+
   const handleSubmit = (formData: LoginPropsType) => {
     login(formData);
   };
