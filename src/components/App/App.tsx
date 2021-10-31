@@ -6,7 +6,6 @@ import SideBarContainer from '../SideBar/SideBarContainer';
 import ProfileContainer from '../Profile/ProfileContainer';
 import HeaderContainer from '../Header/HeaderContainer';
 import ProtectedRoute from '../../hoc/ProtectedRoute';
-import LoginContainer from '../Login/LoginContainer';
 import { compose } from 'redux';
 import { connect, ConnectedProps } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -16,6 +15,7 @@ import { getInitializedState } from '../../redux/app/selector';
 import { getIsAuthState } from '../../redux/auth/selector';
 import withSuspense from '../../hoc/withSuspense';
 import { AppStateType } from '../../redux/redux-store';
+import LoginPage from '../Login/LoginPage';
 
 const DialogsContainer = lazy(() => import('../Dialogs/DialogsContainer').then(DialogsContainer => DialogsContainer));
 const UsersContainer   = lazy(() => import('../Users/UsersContainer').then(UsersContainer => UsersContainer));
@@ -65,7 +65,7 @@ class App extends React.Component<PropsType> {
                  <Switch>
                    <Redirect exact from="/" to="/profile"/>
                    <Route path="/login">
-                     <LoginContainer/>
+                     <LoginPage/>
                    </Route>
                    <Route path="/profile/:userId?">
                      <ProfileContainer/>

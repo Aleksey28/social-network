@@ -3,14 +3,11 @@ import React from 'react';
 import { createField, Input } from '../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../utils/validators';
 import { useHistory } from 'react-router';
-import classes from './Login.module.css';
+import classes from './LoginPage.module.css';
 import { LoginPropsType } from '../../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCaptchaUrlState, getIsAuthState } from '../../redux/auth/selector';
 import { login } from '../../redux/auth/reducer';
-
-interface Props {
-}
 
 interface LoginFormProps {
   captchaUrl: string;
@@ -43,7 +40,7 @@ const LoginForm: LoginFormType = ({ handleSubmit, error, captchaUrl }) => {
 
 const LoginReduxForm = reduxForm<LoginPropsType, LoginFormProps>({ form: 'login' })(LoginForm);
 
-const Login: React.FC<Props> = () => {
+const LoginPage: React.FC = () => {
 
   const history  = useHistory();
   const dispatch = useDispatch();
@@ -67,4 +64,4 @@ const Login: React.FC<Props> = () => {
   );
 };
 
-export default Login;
+export default LoginPage;
