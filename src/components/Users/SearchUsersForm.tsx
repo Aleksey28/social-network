@@ -27,13 +27,16 @@ const SearchUsersForm: React.FC<PropsType> = ({ onSearch, filters }) => {
     <Formik
       initialValues={filters}
       validate={validation}
-      onSubmit={(values) => onSearch(values)}
+      onSubmit={async (values, { setSubmitting }) => {
+        await onSearch(values);
+        setSubmitting(false);
+      }}
     >
       {({ isSubmitting, submitForm }) => (
         <Form>
           <Field type="input" name="term"/>
           <ErrorMessage name="term" component="span"/>
-          <Field type="checkbox" name="friend" onClick={submitForm}/>
+          <Field type="checkbox" name="friend" onClick={submitForm} disabled={isSubmitting}/>
           <button type="submit" disabled={isSubmitting}>
             Search
           </button>
