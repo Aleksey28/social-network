@@ -33,23 +33,25 @@ const Users: React.FC<Props> = (props) => {
   };
 
   return (
-    isFetching
-    ? <Preloader/>
-    : <div>
+    <div>
       <SearchUsersForm onSearch={onSearch} filters={filters}/>
-      <Paginator currentItem={currentPage} totalItemsCount={countPages} onClick={handleClickOnPage}/>
-      <ul>
-        {
-          users.map((userData) => (
-            <li key={userData.id}>
-              <User {...userData}
-                    isTogglingFollowUsers={isTogglingFollowUsers}
-                    follow={follow}
-                    unfollow={unfollow}/>
-            </li>
-          ))
-        }
-      </ul>
+      {isFetching
+       ? <Preloader/>
+       : <div>
+         <Paginator currentPage={currentPage} totalPagesCount={countPages} onClick={handleClickOnPage}/>
+         <ul>
+           {
+             users.map((userData) => (
+               <li key={userData.id}>
+                 <User {...userData}
+                       isTogglingFollowUsers={isTogglingFollowUsers}
+                       follow={follow}
+                       unfollow={unfollow}/>
+               </li>
+             ))
+           }
+         </ul>
+       </div>}
     </div>
   );
 };

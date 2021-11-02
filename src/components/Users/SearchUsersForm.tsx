@@ -1,6 +1,7 @@
 import { ErrorMessage, Field, Form, Formik, FormikErrors } from 'formik';
 import React from 'react';
 import { UserFiltersType } from '../../redux/users/reducer';
+import { FilterFriend } from '../../utils/enums';
 
 interface PropsType {
   filters: UserFiltersType;
@@ -9,16 +10,13 @@ interface PropsType {
 
 interface FieldsType {
   term: string;
-  friend: boolean;
+  friend: FilterFriend;
 }
 
 const validation = (values: FieldsType) => {
   const errors: FormikErrors<FieldsType> = {};
 
-  if (!values.term) {
-    errors.term = 'Required';
-  }
-  else if (values.term.length < 2) {
+  if (values.term && values.term.length < 2) {
     errors.term = 'Min length - 2';
   }
 
@@ -30,13 +28,20 @@ const SearchUsersForm: React.FC<PropsType> = ({ onSearch, filters }) => {
     <Formik
       initialValues={filters}
       validate={validation}
-      onSubmit={(values) => onSearch(values)}
+      onSubmit={async (values, { setSubmitting }) => {
+        await onSearch(values);
+        setSubmitting(false);
+      }}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, submitForm }) => (
         <Form>
           <Field type="input" name="term"/>
           <ErrorMessage name="term" component="span"/>
-          <Field type="checkbox" name="friend"/>
+          <Field as="select" name="friend" disabled={isSubmitting}>
+            <option value={FilterFriend.AllUsers}>All users</option>
+            <option value={FilterFriend.Followed}>Followed</option>
+            <option value={FilterFriend.Unfollowed}>Unfollowed</option>
+          </Field>
           <button type="submit" disabled={isSubmitting}>
             Search
           </button>

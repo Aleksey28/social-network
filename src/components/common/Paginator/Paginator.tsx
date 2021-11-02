@@ -2,18 +2,18 @@ import classes from './Paginator.module.css';
 import React, { useState } from 'react';
 
 interface Props {
-  totalItemsCount: number;
-  currentItem: number;
+  totalPagesCount: number;
+  currentPage: number;
   onClick: (i: number) => void;
-  itemsPortionSize?: number;
+  pagesPortionSize?: number;
 }
 
-const Paginator: React.FC<Props> = ({ totalItemsCount, currentItem, onClick, itemsPortionSize = 10 }) => {
-  const [currentPortion, setCurrentPortion] = useState(Math.ceil((currentItem + 1) / itemsPortionSize));
+const Paginator: React.FC<Props> = ({ totalPagesCount, currentPage, onClick, pagesPortionSize = 10 }) => {
+  const [currentPortion, setCurrentPortion] = useState(Math.floor(currentPage / pagesPortionSize));
   const pagesBar                            = [];
-  const totalCountPortion                   = Math.ceil(totalItemsCount / itemsPortionSize);
-  const leftNumberItemOfPortion             = itemsPortionSize * (currentPortion - 1);
-  const rightNumberItemOfPortion            = Math.min(itemsPortionSize * currentPortion, totalItemsCount) - 1;
+  const totalPortionsCount                  = Math.ceil(totalPagesCount / pagesPortionSize);
+  const leftNumberItemOfPortion             = pagesPortionSize * currentPortion;
+  const rightNumberItemOfPortion            = Math.min(pagesPortionSize * (currentPortion + 1), totalPagesCount);
 
   const handleClickPrev = () => {
     setCurrentPortion((prevState => prevState - 1));
@@ -23,11 +23,11 @@ const Paginator: React.FC<Props> = ({ totalItemsCount, currentItem, onClick, ite
     setCurrentPortion((prevState => prevState + 1));
   };
 
-  for (let i = leftNumberItemOfPortion; i <= rightNumberItemOfPortion; i++) {
+  for (let i = leftNumberItemOfPortion; i < rightNumberItemOfPortion; i++) {
     pagesBar.push(
       <li
         key={i}
-        className={`${classes.pages__item} ${currentItem === i
+        className={`${classes.pages__item} ${currentPage === i
                                              ? classes.pages__item_selected
                                              : undefined}`}
         onClick={() => onClick(i)}>
@@ -38,13 +38,13 @@ const Paginator: React.FC<Props> = ({ totalItemsCount, currentItem, onClick, ite
 
   return (
     <div className={classes.pages}>
-      {currentPortion > 1 && <button onClick={handleClickPrev}>Prev</button>}
+      {currentPortion > 0 && <button onClick={handleClickPrev}>Prev</button>}
       <nav>
         <ul className={classes.pages__items}>
           {pagesBar}
         </ul>
       </nav>
-      {currentPortion < totalCountPortion && <button onClick={handleClickNext}>Next</button>}
+      {(currentPortion < (totalPortionsCount - 1)) && <button onClick={handleClickNext}>Next</button>}
     </div>
   );
 };

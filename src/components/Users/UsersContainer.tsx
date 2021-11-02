@@ -61,15 +61,15 @@ class UsersContainer extends React.Component<Props> {
     this.loadUsers();
   }
 
-  loadUsers (page = this.props.currentPage, filters = this.props.filters) {
-    this.props.getUsers(page, this.props.pageSize, filters);
+  async loadUsers (page = this.props.currentPage, filters = this.props.filters) {
+    await this.props.getUsers(page, this.props.pageSize, filters);
   }
 
   render () {
     return (
       <Users
         onPageChanged={(i) => this.loadUsers(i)}
-        onSearch={(filters) => this.loadUsers(this.props.currentPage, filters)}
+        onSearch={(filters) => this.loadUsers(0, filters)}
         {...this.props}/>
     );
   }
