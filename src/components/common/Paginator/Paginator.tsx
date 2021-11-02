@@ -44,7 +44,7 @@ const Paginator: React.FC<Props> = ({ totalPagesCount, currentPage, onClick, pag
           {pagesBar}
         </ul>
       </nav>
-      {currentPortion < totalPortionsCount && <button onClick={handleClickNext}>Next</button>}
+      {(currentPortion < (totalPortionsCount - 1)) && <button onClick={handleClickNext}>Next</button>}
     </div>
   );
 };
