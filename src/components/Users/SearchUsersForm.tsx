@@ -1,6 +1,7 @@
 import { ErrorMessage, Field, Form, Formik, FormikErrors } from 'formik';
 import React from 'react';
 import { UserFiltersType } from '../../redux/users/reducer';
+import { FilterFriend } from '../../utils/enums';
 
 interface PropsType {
   filters: UserFiltersType;
@@ -9,7 +10,7 @@ interface PropsType {
 
 interface FieldsType {
   term: string;
-  friend: boolean;
+  friend: FilterFriend;
 }
 
 const validation = (values: FieldsType) => {
@@ -36,7 +37,11 @@ const SearchUsersForm: React.FC<PropsType> = ({ onSearch, filters }) => {
         <Form>
           <Field type="input" name="term"/>
           <ErrorMessage name="term" component="span"/>
-          <Field type="checkbox" name="friend" onClick={submitForm} disabled={isSubmitting}/>
+          <Field as="select" name="friend" disabled={isSubmitting}>
+            <option value={FilterFriend.AllUsers}>All users</option>
+            <option value={FilterFriend.Followed}>Followed</option>
+            <option value={FilterFriend.Unfollowed}>Unfollowed</option>
+          </Field>
           <button type="submit" disabled={isSubmitting}>
             Search
           </button>

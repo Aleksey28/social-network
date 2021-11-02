@@ -1,6 +1,7 @@
 import API, { ApiResponse } from './api';
 import { UserType } from '../types';
 import { UserFiltersType } from '../redux/users/reducer';
+import { FilterFriend } from '../utils/enums';
 
 interface GetUsersResponse {
   items: UserType[];
@@ -20,8 +21,8 @@ class UsersAPI extends API {
       params.push(`term=${filters.term}`);
     }
 
-    if (filters.friend) {
-      params.push(`friend=${filters.friend}`);
+    if (Number(filters.friend) !== FilterFriend.AllUsers) {
+      params.push(`friend=${!!Number(filters.friend)}`);
     }
 
     return this._instance.get(`/users?${params.join('&')}`).then(res => res.data);

@@ -4,6 +4,7 @@ import { UserType } from '../../types';
 import { BaseActionType, BaseThunkType } from '../redux-store';
 import { Dispatch } from 'redux';
 import { ApiResponse, ResultCode } from '../../api/api';
+import { FilterFriend } from '../../utils/enums';
 
 export type InitialState = typeof initialState;
 export type ThunkType = BaseThunkType<ActionsType>
@@ -19,7 +20,7 @@ const initialState = {
   isTogglingFollowUsers: [] as Array<string>,
   filters:               {
     term:   '',
-    friend: false,
+    friend: FilterFriend.AllUsers,
   },
 };
 
