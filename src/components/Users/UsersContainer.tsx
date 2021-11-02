@@ -69,7 +69,7 @@ class UsersContainer extends React.Component<Props> {
     return (
       <Users
         onPageChanged={(i) => this.loadUsers(i)}
-        onSearch={(filters) => this.loadUsers(this.props.currentPage, filters)}
+        onSearch={(filters) => this.loadUsers(0, filters)}
         {...this.props}/>
     );
   }
