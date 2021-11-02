@@ -29,11 +29,11 @@ const SearchUsersForm: React.FC<PropsType> = ({ onSearch, filters }) => {
       validate={validation}
       onSubmit={(values) => onSearch(values)}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, submitForm }) => (
         <Form>
           <Field type="input" name="term"/>
           <ErrorMessage name="term" component="span"/>
-          <Field type="checkbox" name="friend"/>
+          <Field type="checkbox" name="friend" onClick={submitForm}/>
           <button type="submit" disabled={isSubmitting}>
             Search
           </button>
