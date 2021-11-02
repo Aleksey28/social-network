@@ -24,7 +24,7 @@ class UsersAPI extends API {
       params.push(`friend=${filters.friend}`);
     }
 
-    return this._instance.get(`/users?count=${params.join('&')}`).then(res => res.data);
+    return this._instance.get(`/users?${params.join('&')}`).then(res => res.data);
   }
 
   follow (id: string): Promise<ApiResponse> {
