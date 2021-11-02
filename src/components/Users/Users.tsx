@@ -37,7 +37,7 @@ const Users: React.FC<Props> = (props) => {
     ? <Preloader/>
     : <div>
       <SearchUsersForm onSearch={onSearch} filters={filters}/>
-      <Paginator currentItem={currentPage} totalItemsCount={countPages} onClick={handleClickOnPage}/>
+      <Paginator currentPage={currentPage} totalPagesCount={countPages} onClick={handleClickOnPage}/>
       <ul>
         {
           users.map((userData) => (
