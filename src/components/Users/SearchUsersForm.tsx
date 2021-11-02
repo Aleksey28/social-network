@@ -15,10 +15,7 @@ interface FieldsType {
 const validation = (values: FieldsType) => {
   const errors: FormikErrors<FieldsType> = {};
 
-  if (!values.term) {
-    errors.term = 'Required';
-  }
-  else if (values.term.length < 2) {
+  if (values.term && values.term.length < 2) {
     errors.term = 'Min length - 2';
   }
 
