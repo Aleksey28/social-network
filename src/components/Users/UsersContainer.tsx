@@ -57,20 +57,9 @@ const connector = connect<StateProps, DispatchProps, OwnProps, AppStateType>(
 );
 
 class UsersContainer extends React.Component<Props> {
-  componentDidMount () {
-    this.loadUsers();
-  }
-
-  async loadUsers (page = this.props.currentPage, filters = this.props.filters) {
-    await this.props.getUsers(page, this.props.pageSize, filters);
-  }
-
   render () {
     return (
-      <Users
-        onPageChanged={(i) => this.loadUsers(i)}
-        onSearch={(filters) => this.loadUsers(0, filters)}
-        {...this.props}/>
+      <Users/>
     );
   }
 }
