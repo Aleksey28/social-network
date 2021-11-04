@@ -15,7 +15,7 @@ import {
   getUsersState,
 } from '../../redux/users/selector';
 
-const Users: React.FC = () => {
+const UsersPage: React.FC = () => {
   const dispatch = useDispatch();
 
   const users                 = useSelector(getUsersState);
@@ -64,4 +64,4 @@ const Users: React.FC = () => {
   );
 };
 
-export default Users;
+export default UsersPage;

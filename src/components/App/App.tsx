@@ -18,7 +18,7 @@ import { AppStateType } from '../../redux/redux-store';
 import LoginPage from '../Login/LoginPage';
 
 const DialogsContainer = lazy(() => import('../Dialogs/DialogsContainer').then(DialogsContainer => DialogsContainer));
-const UsersContainer   = lazy(() => import('../Users/UsersContainer').then(UsersContainer => UsersContainer));
+const UsersPage        = lazy(() => import('../Users/UsersPage').then(UsersPage => UsersPage));
 
 interface StatePropsType {
   isAuth: boolean;
@@ -46,7 +46,7 @@ const mapDispatchToProps: DispatchPropsType = {
 const connector = connect<StatePropsType, DispatchPropsType, OwnProps, AppStateType>(mapStateToProps, mapDispatchToProps);
 
 const Dialogs = withSuspense(DialogsContainer);
-const Users   = withSuspense(UsersContainer);
+const Users   = withSuspense(UsersPage);
 
 class App extends React.Component<PropsType> {
   componentDidMount () {
