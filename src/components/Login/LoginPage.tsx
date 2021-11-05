@@ -3,14 +3,11 @@ import React from 'react';
 import { createField, Input } from '../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../utils/validators';
 import { useHistory } from 'react-router';
-import classes from './Login.module.css';
+import classes from './LoginPage.module.css';
 import { LoginPropsType } from '../../types';
-
-interface Props {
-  isAuth: boolean;
-  login: (props: LoginPropsType) => void;
-  captchaUrl: string;
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { getCaptchaUrlState, getIsAuthState } from '../../redux/auth/selector';
+import { login } from '../../redux/auth/reducer';
 
 interface LoginFormProps {
   captchaUrl: string;
@@ -43,11 +40,16 @@ const LoginForm: LoginFormType = ({ handleSubmit, error, captchaUrl }) => {
 
 const LoginReduxForm = reduxForm<LoginPropsType, LoginFormProps>({ form: 'login' })(LoginForm);
 
-const Login: React.FC<Props> = ({ isAuth, login, captchaUrl }) => {
+const LoginPage: React.FC = () => {
 
-  const history      = useHistory();
+  const history  = useHistory();
+  const dispatch = useDispatch();
+
+  const isAuth     = useSelector(getIsAuthState);
+  const captchaUrl = useSelector(getCaptchaUrlState);
+
   const handleSubmit = (formData: LoginPropsType) => {
-    login(formData);
+    dispatch(login(formData));
   };
 
   if (isAuth) {
@@ -62,4 +64,4 @@ const Login: React.FC<Props> = ({ isAuth, login, captchaUrl }) => {
   );
 };
 
-export default Login;
+export default LoginPage;
