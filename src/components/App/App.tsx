@@ -3,7 +3,7 @@ import React, { lazy } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import SideBarContainer from '../SideBar/SideBarContainer';
-import ProfileContainer from '../Profile/ProfileContainer';
+import ProfilePage from '../Profile/ProfilePage';
 import HeaderContainer from '../Header/HeaderContainer';
 import ProtectedRoute from '../../hoc/ProtectedRoute';
 import { compose } from 'redux';
@@ -68,7 +68,7 @@ class App extends React.Component<PropsType> {
                      <LoginPage/>
                    </Route>
                    <Route path="/profile/:userId?">
-                     <ProfileContainer/>
+                     <ProfilePage/>
                    </Route>
                    <ProtectedRoute path="/messages"
                                    condition={isAuth}
