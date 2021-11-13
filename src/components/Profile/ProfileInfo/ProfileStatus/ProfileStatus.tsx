@@ -4,7 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUserStatus } from '../../../../redux/profile/reducer';
 import { getUserStatusState } from '../../../../redux/profile/selector';
 
-const ProfileStatus: React.FC = () => {
+interface PropsType {
+  isOwner: boolean;
+}
+
+const ProfileStatus: React.FC<PropsType> = ({ isOwner }) => {
   const dispatch                      = useDispatch();
   const status                        = useSelector(getUserStatusState);
   const [editMode, setEditMode]       = useState(false);
@@ -15,7 +19,7 @@ const ProfileStatus: React.FC = () => {
   }, [status]);
 
   const activateEditMode = () => {
-    setEditMode(true);
+    setEditMode(isOwner && true);
   };
 
   const deactivateEditMode = () => {

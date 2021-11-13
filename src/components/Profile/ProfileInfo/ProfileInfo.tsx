@@ -15,6 +15,7 @@ interface Props {
 const ProfileInfo: React.FC<Props> = ({ userId }) => {
   const dispatch = useDispatch();
   const userInfo = useSelector(getUserInfoState);
+  const isOwner  = userId === userInfo?.userId;
 
   const handleChangePhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
@@ -30,9 +31,9 @@ const ProfileInfo: React.FC<Props> = ({ userId }) => {
         alt="машина"/>
       <div>
         <img className={classes.info__avatar} src={userInfo?.photos?.large || emptyAvatar} alt="Avatar"/>
-        {userId === userInfo?.userId && <input type="file" onChange={handleChangePhoto}/>}
-        <ProfileData profileData={userInfo}/>
-        <ProfileStatus/>
+        {isOwner && <input type="file" onChange={handleChangePhoto}/>}
+        <ProfileData profileData={userInfo} isOwner={isOwner}/>
+        <ProfileStatus isOwner={isOwner}/>
       </div>
     </div>
     : <Preloader/>

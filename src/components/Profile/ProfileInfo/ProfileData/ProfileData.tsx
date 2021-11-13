@@ -10,6 +10,7 @@ import { getIsValid } from '../../../../redux/profile/selector';
 
 interface Props {
   profileData: Partial<ProfileType>;
+  isOwner: boolean;
 }
 
 type FormType = React.FC<InjectedFormProps<ProfileType>>;
@@ -77,7 +78,7 @@ const ProfileDataInfo: React.FC<Partial<ProfileType>> = ({
   );
 };
 
-const ProfileData: React.FC<Props> = ({ profileData }) => {
+const ProfileData: React.FC<Props> = ({ profileData, isOwner }) => {
   const dispatch                = useDispatch();
   const isValid                 = useSelector(getIsValid);
   const [editMode, setEditMode] = useState(false);
@@ -87,7 +88,7 @@ const ProfileData: React.FC<Props> = ({ profileData }) => {
   }, [isValid]);
 
   const activateEditMode = () => {
-    setEditMode(true);
+    setEditMode(isOwner && true);
   };
 
   const deactivateEditMode = () => {
