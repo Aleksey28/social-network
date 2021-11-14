@@ -34,6 +34,10 @@ const UsersPage: React.FC = () => {
     loadUsers();
   }, []);
 
+  useEffect(() => {
+
+  }, [currentPage, currentFilters])
+
   const countPages        = usersCount / pageSize;
   const handleClickOnPage = (i: number) => loadUsers(i);
   const handleSearch      = (filters: UserFiltersType) => loadUsers(0, filters);
