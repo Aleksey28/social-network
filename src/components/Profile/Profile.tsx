@@ -1,36 +1,15 @@
 import React from 'react';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
-import { ProfileType } from '../../types';
 
 interface Props {
-  userId: string | null;
-  userInfo: Partial<ProfileType>;
-  userStatus: string;
-  isValid: boolean;
-  updateUserStatus: (status: string) => void;
-  updateUserPhoto: (image: File) => void;
-  updateUserData: (userData: ProfileType) => Promise<void>;
+  userId: string;
 }
 
-const Profile: React.FC<Props> = ({
-                                    userId,
-                                    userInfo,
-                                    userStatus,
-                                    isValid,
-                                    updateUserStatus,
-                                    updateUserPhoto,
-                                    updateUserData
-                                  }) => {
+const Profile: React.FC<Props> = (props) => {
   return (
     <main>
-      <ProfileInfo isOwner={userId === userInfo?.userId}
-                   userInfo={userInfo}
-                   userStatus={userStatus}
-                   isValid={isValid}
-                   updateUserStatus={updateUserStatus}
-                   updateUserPhoto={updateUserPhoto}
-                   updateUserData={updateUserData}/>
+      <ProfileInfo {...props}/>
       <MyPostsContainer/>
     </main>
   );

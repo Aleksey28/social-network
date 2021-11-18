@@ -87,7 +87,8 @@ export const login = ({
     }
   }
   catch (error) {
-    dispatch(stopSubmit('login', { _error: error.message }));
+    if (error instanceof Error)
+      dispatch(stopSubmit('login', { _error: error.message }));
   }
 };
 

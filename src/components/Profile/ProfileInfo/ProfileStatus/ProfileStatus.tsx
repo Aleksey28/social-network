@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { KEY_ENTER } from '../../../../utils/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserStatus } from '../../../../redux/profile/reducer';
+import { getUserStatusState } from '../../../../redux/profile/selector';
 
-interface Props {
-  status: string;
-  updateUserStatus: (status: string) => void;
+interface PropsType {
+  isOwner: boolean;
 }
 
-const ProfileStatus: React.FC<Props> = ({ status, updateUserStatus }) => {
-
+const ProfileStatus: React.FC<PropsType> = ({ isOwner }) => {
+  const dispatch                      = useDispatch();
+  const status                        = useSelector(getUserStatusState);
   const [editMode, setEditMode]       = useState(false);
   const [statusState, setStatusState] = useState(status);
 
@@ -16,12 +19,12 @@ const ProfileStatus: React.FC<Props> = ({ status, updateUserStatus }) => {
   }, [status]);
 
   const activateEditMode = () => {
-    setEditMode(true);
+    setEditMode(isOwner && true);
   };
 
   const deactivateEditMode = () => {
     setEditMode(false);
-    updateUserStatus(statusState);
+    dispatch(updateUserStatus(statusState));
   };
 
   const handleChangeStatus = (e: React.ChangeEvent<HTMLInputElement>) => {

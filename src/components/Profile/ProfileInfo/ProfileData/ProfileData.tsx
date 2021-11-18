@@ -1,14 +1,16 @@
 import { InjectedFormProps, reduxForm } from 'redux-form';
 import { createField, Input, Textarea } from '../../../common/FormsControls/FormsControls';
 import { required } from '../../../../utils/validators';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classes from './ProfileData.module.css';
 import { ContactsType, ProfileType } from '../../../../types';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserData } from '../../../../redux/profile/reducer';
+import { getIsValid } from '../../../../redux/profile/selector';
 
 interface Props {
   profileData: Partial<ProfileType>;
-  isValid: boolean;
-  updateUserData: (userData: ProfileType) => Promise<void>;
+  isOwner: boolean;
 }
 
 type FormType = React.FC<InjectedFormProps<ProfileType>>;
@@ -76,11 +78,17 @@ const ProfileDataInfo: React.FC<Partial<ProfileType>> = ({
   );
 };
 
-const ProfileData: React.FC<Props> = ({ profileData, isValid, updateUserData }) => {
+const ProfileData: React.FC<Props> = ({ profileData, isOwner }) => {
+  const dispatch                = useDispatch();
+  const isValid                 = useSelector(getIsValid);
   const [editMode, setEditMode] = useState(false);
 
+  useEffect(() => {
+    setEditMode(!isValid);
+  }, [isValid]);
+
   const activateEditMode = () => {
-    setEditMode(true);
+    setEditMode(isOwner && true);
   };
 
   const deactivateEditMode = () => {
@@ -97,10 +105,7 @@ const ProfileData: React.FC<Props> = ({ profileData, isValid, updateUserData }) 
   };
 
   const handleSubmit = (formData: ProfileType) => {
-    //TODO: remove then
-    updateUserData(formData).then(() => {
-      if (isValid) setEditMode(false);
-    });
+    dispatch(updateUserData(formData));
   };
 
   return (

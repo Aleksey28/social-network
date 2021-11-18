@@ -32,7 +32,8 @@ export const initializing = (): ThunkType => async (dispatch) => {
     dispatch(actions.setInitialized());
   }
   catch (error) {
-    throw Error(error);
+    if (typeof error === 'string')
+      throw Error(error);
   }
 };
 
