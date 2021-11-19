@@ -14,9 +14,19 @@ import {
   getUsersCountState,
   getUsersState,
 } from '../../redux/users/selector';
+import { useHistory } from 'react-router';
+import { ParsedUrlQueryInput, stringify } from 'querystring';
+import { FilterFriend } from '../../utils/enums';
+
+interface QueryParamsType extends ParsedUrlQueryInput {
+  term?: string;
+  friend?: string;
+  page?: string;
+}
 
 const UsersPage: React.FC = () => {
   const dispatch = useDispatch();
+  const history  = useHistory();
 
   const users                 = useSelector(getUsersState);
   const usersCount            = useSelector(getUsersCountState);
@@ -35,8 +45,22 @@ const UsersPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const params: QueryParamsType = {};
+    const { term, friend }        = currentFilters;
 
-  }, [currentPage, currentFilters])
+    if (currentPage) params.page = String(currentPage);
+    if (term) params.term = term;
+    switch (Number(friend)) {
+      case FilterFriend.Followed:
+        params.friend = 'true';
+        break;
+      case FilterFriend.Unfollowed:
+        params.friend = 'false';
+        break;
+    }
+
+    history.push({ search: stringify(params) });
+  }, [currentPage, currentFilters]);
 
   const countPages        = usersCount / pageSize;
   const handleClickOnPage = (i: number) => loadUsers(i);
