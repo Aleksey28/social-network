@@ -1,6 +1,7 @@
 import reducer, { actions, follow, InitialState } from './reducer';
 import usersAPI from '../../api/usersAPI';
 import { ApiResponse, ResultCode } from '../../api/api';
+import { FilterFriend } from '../../utils/enums';
 
 jest.mock('../../api/usersAPI');
 
@@ -60,6 +61,10 @@ describe('Users reducer tests', () => {
       currentPage:           0,
       isFetching:            false,
       isTogglingFollowUsers: [],
+      filters:               {
+        term:   '',
+        friend: FilterFriend.AllUsers,
+      },
     };
     mockDispatch.mockClear();
     mockGetState.mockClear();
