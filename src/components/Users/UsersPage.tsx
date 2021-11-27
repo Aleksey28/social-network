@@ -68,7 +68,7 @@ const UsersPage: React.FC = () => {
     const params: QueryParamsType = {};
     const { term, friend }        = currentFilters;
 
-    if (currentPage) params.page = String(currentPage);
+    if (currentPage) params.page = String(currentPage + 1);
     if (term) params.term = term;
     switch (Number(friend)) {
       case FilterFriend.Followed:
