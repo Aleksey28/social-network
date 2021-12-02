@@ -14,8 +14,8 @@ import {
   getUsersCountState,
   getUsersState,
 } from '../../redux/users/selector';
-import { useHistory } from 'react-router';
-import { ParsedUrlQueryInput, stringify } from 'querystring';
+import { useHistory, useLocation } from 'react-router';
+import { parse, ParsedUrlQueryInput, stringify } from 'querystring';
 import { FilterFriend } from '../../utils/enums';
 
 interface QueryParamsType extends ParsedUrlQueryInput {
@@ -27,6 +27,7 @@ interface QueryParamsType extends ParsedUrlQueryInput {
 const UsersPage: React.FC = () => {
   const dispatch = useDispatch();
   const history  = useHistory();
+  const location = useLocation();
 
   const users                 = useSelector(getUsersState);
   const usersCount            = useSelector(getUsersCountState);
@@ -41,14 +42,33 @@ const UsersPage: React.FC = () => {
   };
 
   useEffect(() => {
-    loadUsers();
+    const { page, term, friend } = parse(location.search.slice(1)) as QueryParamsType;
+
+    let actualPage   = currentPage;
+    let actualFilter = currentFilters;
+
+    if (page) actualPage = Number(page) - 1;
+    if (term) actualFilter.term = term;
+
+    switch (friend) {
+      case 'true':
+        actualFilter.friend = FilterFriend.Followed;
+        break;
+      case 'false':
+        actualFilter.friend = FilterFriend.Unfollowed;
+        break;
+      default:
+        actualFilter.friend = FilterFriend.AllUsers;
+    }
+
+    loadUsers(actualPage, actualFilter);
   }, []);
 
   useEffect(() => {
     const params: QueryParamsType = {};
     const { term, friend }        = currentFilters;
 
-    if (currentPage) params.page = String(currentPage);
+    if (currentPage) params.page = String(currentPage + 1);
     if (term) params.term = term;
     switch (Number(friend)) {
       case FilterFriend.Followed:
