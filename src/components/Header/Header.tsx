@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getIsAuthState, getLoginState } from '../../redux/auth/selector';
 import { logout } from '../../redux/auth/reducer';
 
-const { Header } = Layout;
+const { Header: AntdHeader } = Layout;
 
-const CustomHeader: React.FC = () => {
+const Header: React.FC = () => {
   const dispatch = useDispatch();
 
   const login  = useSelector(getLoginState);
@@ -16,7 +16,7 @@ const CustomHeader: React.FC = () => {
   const handleLogout = () => dispatch(logout());
 
   return (
-    <Header className="site-layout-background">
+    <AntdHeader className="site-layout-background">
       <Row justify="end">
         {isAuth
          ? (
@@ -37,8 +37,8 @@ const CustomHeader: React.FC = () => {
            </Col>
          )}
       </Row>
-    </Header>
+    </AntdHeader>
   );
 };
 
-export default CustomHeader;
+export default Header;
