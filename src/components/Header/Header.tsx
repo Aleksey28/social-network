@@ -1,29 +1,43 @@
 import React from 'react';
-import logo from '../../images/logo.svg';
-import classes from './Header.module.css';
-import { NavLink } from 'react-router-dom';
+import { Layout, Button, Row, Col } from 'antd';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIsAuthState, getLoginState } from '../../redux/auth/selector';
+import { logout } from '../../redux/auth/reducer';
 
-interface PropsType {
-  login: string;
-  logout: () => void;
-  isAuth: boolean;
-}
+const { Header: AntdHeader } = Layout;
 
-const Header: React.FC<PropsType> = ({ login, logout, isAuth }) => {
+const Header: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const login  = useSelector(getLoginState);
+  const isAuth = useSelector(getIsAuthState);
+
+  const handleLogout = () => dispatch(logout());
+
   return (
-    <header className={classes.header}>
-      <img src={logo} alt="" className={classes.header__logo}/>
-      <div>
+    <AntdHeader className="site-layout-background">
+      <Row justify="end">
         {isAuth
          ? (
-           <div className={classes.header__nav}>
-             <p>{login}</p>
-             <button onClick={logout}>Log out</button>
-           </div>
+           <>
+             <Col>
+               <p>{login}</p>
+             </Col>
+             <Col>
+               <Button onClick={handleLogout}>Log out</Button>
+             </Col>
+           </>
          )
-         : <NavLink to="/login">Login</NavLink>}
-      </div>
-    </header>
+         : (
+           <Col>
+             <Button>
+               <Link to="/login">Login</Link>
+             </Button>
+           </Col>
+         )}
+      </Row>
+    </AntdHeader>
   );
 };
 
