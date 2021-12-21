@@ -3,12 +3,9 @@ import Post from './Post/Post';
 import { InjectedFormProps, reduxForm } from 'redux-form';
 import { createField, Textarea } from '../../common/FormsControls/FormsControls';
 import { maxLength30, required } from '../../../utils/validators';
-import { PostType } from '../../../types';
-
-interface Props {
-  addPost: (newPost: string) => void;
-  postsData: PostType[];
-}
+import { useDispatch, useSelector } from 'react-redux';
+import { getPostsData } from '../../../redux/profile/selector';
+import { actions } from '../../../redux/profile/reducer';
 
 interface FormProps {
   newPost: string;
@@ -30,11 +27,13 @@ const MyPostsReduxForm = reduxForm<FormProps>({
   form: 'newPost',
 })(MyPostsForm);
 
-const MyPosts: React.FC<Props> = React.memo(({ addPost, postsData }) => {
+const MyPosts: React.FC = React.memo(() => {
+  const dispatch = useDispatch();
 
+  const postsData     = useSelector(getPostsData);
   const postsElements = postsData.map(({ id, message }) => <Post key={id} message={message}/>);
   const handleAddPost = ({ newPost }: FormProps) => {
-    addPost(newPost);
+    dispatch(actions.addPost(newPost));
   };
 
   return (
