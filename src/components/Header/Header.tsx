@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIsAuthState, getLoginState } from '../../redux/auth/selector';
 import { logout } from '../../redux/auth/reducer';
+import classes from './Header.module.css';
 
 const { Header: AntdHeader } = Layout;
 
@@ -17,12 +18,12 @@ const Header: React.FC = () => {
 
   return (
     <AntdHeader className="site-layout-background">
-      <Row justify="end">
+      <Row justify="end" gutter={10}>
         {isAuth
          ? (
            <>
              <Col>
-               <p>{login}</p>
+               <p className={classes.header__login}>{login}</p>
              </Col>
              <Col>
                <Button onClick={handleLogout}>Log out</Button>

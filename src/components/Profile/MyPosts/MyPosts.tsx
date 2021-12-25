@@ -1,46 +1,52 @@
 import React from 'react';
 import Post from './Post/Post';
-import { InjectedFormProps, reduxForm } from 'redux-form';
-import { createField, Textarea } from '../../common/FormsControls/FormsControls';
-import { maxLength30, required } from '../../../utils/validators';
-import { PostType } from '../../../types';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPostsData } from '../../../redux/profile/selector';
+import { actions } from '../../../redux/profile/reducer';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 
-interface Props {
-  addPost: (newPost: string) => void;
-  postsData: PostType[];
-}
-
-interface FormProps {
+interface InitialValuesType {
   newPost: string;
 }
 
-type FormNames = Extract<keyof FormProps, string>;
-type FormType = React.FC<InjectedFormProps<FormProps>>
+interface FormPropsType {
+  handleSubmit: (newPost: string) => void;
+  initialValues?: InitialValuesType;
+}
 
-const MyPostsForm: FormType = ({ handleSubmit }) => {
+const MyPostsForm: React.FC<FormPropsType> = ({ handleSubmit, initialValues = { newPost: '' } }) => {
+
   return (
-    <form onSubmit={handleSubmit}>
-      {createField<FormNames>('newPost', Textarea, [required, maxLength30], 'New post')}
-      <button type="submit">Add post</button>
-    </form>
+    <Formik
+      onSubmit={async (values, { setSubmitting }) => {
+        await handleSubmit(values.newPost);
+        setSubmitting(false);
+      }}
+      initialValues={initialValues}>
+      {({ isSubmitting, submitForm }) => (
+        <Form>
+          <Field type="input" as="textarea" name="newPost"/>
+          <ErrorMessage name="newPost" component="span"/>
+          <button type="submit" disabled={isSubmitting}>Add post</button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
-const MyPostsReduxForm = reduxForm<FormProps>({
-  form: 'newPost',
-})(MyPostsForm);
+const MyPosts: React.FC = React.memo(() => {
+  const dispatch = useDispatch();
 
-const MyPosts: React.FC<Props> = React.memo(({ addPost, postsData }) => {
-
+  const postsData     = useSelector(getPostsData);
   const postsElements = postsData.map(({ id, message }) => <Post key={id} message={message}/>);
-  const handleAddPost = ({ newPost }: FormProps) => {
-    addPost(newPost);
+  const handleAddPost = (newPost: string) => {
+    dispatch(actions.addPost(newPost));
   };
 
   return (
     <div>
       My posts
-      <MyPostsReduxForm onSubmit={handleAddPost}/>
+      <MyPostsForm handleSubmit={handleAddPost}/>
       <div>
         {postsElements}
       </div>
