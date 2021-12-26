@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserInfo, getUserStatus, } from '../../redux/profile/reducer';
 import { useHistory, useParams } from 'react-router';
 import { getUserIdState } from '../../redux/auth/selector';
-import Profile from './Profile';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
+import MyPosts from './MyPosts/MyPosts';
 
 const ProfilePage: React.FC = () => {
   const history  = useHistory();
@@ -31,7 +32,10 @@ const ProfilePage: React.FC = () => {
   }, [params]);
 
   return (
-    <Profile userId={userId}/>
+    <main>
+      <ProfileInfo userId={userId}/>
+      <MyPosts/>
+    </main>
   );
 };
 
