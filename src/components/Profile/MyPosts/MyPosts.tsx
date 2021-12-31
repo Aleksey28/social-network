@@ -5,13 +5,23 @@ import { getPostsData } from '../../../redux/profile/selector';
 import { actions } from '../../../redux/profile/reducer';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 
-interface InitialValuesType {
+interface FieldsType {
   newPost: string;
 }
 
 interface FormPropsType {
   handleSubmit: (newPost: string) => void;
-  initialValues?: InitialValuesType;
+  initialValues?: FieldsType;
+}
+
+const validation = (values: FieldsType) => {
+  const errors: FormikErrors<FieldsType> = {};
+
+  if (!values.newPost) {
+    errors.newPost = 'Post is required.';
+  }
+
+  return errors;
 }
 
 const MyPostsForm: React.FC<FormPropsType> = ({ handleSubmit, initialValues = { newPost: '' } }) => {
@@ -22,7 +32,9 @@ const MyPostsForm: React.FC<FormPropsType> = ({ handleSubmit, initialValues = { 
         await handleSubmit(values.newPost);
         setSubmitting(false);
       }}
-      initialValues={initialValues}>
+      initialValues={initialValues}
+      validate={validation}
+    >
       {({ isSubmitting, submitForm }) => (
         <Form>
           <Field type="input" as="textarea" name="newPost"/>
