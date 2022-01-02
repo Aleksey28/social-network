@@ -26,16 +26,11 @@ const ProfileInfo: React.FC<Props> = ({ userId }) => {
   return (
     userInfo
     ? <div>
-      <img
-        src="https://cdn.pixabay.com/photo/2020/12/19/03/27/person-5843476_960_720.jpg"
-        alt="машина"/>
-      <div>
         <img className={classes.info__avatar} src={userInfo?.photos?.large || emptyAvatar} alt="Avatar"/>
         {isOwner && <input type="file" onChange={handleChangePhoto}/>}
         <ProfileData profileData={userInfo} isOwner={isOwner}/>
         <ProfileStatus isOwner={isOwner}/>
       </div>
-    </div>
     : <Preloader/>
   );
 };
