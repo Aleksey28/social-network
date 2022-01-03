@@ -25,12 +25,12 @@ const ProfileInfo: React.FC<Props> = ({ userId }) => {
 
   return (
     userInfo
-    ? <div>
-        <img className={classes.info__avatar} src={userInfo?.photos?.large || emptyAvatar} alt="Avatar"/>
-        {isOwner && <input type="file" onChange={handleChangePhoto}/>}
-        <ProfileData profileData={userInfo} isOwner={isOwner}/>
-        <ProfileStatus isOwner={isOwner}/>
-      </div>
+    ? <div className={classes.info}>
+      <img className={classes.info__avatar} src={userInfo?.photos?.large || emptyAvatar} alt="Avatar"/>
+      {isOwner && <input type="file" onChange={handleChangePhoto}/>}
+      <ProfileData profileData={userInfo} isOwner={isOwner}/>
+      <ProfileStatus isOwner={isOwner}/>
+    </div>
     : <Preloader/>
   );
 };

@@ -5,6 +5,7 @@ import { useHistory, useParams } from 'react-router';
 import { getUserIdState } from '../../redux/auth/selector';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPosts from './MyPosts/MyPosts';
+import classes from './ProfilePage.module.css';
 
 const ProfilePage: React.FC = () => {
   const history  = useHistory();
@@ -33,7 +34,7 @@ const ProfilePage: React.FC = () => {
   }, [params, refreshProfileInfo]);
 
   return (
-    <main>
+    <main className={classes.main}>
       <ProfileInfo userId={userId}/>
       <MyPosts/>
     </main>
