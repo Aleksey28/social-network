@@ -7,6 +7,7 @@ import ProfileData from './ProfileData/ProfileData';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserPhoto } from '../../../redux/profile/reducer';
 import { getUserInfoState } from '../../../redux/profile/selector';
+import { Image } from 'antd';
 
 interface Props {
   userId: string;
@@ -26,7 +27,12 @@ const ProfileInfo: React.FC<Props> = ({ userId }) => {
   return (
     userInfo
     ? <div className={classes.info}>
-      <img className={classes.info__avatar} src={userInfo?.photos?.large || emptyAvatar} alt="Avatar"/>
+      <Image
+        width={256}
+        height={256}
+        src={userInfo?.photos?.large || emptyAvatar}
+        fallback={emptyAvatar}
+      />
       {isOwner && <input type="file" onChange={handleChangePhoto}/>}
       <ProfileData profileData={userInfo} isOwner={isOwner}/>
       <ProfileStatus isOwner={isOwner}/>
