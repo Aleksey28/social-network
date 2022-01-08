@@ -8,12 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUserPhoto } from '../../../redux/profile/reducer';
 import { getUserInfoState } from '../../../redux/profile/selector';
 import { Image } from 'antd';
+import UploadButton from '../../common/UploadButton/UploadButton';
 
-interface Props {
+interface ProfileInfoProps {
   userId: string;
 }
 
-const ProfileInfo: React.FC<Props> = ({ userId }) => {
+const ProfileInfo: React.FC<ProfileInfoProps> = ({ userId }) => {
   const dispatch = useDispatch();
   const userInfo = useSelector(getUserInfoState);
   const isOwner  = userId === userInfo?.userId;
@@ -33,9 +34,9 @@ const ProfileInfo: React.FC<Props> = ({ userId }) => {
         src={userInfo?.photos?.large || emptyAvatar}
         fallback={emptyAvatar}
       />
-      {isOwner && <input type="file" onChange={handleChangePhoto}/>}
-      <ProfileData profileData={userInfo} isOwner={isOwner}/>
+      {isOwner && <UploadButton onChange={handleChangePhoto}/>}
       <ProfileStatus isOwner={isOwner}/>
+      <ProfileData profileData={userInfo} isOwner={isOwner}/>
     </div>
     : <Preloader/>
   );
