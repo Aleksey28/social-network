@@ -82,6 +82,12 @@ describe('Profile status', () => {
       userEvent.click(element);
     }
 
+    const inputElement = queryByText(status);
+
+    if (inputElement) {
+      userEvent.type(inputElement, 'Another status');
+    }
+
     userEvent.click(container);
 
     expect(mockProfileApi.setStatus.mock.calls.length).toEqual(1);
