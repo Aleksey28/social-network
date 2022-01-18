@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUserStatus } from '../../../../redux/profile/reducer';
 import { getUserStatusState } from '../../../../redux/profile/selector';
 import { Typography } from 'antd';
+import classes from './ProfileStatus.module.css';
 
-const { Text } = Typography;
+const { Paragraph } = Typography;
 
 interface PropsType {
   isOwner: boolean;
@@ -19,14 +20,14 @@ const ProfileStatus: React.FC<PropsType> = ({ isOwner }) => {
       dispatch(updateUserStatus(value));
     }
   };
-  
+
   return (
-    <div>
-      <Text editable={{
+    <div className={classes.status}>
+      <Paragraph editable={{
         tooltip:     false,
         onChange:    handleChangeStatus,
         triggerType: isOwner ? ['text'] : [],
-      }}>{status}</Text>
+      }}>{status}</Paragraph>
     </div>
   );
 };
