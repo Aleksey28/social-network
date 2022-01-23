@@ -40,3 +40,4 @@ const AntFieldCreator = (AntComponent: AntComponentsType) => ({
 };
 
 export const AntTextArea = AntFieldCreator(TextArea);
+export const AntInput    = AntFieldCreator(Input);
