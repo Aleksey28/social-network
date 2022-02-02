@@ -1,5 +1,6 @@
 import React from 'react';
 import { ProfileType } from '../../../../../types';
+import { EditOutlined } from '@ant-design/icons';
 import { Button, Descriptions } from 'antd';
 import classes from './ProfileDataMain.module.css';
 
@@ -16,7 +17,9 @@ const ProfileDataMain: React.FC<PropsType> = ({
                                               }) => {
   const { fullName, aboutMe, lookingForAJob, lookingForAJobDescription, contacts } = profileData;
 
-  const extra = isOwner ? <Button type="primary" onClick={onEdit}>Edit</Button> : void 0;
+  const extra = isOwner
+                ? <Button type="text" onClick={onEdit} size="small" shape="circle" icon={<EditOutlined/>}/>
+                : void 0;
 
   return (
     <Descriptions title="Main" column={1} size="small" extra={extra}>
