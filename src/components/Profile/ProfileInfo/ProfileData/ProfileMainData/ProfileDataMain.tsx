@@ -22,7 +22,7 @@ const ProfileDataMain: React.FC<PropsType> = ({
                 : void 0;
 
   return (
-    <Descriptions title="Main" column={1} size="small" extra={extra}>
+    <Descriptions title="Info" column={1} size="small" extra={extra}>
       <Descriptions.Item label="Name">{fullName}</Descriptions.Item>
       <Descriptions.Item label="About me">{aboutMe}</Descriptions.Item>
       <Descriptions.Item label="Looking for a job">{lookingForAJob}</Descriptions.Item>
