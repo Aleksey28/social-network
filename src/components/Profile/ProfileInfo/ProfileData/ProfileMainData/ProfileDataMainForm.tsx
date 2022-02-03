@@ -5,6 +5,7 @@ import { FormikHelpers } from 'formik/dist/types';
 import { Button, Form } from 'antd';
 import { required } from '../../../../../utils/validators';
 import { AntCheckbox, AntInput } from '../../../../common/AntField/AntField';
+import classes from './ProfileDataMain.module.css';
 
 interface PropsType {
   onSubmit: (profileInfo: Partial<ProfileType>) => void;
@@ -29,8 +30,8 @@ const ProfileDataMainForm: React.FC<PropsType> = ({ onSubmit, onCancel, initialV
                  hasFeedback/>
           <Field component={AntInput} name="lookingForAJobDescription" validate={required} label="Skills" allowClear
                  hasFeedback/>
-          <Button type="primary" htmlType="submit" disabled={isSubmitting}>Save</Button>
-          <Button disabled={isSubmitting} onClick={onCancel}>Cancel</Button>
+          <Button className={classes.button} type="primary" htmlType="submit" disabled={isSubmitting}>Save</Button>
+          <Button className={classes.button} disabled={isSubmitting} onClick={onCancel}>Cancel</Button>
         </Form>
       )}
     </Formik>
