@@ -29,7 +29,6 @@ const AntFieldCreator = (AntComponent: AntComponentsType) => ({
       hasFeedback={!!(hasFeedback && (submitted || touched))}
       help={submittedError || touchedError ? hasError : false}
       validateStatus={submittedError || touchedError ? 'error' : 'success'}
-      {...props}
     >
       <AntComponent
         {...field}
