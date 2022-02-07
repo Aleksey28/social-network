@@ -22,7 +22,9 @@ const AntFieldCreator = (AntComponent: AntComponentsType) => ({
   const submittedError = hasError && submitted;
   const touchedError   = hasError && touched;
   const handleBlur     = () => form.setFieldTouched(field.name, true);
-  const handleChange   = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | CheckboxChangeEvent) => form.setFieldValue(field.name, e.target.value);
+  const handleChange   = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | CheckboxChangeEvent) => {
+    form.setFieldValue(field.name, 'checked' in e.target && e.target.type === 'checkbox' ? e.target.checked : e.target.value);
+  };
 
   return (
     <Form.Item

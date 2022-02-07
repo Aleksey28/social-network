@@ -26,8 +26,7 @@ const ProfileDataMainForm: React.FC<PropsType> = ({ onSubmit, onCancel, initialV
         <Form onFinish={submitForm} size="small">
           <Field component={AntInput} name="fullName" validate={required} label="Name" allowClear hasFeedback/>
           <Field component={AntInput} name="aboutMe" validate={required} label="About me" allowClear hasFeedback/>
-          <Field component={AntCheckbox} name="lookingForAJob" label="Looking for a job" allowClear
-                 hasFeedback/>
+          <Field component={AntCheckbox} type="checkbox" name="lookingForAJob" label="Looking for a job"/>
           <Field component={AntInput} name="lookingForAJobDescription" validate={required} label="Skills" allowClear
                  hasFeedback/>
           <Button className={classes.button} type="primary" htmlType="submit" disabled={isSubmitting}>Save</Button>
