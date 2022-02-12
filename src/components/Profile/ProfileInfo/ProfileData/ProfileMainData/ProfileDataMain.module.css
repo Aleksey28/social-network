@@ -1,0 +1,12 @@
+.contacts {
+  padding-left: 0;
+  list-style: none;
+}
+
+.button {
+  margin: 0;
+}
+
+.button:not(:last-child) {
+  margin-right: 8px;
+}

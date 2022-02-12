@@ -3,16 +3,21 @@ import Post from './Post/Post';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPostsData } from '../../../redux/profile/selector';
 import { actions } from '../../../redux/profile/reducer';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Field, Formik } from 'formik';
+import { Button, Form } from 'antd';
+import { AntTextArea } from '../../common/AntField/AntField';
+import classes from './MyPosts.module.css';
 
-interface InitialValuesType {
+interface FieldsType {
   newPost: string;
 }
 
 interface FormPropsType {
   handleSubmit: (newPost: string) => void;
-  initialValues?: InitialValuesType;
+  initialValues?: FieldsType;
 }
+
+const isRequired = (value: string) => !value ? 'Required!' : '';
 
 const MyPostsForm: React.FC<FormPropsType> = ({ handleSubmit, initialValues = { newPost: '' } }) => {
 
@@ -22,12 +27,23 @@ const MyPostsForm: React.FC<FormPropsType> = ({ handleSubmit, initialValues = { 
         await handleSubmit(values.newPost);
         setSubmitting(false);
       }}
-      initialValues={initialValues}>
+      initialValues={initialValues}
+    >
       {({ isSubmitting, submitForm }) => (
-        <Form>
-          <Field type="input" as="textarea" name="newPost"/>
-          <ErrorMessage name="newPost" component="span"/>
-          <button type="submit" disabled={isSubmitting}>Add post</button>
+        <Form onFinish={submitForm} className={classes.form}>
+          <Field
+            component={AntTextArea}
+            name="newPost"
+            type="input"
+            as="textarea"
+            validate={isRequired}
+            placeholder="Write new post..."
+            hasFeedback
+            showCount
+            allowClear
+          />
+          <Button type="primary" htmlType="submit" disabled={isSubmitting}
+                  className={classes.form__submit}>Post</Button>
         </Form>
       )}
     </Formik>
@@ -44,8 +60,7 @@ const MyPosts: React.FC = React.memo(() => {
   };
 
   return (
-    <div>
-      My posts
+    <div className={classes.posts}>
       <MyPostsForm handleSubmit={handleAddPost}/>
       <div>
         {postsElements}

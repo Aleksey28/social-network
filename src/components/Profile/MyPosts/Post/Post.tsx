@@ -51,7 +51,7 @@ const Post: React.FC<PropsType> = ({ message }) => {
     <Comment
       actions={actions}
       author={profileInfo.fullName}
-      avatar={<Avatar size="large" src={<Image src={profileInfo.photos?.large} preview={false}
+      avatar={<Avatar size="large" src={<Image src={profileInfo.photos?.small} preview={false}
                                                style={{ width: '100%', height: '100%' }}/>}/>}
       content={
         <p>

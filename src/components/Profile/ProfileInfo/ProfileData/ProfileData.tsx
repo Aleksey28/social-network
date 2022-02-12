@@ -69,9 +69,12 @@ const ProfileDataInfo: React.FC<Partial<ProfileType>> = ({
       <li>
         Contacts:
         <ul>
-          {!!contacts && Object.entries(contacts).map(([key, value]) => (
-            <li key={key}>{key}: {value}</li>
-          ))}
+          {!!contacts && Object.entries(contacts).reduce((res: JSX.Element[], [key, value]) => {
+            if (value)
+              res.push(<li key={key}>{key}: {value}</li>)
+
+            return res;
+          }, [])}
         </ul>
       </li>
     </ul>

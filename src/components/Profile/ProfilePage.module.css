@@ -1,0 +1,12 @@
+.main {
+  display: flex;
+  justify-content: space-between;
+}
+
+.info {
+  flex: 0 1 0;
+}
+
+.posts {
+  flex: 1 0 auto;
+}

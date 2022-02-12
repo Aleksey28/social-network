@@ -7,12 +7,14 @@ import ProfileData from './ProfileData/ProfileData';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserPhoto } from '../../../redux/profile/reducer';
 import { getUserInfoState } from '../../../redux/profile/selector';
+import { Image } from 'antd';
+import UploadButton from '../../common/UploadButton/UploadButton';
 
-interface Props {
+interface ProfileInfoProps {
   userId: string;
 }
 
-const ProfileInfo: React.FC<Props> = ({ userId }) => {
+const ProfileInfo: React.FC<ProfileInfoProps> = ({ userId }) => {
   const dispatch = useDispatch();
   const userInfo = useSelector(getUserInfoState);
   const isOwner  = userId === userInfo?.userId;
@@ -25,16 +27,16 @@ const ProfileInfo: React.FC<Props> = ({ userId }) => {
 
   return (
     userInfo
-    ? <div>
-      <img
-        src="https://cdn.pixabay.com/photo/2020/12/19/03/27/person-5843476_960_720.jpg"
-        alt="машина"/>
-      <div>
-        <img className={classes.info__avatar} src={userInfo?.photos?.large || emptyAvatar} alt="Avatar"/>
-        {isOwner && <input type="file" onChange={handleChangePhoto}/>}
-        <ProfileData profileData={userInfo} isOwner={isOwner}/>
-        <ProfileStatus isOwner={isOwner}/>
-      </div>
+    ? <div className={classes.info}>
+      <Image
+        width={256}
+        height={256}
+        src={userInfo?.photos?.large || emptyAvatar}
+        fallback={emptyAvatar}
+      />
+      {isOwner && <UploadButton onChange={handleChangePhoto}/>}
+      <ProfileStatus isOwner={isOwner}/>
+      <ProfileData profileData={userInfo} isOwner={isOwner}/>
     </div>
     : <Preloader/>
   );
