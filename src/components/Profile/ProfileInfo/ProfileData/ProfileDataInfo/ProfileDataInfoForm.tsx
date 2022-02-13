@@ -25,11 +25,11 @@ interface Contact {
 type SubmitValuesType = ProfileType & { contacts: Contact[] };
 
 const ProfileDataInfoForm: React.FC<PropsType> = ({ onSubmit, onCancel, initialValues }) => {
-  const contactsNames = initialValues.contacts && Object.keys(initialValues.contacts) || [];
-  const contacts      = initialValues.contacts &&
-                        Object.entries(initialValues.contacts)
-                          .map(([key, value]) => ({ key, value }))
-                          .filter(({ value }) => !!value) || [];
+  const contactsNames = (initialValues.contacts && Object.keys(initialValues.contacts)) || [];
+  const contacts      = (initialValues.contacts &&
+                         Object.entries(initialValues.contacts)
+                           .map(([key, value]) => ({ key, value }))
+                           .filter(({ value }) => !!value)) || [];
 
   const handleSubmit = async (values: SubmitValuesType, { setSubmitting }: FormikHelpers<SubmitValuesType>) => {
     const contacts = Object.assign(
