@@ -6,7 +6,7 @@ import { Button, Form, Select, Space, Typography } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { required } from '../../../../../utils/validators';
 import { AntCheckbox, AntInput, AntSelect } from '../../../../common/AntField/AntField';
-import classes from './ProfileDataMain.module.css';
+import classes from './ProfileDataInfo.module.css';
 
 const { Title }  = Typography;
 const { Option } = Select;
@@ -24,7 +24,7 @@ interface Contact {
 
 type SubmitValuesType = ProfileType & { contacts: Contact[] };
 
-const ProfileDataMainForm: React.FC<PropsType> = ({ onSubmit, onCancel, initialValues }) => {
+const ProfileDataInfoForm: React.FC<PropsType> = ({ onSubmit, onCancel, initialValues }) => {
   const contactsNames = initialValues.contacts && Object.keys(initialValues.contacts) || [];
   const contacts      = initialValues.contacts &&
                         Object.entries(initialValues.contacts)
@@ -92,4 +92,4 @@ const ProfileDataMainForm: React.FC<PropsType> = ({ onSubmit, onCancel, initialV
   );
 };
 
-export default ProfileDataMainForm;
+export default ProfileDataInfoForm;

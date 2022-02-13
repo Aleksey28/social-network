@@ -2,7 +2,7 @@ import React from 'react';
 import { ProfileType } from '../../../../../types';
 import { EditOutlined } from '@ant-design/icons';
 import { Button, Descriptions, Typography } from 'antd';
-import classes from './ProfileDataMain.module.css';
+import classes from './ProfileDataInfo.module.css';
 
 const { Title } = Typography;
 
@@ -12,7 +12,7 @@ interface PropsType {
   onEdit: () => void;
 }
 
-const ProfileDataMain: React.FC<PropsType> = ({
+const ProfileDataInfo: React.FC<PropsType> = ({
                                                 profileData,
                                                 isOwner,
                                                 onEdit
@@ -44,4 +44,4 @@ const ProfileDataMain: React.FC<PropsType> = ({
   );
 };
 
-export default ProfileDataMain;
+export default ProfileDataInfo;
