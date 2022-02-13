@@ -27,7 +27,7 @@ const ProfileDataMain: React.FC<PropsType> = ({
     <Descriptions title={<Title level={5}>Info</Title>} column={1} size="small" extra={extra}>
       <Descriptions.Item label="Name">{fullName}</Descriptions.Item>
       <Descriptions.Item label="About me">{aboutMe}</Descriptions.Item>
-      <Descriptions.Item label="Looking for a job">{lookingForAJob}</Descriptions.Item>
+      <Descriptions.Item label="Looking for a job">{lookingForAJob ? 'Yes' : 'No'}</Descriptions.Item>
       <Descriptions.Item label="Skills">{lookingForAJobDescription}</Descriptions.Item>
       <Descriptions.Item label="Contacts">
         <ul className={classes.contacts}>
