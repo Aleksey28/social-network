@@ -1,8 +1,10 @@
 import React from 'react';
 import { ProfileType } from '../../../../../types';
 import { EditOutlined } from '@ant-design/icons';
-import { Button, Descriptions } from 'antd';
-import classes from './ProfileDataMain.module.css';
+import { Button, Descriptions, Typography } from 'antd';
+import classes from './ProfileDataInfo.module.css';
+
+const { Title } = Typography;
 
 interface PropsType {
   profileData: Partial<ProfileType>;
@@ -10,7 +12,7 @@ interface PropsType {
   onEdit: () => void;
 }
 
-const ProfileDataMain: React.FC<PropsType> = ({
+const ProfileDataInfo: React.FC<PropsType> = ({
                                                 profileData,
                                                 isOwner,
                                                 onEdit
@@ -22,10 +24,10 @@ const ProfileDataMain: React.FC<PropsType> = ({
                 : void 0;
 
   return (
-    <Descriptions title="Info" column={1} size="small" extra={extra}>
+    <Descriptions title={<Title level={5}>Info</Title>} column={1} size="small" extra={extra}>
       <Descriptions.Item label="Name">{fullName}</Descriptions.Item>
       <Descriptions.Item label="About me">{aboutMe}</Descriptions.Item>
-      <Descriptions.Item label="Looking for a job">{lookingForAJob}</Descriptions.Item>
+      <Descriptions.Item label="Looking for a job">{lookingForAJob ? 'Yes' : 'No'}</Descriptions.Item>
       <Descriptions.Item label="Skills">{lookingForAJobDescription}</Descriptions.Item>
       <Descriptions.Item label="Contacts">
         <ul className={classes.contacts}>
@@ -42,4 +44,4 @@ const ProfileDataMain: React.FC<PropsType> = ({
   );
 };
 
-export default ProfileDataMain;
+export default ProfileDataInfo;

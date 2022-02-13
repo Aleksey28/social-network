@@ -12,7 +12,15 @@ describe('Profile reducer test', () => {
         message: 'It is my first post',
       },
     ],
-    userInfo:   null,
+    userInfo:   {
+      userId:                    '',
+      fullName:                  '',
+      aboutMe:                   '',
+      lookingForAJob:            false,
+      lookingForAJobDescription: '',
+      photos:                    {},
+      contacts:                  {}
+    },
     userStatus: 'no status',
     isValid: true
   };

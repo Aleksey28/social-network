@@ -20,8 +20,8 @@ export interface ProfileType {
   lookingForAJob: boolean;
   lookingForAJobDescription: string;
   fullName: string;
-  contacts: ContactsType;
-  photos: PhotosType;
+  contacts: Partial<ContactsType>;
+  photos: Partial<PhotosType>;
 }
 
 export interface PostType {

@@ -8,11 +8,11 @@ import MyPosts from './MyPosts/MyPosts';
 import classes from './ProfilePage.module.css';
 
 const ProfilePage: React.FC = () => {
-  const history  = useHistory();
-  const dispatch = useDispatch();
-  const params   = useParams<{ userId: string }>();
-  const userId     = useSelector(getUserIdState);
-  const refUserId  = useRef(userId);
+  const history   = useHistory();
+  const dispatch  = useDispatch();
+  const params    = useParams<{ userId: string }>();
+  const userId    = useSelector(getUserIdState);
+  const refUserId = useRef(userId);
 
   const refreshProfileInfo = useCallback(() => {
     refUserId.current = params.userId || refUserId.current || '';
@@ -35,8 +35,12 @@ const ProfilePage: React.FC = () => {
 
   return (
     <main className={classes.main}>
-      <ProfileInfo userId={userId}/>
-      <MyPosts/>
+      <div className={classes.info}>
+        <ProfileInfo userId={userId}/>
+      </div>
+      <div className={classes.posts}>
+        <MyPosts/>
+      </div>
     </main>
   );
 };

@@ -23,7 +23,15 @@ const initialState = {
                   message: 'It is my first post',
                 },
               ] as Array<PostType>,
-  userInfo:   null as Partial<ProfileType> | null,
+  userInfo:   {
+                userId:                    '',
+                fullName:                  '',
+                aboutMe:                   '',
+                lookingForAJob:            false,
+                lookingForAJobDescription: '',
+                photos:                    {},
+                contacts:                  {}
+              },
   userStatus: 'no status' as string,
   isValid:    true,
 };
@@ -167,6 +175,7 @@ export const updateUserData = (userData: ProfileType): ThunkType => async (dispa
         return errors;
       }, {});
 
+      //TODO: added handling for formik
       dispatch(stopSubmit('profileData', errors));
     }
   }
