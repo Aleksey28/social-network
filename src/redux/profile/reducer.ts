@@ -23,7 +23,15 @@ const initialState = {
                   message: 'It is my first post',
                 },
               ] as Array<PostType>,
-  userInfo:   null as Partial<ProfileType> | null,
+  userInfo:   {
+                userId:                    '',
+                fullName:                  '',
+                aboutMe:                   '',
+                lookingForAJob:            false,
+                lookingForAJobDescription: '',
+                photos:                    {},
+                contacts:                  {}
+              },
   userStatus: 'no status' as string,
   isValid:    true,
 };

@@ -9,7 +9,7 @@ import { updateUserData } from '../../../../redux/profile/reducer';
 import { getIsValid } from '../../../../redux/profile/selector';
 
 interface Props {
-  profileData: Partial<ProfileType>;
+  profileData: ProfileType;
   isOwner: boolean;
 }
 
