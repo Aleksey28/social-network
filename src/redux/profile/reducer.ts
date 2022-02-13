@@ -175,6 +175,7 @@ export const updateUserData = (userData: ProfileType): ThunkType => async (dispa
         return errors;
       }, {});
 
+      //TODO: added handling for formik
       dispatch(stopSubmit('profileData', errors));
     }
   }
