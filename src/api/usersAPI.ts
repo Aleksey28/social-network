@@ -10,10 +10,6 @@ interface GetUsersResponse {
 }
 
 class UsersAPI extends API {
-  constructor () {
-    super();
-  }
-
   getUsers (page: number, pageSize: number, filters: UserFiltersType): Promise<GetUsersResponse> {
     const params = [`count=${pageSize}`, `page=${page}`];
 
