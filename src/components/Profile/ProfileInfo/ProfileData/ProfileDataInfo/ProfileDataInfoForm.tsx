@@ -7,6 +7,7 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { required } from '../../../../../utils/validators';
 import { AntCheckbox, AntInput, AntSelect } from '../../../../common/AntField/AntField';
 import classes from './ProfileDataInfo.module.css';
+import SubmitProfileDataError from '../../../../../errors/SubmitProfileDataError';
 
 const { Title }  = Typography;
 const { Option } = Select;
@@ -31,14 +32,34 @@ const ProfileDataInfoForm: React.FC<PropsType> = ({ onSubmit, onCancel, initialV
                            .map(([key, value]) => ({ key, value }))
                            .filter(({ value }) => !!value)) || [];
 
-  const handleSubmit = async (values: SubmitValuesType, { setSubmitting }: FormikHelpers<SubmitValuesType>) => {
+  const handleSubmit = async (values: SubmitValuesType, { setSubmitting, setFieldError }: FormikHelpers<SubmitValuesType>) => {
     const contacts = Object.assign(
       {},
       initialValues.contacts,
       Object.fromEntries(values.contacts.map(({ key, value }) => [key, value]))
     );
 
-    await onSubmit({ ...values, contacts });
+    try {
+      await onSubmit({ ...values, contacts });
+    } catch (e) {
+      if (e instanceof SubmitProfileDataError) {  
+        const { profileDataErrors } = e;
+        
+        for (const [errKey, errValue] of Object.entries(profileDataErrors)) {
+          if (typeof errValue === 'string')
+            setFieldError(errKey, errValue);          
+
+          if (errKey === 'contacts') {
+            for (const [errContactKey, errContactValue] of Object.entries(errValue)) {
+              const index = values.contacts.findIndex(({ key }) => key === errContactKey);
+
+              setFieldError(`contacts.${index}.value`, String(errContactValue));
+            }
+          }
+        }
+      }
+    }
+    
     setSubmitting(false);
   };
 
