@@ -22,8 +22,9 @@ import Header from '../Header/Header';
 
 const { Content, Footer, Sider } = Layout;
 
-const DialogsContainer = lazy(() => import('../Dialogs/DialogsContainer').then(DialogsContainer => DialogsContainer));
-const UsersPage        = lazy(() => import('../Users/UsersPage').then(UsersPage => UsersPage));
+const DialogsContainer = lazy(() => import('../Dialogs/DialogsContainer'));
+const UsersPage        = lazy(() => import('../Users/UsersPage'));
+const ChatPage         = lazy(() => import('../Chat/ChatPage'));
 
 interface StatePropsType {
   isAuth: boolean;
@@ -52,6 +53,7 @@ const connector = connect<StatePropsType, DispatchPropsType, OwnProps, AppStateT
 
 const Dialogs = withSuspense(DialogsContainer);
 const Users   = withSuspense(UsersPage);
+const Chat    = withSuspense(ChatPage);
 
 class App extends React.Component<PropsType> {
   state = {
@@ -98,6 +100,10 @@ class App extends React.Component<PropsType> {
                                        condition={isAuth}
                                        to={'/login'}
                                        render={() => <Dialogs/>}/>
+                       <ProtectedRoute path="/chat"
+                                       condition={isAuth}
+                                       to={'/login'}
+                                       render={() => <Chat/>}/>
                        <ProtectedRoute path="/users"
                                        condition={isAuth}
                                        to={'/login'}
