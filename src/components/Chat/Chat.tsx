@@ -1,9 +1,10 @@
 import React from "react";
+import Messages from "./Messages/Messages";
 
 const Chat: React.FC = () => {
   return (
     <div>
-      Chat
+      <Messages />
     </div>
   )
 }
