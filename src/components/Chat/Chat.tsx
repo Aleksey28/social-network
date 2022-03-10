@@ -27,7 +27,7 @@ const Chat: React.FC = () => {
 
   return (
     <div>
-      <Messages />
+      <Messages messages={messages} />
       <NewMessage />
     </div>
   )
