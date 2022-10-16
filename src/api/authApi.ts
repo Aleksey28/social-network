@@ -14,10 +14,6 @@ interface AuthResponseData {
 }
 
 class AuthAPI extends API {
-  constructor () {
-    super();
-  }
-
   login (data: LoginPropsType): Promise<AxiosResponse<ApiResponse<LoginResponseData, ResultCode | ResultCodeCaptcha>>> {
     return this._instance.post('/auth/login', data);
   }

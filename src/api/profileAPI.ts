@@ -7,10 +7,6 @@ interface SetPhotoResponseData {
 }
 
 class ProfileAPI extends API {
-  constructor () {
-    super();
-  }
-
   getProfileData (userId: string): Promise<AxiosResponse<ProfileType>> {
     return this._instance.get(`/profile/${userId}`);
   }

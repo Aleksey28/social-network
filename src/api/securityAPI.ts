@@ -10,10 +10,6 @@ interface GetCaptchaResponse {
 }
 
 class SecurityAPI extends API {
-  constructor () {
-    super();
-  }
-
   getCaptcha (): Promise<AxiosResponse<GetCaptchaResponse>> {
     return this._instance.get(`/security/get-captcha-url`);
   }
