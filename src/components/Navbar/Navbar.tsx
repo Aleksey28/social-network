@@ -7,7 +7,8 @@ import {
   MessageOutlined,
   SettingOutlined,
   TeamOutlined,
-  UserOutlined
+  UserOutlined,
+  WechatOutlined,
 } from '@ant-design/icons';
 
 const Navbar: React.FC = () => {
@@ -19,16 +20,19 @@ const Navbar: React.FC = () => {
       <Menu.Item key="2" icon={<MessageOutlined/>}>
         <Link to="/messages" href="#">Messages</Link>
       </Menu.Item>
-      <Menu.Item key="3" icon={<GlobalOutlined/>}>
+      <Menu.Item key="3" icon={<WechatOutlined />}>
+        <Link to="/chat" href="#">Chat</Link>
+      </Menu.Item>
+      <Menu.Item key="4" icon={<GlobalOutlined/>}>
         <Link to="/news" href="#">News</Link>
       </Menu.Item>
-      <Menu.Item key="4" icon={<CustomerServiceOutlined/>}>
+      <Menu.Item key="5" icon={<CustomerServiceOutlined/>}>
         <Link to="/music" href="#">Music</Link>
       </Menu.Item>
-      <Menu.Item key="5" icon={<SettingOutlined/>}>
+      <Menu.Item key="6" icon={<SettingOutlined/>}>
         <Link to="/settings" href="#">Settings</Link>
       </Menu.Item>
-      <Menu.Item key="6" icon={<TeamOutlined/>}>
+      <Menu.Item key="7" icon={<TeamOutlined/>}>
         <Link to="/users" href="#">Users</Link>
       </Menu.Item>
     </Menu>
