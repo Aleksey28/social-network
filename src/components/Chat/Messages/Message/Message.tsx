@@ -1,22 +1,17 @@
 import { Avatar, Image } from "antd";
 import React from "react";
+import { MessageProps } from "../../Chat";
 import classes from './Message.module.css';
 
-interface MessageProps {
-  url: string;
-  author: string;
-  text: string;
-}
-
-const Message: React.FC<MessageProps> = (message) => {
+const Message: React.FC<MessageProps> = (data) => {
   return (
     <div className={classes.message}>
       <div>
-        <Avatar size="large" src={<Image src={message.url} preview={false} />} />
-        {message.author}
+        <Avatar size="large" src={<Image src={data.photo} preview={false} />} />
+        {data.userName}
       </div>
       <div>
-        {message.text}
+        {data.message}
       </div>
     </div>
   )
